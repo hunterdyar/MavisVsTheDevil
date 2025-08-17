@@ -10,7 +10,7 @@ public class TypingWindow :PanelBase
 	private Game _game => _gameWindow.Game;
 	private int fontWidth = 20;
 	private int fontHeight = 32;
-	private int wordsPerRow = 8;
+	private int wordsPerRow = 10;
 	private int centerY;
 	private int linePadding = 5;
 	
@@ -51,29 +51,42 @@ public class TypingWindow :PanelBase
 		}
 		
 		//total lines then offset
-		int lines = test.WordCount / wordsPerRow;
+		int lines = (int)Math.Ceiling(test.WordCount / (float)wordsPerRow);
 		float vOffset = lines * (fontHeight + linePadding) / (float)2f;
-		int wordY = centerY - (int) MathF.Floor(vOffset);
+		int wordY = centerY - (int) MathF.Floor(vOffset) - fontHeight-linePadding;
 		//todo: Get proper width
-		int totalLineWidth = test.Letters.Count * fontWidth;
-		int paddingX = ((Width - totalLineWidth) / 2);
+		int lastWord = -1;
+		int paddingX = 20;
 		int letterX = paddingX;
-		int wordIndex = 0;
+		int wordIndex = -1;
 		int drawnWords = 0;
 		for (int i = 0; i < test.Letters.Count; i++)
 		{
+			//line break
+			
 			if (wordIndex != test.Letters[i].Word)
 			{
 				//word break
 				drawnWords++;
 				wordIndex =  test.Letters[i].Word;
-				
-				//line break
-				if (drawnWords >= wordsPerRow)
+				// //line break
+				if (drawnWords > lastWord)
 				{
-					drawnWords = 0;
+					int firstWordOnLine = drawnWords;
+					lastWord = drawnWords + wordsPerRow;
+					lastWord = lastWord > test.WordCount - 1 ? test.WordCount - 1 : lastWord;
+					int lineWidthLetterCount = test.GetLetterCountForFirstNumberWords(firstWordOnLine, lastWord);
+					int lineWidth = lineWidthLetterCount * fontWidth;
+					if (lineWidth > Width)
+					{
+						wordsPerRow--;
+						//the screen will blink black for a frame, which is graceful enough failure.
+						return;
+					}
+					paddingX = (Width - (lineWidth))/2;
+					
 					letterX = paddingX;
-					wordY += fontHeight+linePadding;
+					wordY += fontHeight + linePadding;
 				}
 			}
 			

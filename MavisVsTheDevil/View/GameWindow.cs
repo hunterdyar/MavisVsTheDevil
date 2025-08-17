@@ -12,11 +12,13 @@ public class GameWindow
 	
 	private readonly TypingWindow _typingWindow;
 	private readonly FightWindow _fightWindow;
+	private readonly DebugInfo _debugInfo;
 	public GameWindow(Game game)
 	{
 		_game = game;
 		_fightWindow = new FightWindow(this);
 		_typingWindow = new TypingWindow(this);
+		_debugInfo = new DebugInfo(Game);
 		SetSizes();
 	}
 
@@ -24,6 +26,8 @@ public class GameWindow
 	{
 		_typingWindow.Draw();
 		_fightWindow.Draw();
+		
+		_debugInfo.Draw();
 	}
 
 	public void SetSizes()

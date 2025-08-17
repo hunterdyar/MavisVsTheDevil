@@ -6,15 +6,39 @@ public class Game
 {
 	public TypeTest? CurrentTest => CurrentRound.Test;
 
-	private Round CurrentRound;
+	public Round CurrentRound;
+	private int _round = 0;
 	public Game()
 	{
-		CurrentRound = new Round(0);
+		Round.OnRoundStateChanged += OnRoundStateChanged;
+
+		StartGame();
 	}
+
+	private void StartGame()
+	{
+		_round = 0;
+		CurrentRound = new Round(_round);
+		StartRound();
+	}
+
 
 	public void StartRound()
 	{
-		//increase number, reset game state.
+		//first we are animating. then when the tween is done, we start the round.
+		CurrentRound.Start();
+		//when the round ends, we start the next round transition animation (see onroundstatechange)
+	}
+
+	private void OnRoundStateChanged(RoundState state)
+	{
+		if (state == RoundState.Complete)
+		{
+			// end state and start animation for next state.
+			_round++;
+			CurrentRound = new Round(_round);
+			StartRound();
+		}
 	}
 	public void Tick()
 	{

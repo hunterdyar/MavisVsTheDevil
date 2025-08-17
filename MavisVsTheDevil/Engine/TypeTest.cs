@@ -14,6 +14,7 @@ public class TypeTest
 	
 	//todo: on constructor, turn this into a list of LETTERATTEMPTS, and we run through character by character not word by word.
 	
+	public static Action<TypeTestState> OnStateChange;
 	public List<TestLetter> Letters => _testLetters;
 	private List<TestLetter> _testLetters = new List<TestLetter>();
 	public int WordCount { get; }
@@ -25,6 +26,7 @@ public class TypeTest
 	private string[] _words;
 	public TypeTestState State => _state;
 	private TypeTestState _state;
+	public int[] LetterCountByWordIndex;
 
 	//used for devil modifier "only words you suck at"
 	public List<string> _failedWords = new List<string>();
@@ -32,6 +34,7 @@ public class TypeTest
 	{
 		_words = words;
 		_testLetters.Clear();
+		LetterCountByWordIndex = new int[_words.Length];
 		for (var w = 0; w < words.Length; w++)
 		{
 			string word = words[w];
@@ -39,21 +42,33 @@ public class TypeTest
 			{
 				_testLetters.Add(new TestLetter(this,c,w));
 			}
-			//space
+
+			if (w == 0)
+			{
+				LetterCountByWordIndex[w] = words.Length;
+			}
+			else
+			{
+				LetterCountByWordIndex[w] = LetterCountByWordIndex[w - 1] + word.Length;
+			} //space
+
 			if (w < words.Length - 1)
 			{
 				_testLetters.Add(new TestLetter(this, ' ', w));
+				LetterCountByWordIndex[w]++;
 			}
 		}
 		WordCount = _words.Length;
 		_rawInput.Clear();
-		_state = TypeTestState.WaitingToStart;
+		_state = TypeTestState.Idle;
+		OnStateChange?.Invoke(TypeTestState.Idle);
 	}
 
 	public void Reset()
 	{
 		_rawInput.Clear();
 		_state = TypeTestState.WaitingToStart;
+		OnStateChange.Invoke(TypeTestState.WaitingToStart);
 		_failedWords.Clear();
 		foreach (TestLetter testLetter in _testLetters)
 		{
@@ -68,6 +83,7 @@ public class TypeTest
 		if (_state == TypeTestState.WaitingToStart)
 		{
 			_state = TypeTestState.Typing;
+			OnStateChange.Invoke(TypeTestState.Typing);
 			_testLetters[0].SetCurrentSafe();
 		}else if (_state == TypeTestState.Finished)
 		{
@@ -90,6 +106,7 @@ public class TypeTest
 			{
 				//DONE
 				_state = TypeTestState.Finished;
+				OnStateChange.Invoke(TypeTestState.Finished);
 			}
 			else
 			{
@@ -105,5 +122,35 @@ public class TypeTest
 		{
 			_failedWords.Add(failedWord);
 		}
+	}
+
+	public void SetWaitForPlayer()
+	{
+		if (_state == TypeTestState.Idle)
+		{
+			_state = TypeTestState.WaitingToStart;
+			OnStateChange.Invoke(TypeTestState.WaitingToStart);
+		}
+		else
+		{
+			throw new Exception("invalid test state transition");
+		}
+	}
+
+	private int firstXWordsTestCache = -1;
+	private int firstXWordsTestCacheResult = 0;
+	public int GetLetterCountForFirstNumberWords(int firstWord, int lastWord)
+	{
+		if (firstWord < 0 || lastWord < 0)
+		{
+			return 0;
+		}
+
+		if (firstWord > WordCount - 1 || lastWord > WordCount - 1)
+		{
+			return 0;
+		}
+		
+		return LetterCountByWordIndex[lastWord] - LetterCountByWordIndex[firstWord];
 	}
 }

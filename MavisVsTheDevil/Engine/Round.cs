@@ -1,15 +1,27 @@
 ﻿namespace MavisVsTheDevil.Engine;
 
+public enum RoundState
+{
+	AnimatingBeforeStart,
+	WaitingForPlayerToStart,
+	Typing,
+	Complete,
+	AnimatingAfterComplete
+}
 public class Round
 {
+	public static Action<RoundState> OnRoundStateChanged;
 	public readonly int RoundNumber;
 	public readonly TypeTest Test;
 	public string WordlistName;
+	public RoundState State => _state;
+	private RoundState _state;
 	//list Modifiers
 	
 	public Round(int round)
 	{
 		RoundNumber = round;
+		this._state = RoundState.AnimatingBeforeStart;
 		int wordCount = GetWordCount();
 		var w = GetWordlist(RoundNumber);
 		WordlistName = w.Item1;
@@ -19,6 +31,25 @@ public class Round
 			words[i] = w.Item2[Program.random.Next(w.Item2.Length)];
 		}
 		Test = new TypeTest(words);
+		TypeTest.OnStateChange += OnTypeTestStatechange;
+	}
+
+	private void OnTypeTestStatechange(TypeTestState test)
+	{
+		if (_state == RoundState.WaitingForPlayerToStart)
+		{
+			//we just changed to typing (from idle, presumably)
+			if (test == TypeTestState.Typing)
+			{
+				ChangeState(RoundState.Typing);
+			}
+		}else if (_state == RoundState.Typing)
+		{
+			if (test == TypeTestState.Finished)
+			{
+				ChangeState(RoundState.Complete);
+			}
+		}
 	}
 
 	private int GetWordCount()
@@ -65,6 +96,17 @@ public class Round
 		}
 
 		return ("Common Words", Wordlist.Wordlist.COMMON);
+	}
 
+	public void Start()
+	{
+		Test.SetWaitForPlayer();
+		ChangeState(RoundState.WaitingForPlayerToStart);
+	}
+
+	private void ChangeState(RoundState roundState)
+	{
+		_state = roundState;
+		OnRoundStateChanged?.Invoke(_state);
 	}
 }
