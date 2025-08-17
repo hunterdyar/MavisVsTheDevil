@@ -2,12 +2,14 @@
 
 public class TestLetter
 {
+	private TypeTest _test;
 	public readonly char Letter;
 	public readonly int Word;
 	public LetterState State = LetterState.Waiting;
 	public readonly List<char> Mistakes = new List<char>();
-	public TestLetter(char letter, int word)
+	public TestLetter(TypeTest test, char letter, int word)
 	{
+		_test = test;
 		Letter = letter;
 		Word = word;
 	}
@@ -27,6 +29,7 @@ public class TestLetter
 		{
 			Mistakes.Add(c);
 			State = LetterState.Failure;
+			_test.LetterFailure(this);
 			return false;
 		}
 	}

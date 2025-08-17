@@ -2,7 +2,6 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
-
 [Generator(LanguageNames.CSharp)]
 public class WordlistGenerator : Microsoft.CodeAnalysis.IIncrementalGenerator
 {
@@ -14,21 +13,20 @@ public class WordlistGenerator : Microsoft.CodeAnalysis.IIncrementalGenerator
 		// read their contents and save their name
 		var sourceBuilder = new StringBuilder();
 		
-		
 		IncrementalValuesProvider<(string name, string content)> namesAndContents =
 			textFiles.Select((text, cancellationToken) => (name: Path.GetFileNameWithoutExtension(text.Path),
 				content: text.GetText(cancellationToken).ToString()));
 		
-		sourceBuilder.Append("}");
 		context.RegisterSourceOutput(namesAndContents, (spc, nameAndContent) =>
 		{
 			sourceBuilder.Append(@"namespace Wordlist;
-public static partial class Wordlist 
-{");
+public static partial class Wordlist {
+");
 			GenerateFromList(sourceBuilder, nameAndContent.name, nameAndContent.content);
 			sourceBuilder.Append("}");
 
 			spc.AddSource($"WordLists.{nameAndContent.name}.cs", SourceText.From(sourceBuilder.ToString(), Encoding.UTF8));
+			sourceBuilder.Clear();
 		});
 	}
 	
@@ -38,9 +36,7 @@ public static partial class Wordlist
 		{
 			return;
 		}
-		sb.Append($"""
-		          public static readonly string[] {name} = [
-		          """);
+		sb.Append(string.Format("public static readonly string[] {0} = [", name.ToUpper()));
 		var split = source.Split('\n');
 		for (var i = 0; i < split.Length; i++)
 		{
@@ -49,7 +45,7 @@ public static partial class Wordlist
 			{
 				//replace quote with slash quote. fuck this was annoying to type.
 				sb.Append("\"");
-				sb.Append(line.Replace("\"", "\\\""));
+				sb.Append(line.Replace("\"", "\\\"").Trim());
 				sb.Append("\"");
 				if (i < split.Length - 1)
 				{
