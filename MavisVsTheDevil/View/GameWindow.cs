@@ -1,5 +1,5 @@
-﻿using System.Numerics;
-using MavisVsTheDevil.Engine;
+﻿using MavisVsTheDevil.Engine;
+using MavisVsTheDevil.Panels;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 namespace MavisVsTheDevil;
@@ -7,92 +7,38 @@ namespace MavisVsTheDevil;
 //draws the game!
 public class GameWindow
 {
-	private Game _game;
-	private readonly int Width;
-	private int fontWidth = 12;
-	private int fontHeight = 20;
-	private int wordsPerRow = 8;
+	public Game Game => _game;
+	private readonly Game _game;
+	
+	private readonly TypingWindow _typingWindow;
+	private readonly FightWindow _fightWindow;
 	public GameWindow(Game game)
 	{
 		_game = game;
-		//todo: parent class for panels/things with positions that can handle being resized. like how i did it for BTN.
-		Width = Raylib.GetScreenWidth();
+		_fightWindow = new FightWindow(this);
+		_typingWindow = new TypingWindow(this);
+		SetSizes();
 	}
 
-	//on resize
 	public void Draw()
 	{
-		//todo: move to draw test text panel.
-		var test = _game.CurrentTest;
-		if (test == null)
-		{
-			return;
-		}
-		
-		int wordY = 300;
-		var color = Color.White;
-		int totalLineWidth = test.Letters.Count * fontWidth;
-		int paddingX = ((Width - totalLineWidth) / 2);//center
-		int letterX = paddingX;
-		int wordIndex = 0;
-		int drawnWords = 0;
-		for (int i = 0; i < test.Letters.Count; i++)
-		{
-			if (wordIndex != test.Letters[i].Word)
-			{
-				drawnWords++;
-				wordIndex =  test.Letters[i].Word;
-				
-				if (drawnWords >= wordsPerRow)
-				{
-					drawnWords = 0;
-					letterX = paddingX;
-					wordY += fontHeight+5;
-				}
-			}
-			
-			DrawLetter(test.Letters[i], ref letterX, wordY);
-			
-		}
-		
+		_typingWindow.Draw();
+		_fightWindow.Draw();
 	}
 
-	private void DrawLetter(TestLetter letter, ref int letterX, int wordY)
+	public void SetSizes()
 	{
-		var color = Color.White;
-		
-		//if gamestate is active:
-		if (letter.State == LetterState.Failure)
-		{
-			color = Color.Red;
-		}else if (letter.State == LetterState.Pass)
-		{
-			color = Color.Gold;
-		}else if (letter.State == LetterState.Current)
-		{
-			color = Color.Black;
-		}
+		var w = Raylib.GetScreenWidth();
+		var h = Raylib.GetScreenHeight();
 
-		if (letter.State == LetterState.Current || letter.State == LetterState.Failure)
-		{
-			DrawRectangle(letterX-1, wordY, fontWidth, fontHeight, Color.White);
-		}
-		DrawTextEx(Program.terminalFont,letter.ToString(), new Vector2(letterX, wordY), fontHeight,0, color);
-		int coreMistakeOffset = -(int)(fontHeight * .8f);
-		int mistakeOffset = coreMistakeOffset;//just a little scrunch
-		foreach (char mistake in letter.Mistakes)
-		{
-			string m = mistake.ToString();
-			if (mistake == ' ')
-			{
-				m = "_";
-			}
+		int fightSize = h * 2 / 3;
+		_typingWindow.Resize(0,fightSize,w,h-fightSize);
+		_fightWindow.Resize(0,0,w,fightSize);
+	}
 
-			DrawRectangle(letterX - 1, wordY + mistakeOffset, fontWidth, fontHeight, Color.Red);
-			DrawTextEx(Program.terminalFont,m, new Vector2(letterX, wordY+mistakeOffset), fontHeight,0, Color.White);
-			mistakeOffset += coreMistakeOffset;
-		}
-
-		letterX += fontWidth;
+	public void OnClose()
+	{
+		_fightWindow.OnClose();
+		_typingWindow.OnClose();
 	}
 }

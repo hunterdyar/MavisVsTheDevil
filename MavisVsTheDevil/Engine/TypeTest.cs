@@ -16,7 +16,7 @@ public class TypeTest
 	
 	public List<TestLetter> Letters => _testLetters;
 	private List<TestLetter> _testLetters = new List<TestLetter>();
-
+	public int WordCount { get; }
 	private readonly List<char> _rawInput  = new List<char>();
 	public char[] RawInput() => _rawInput.ToArray();
 	public int CurrentLetter => _currentLetter;
@@ -45,7 +45,7 @@ public class TypeTest
 				_testLetters.Add(new TestLetter(this, ' ', w));
 			}
 		}
-
+		WordCount = _words.Length;
 		_rawInput.Clear();
 		_state = TypeTestState.WaitingToStart;
 	}

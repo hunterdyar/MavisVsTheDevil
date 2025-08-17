@@ -8,48 +8,51 @@ public static class Program
 {
     public static Random random = new Random();
     private static Game _game = new Game();
-    private static GameWindow _window = new GameWindow(_game);
+    private static GameWindow _window;
     public const int GLSL_VERSION = 330;
     public static Font terminalFont;
 	public static int Main()
     {
-        const int screenWidth = 800;
-        const int screenHeight = 450;
-        InitWindow(screenWidth, screenHeight, "Mavis Vs. The Devil");//youre shitting me, i had to do this first.
-    
-        //example says         // NOTE: Defining null (NULL) for vertex shader forces usage of internal default vertex shader
-        //AND YET.....
-        Shader postShader = Raylib.LoadShader(null, "Resources/post.glsl");
+        const int screenWidth = 1920;
+        const int screenHeight = 1080;
+        SetConfigFlags(ConfigFlags.ResizableWindow);
+
+        InitWindow(screenWidth, screenHeight, "Mavis Vs. The Devil");
+        _window = new GameWindow(_game);
+        //Load Resources
         terminalFont = LoadFont("Resources/terminal F4.ttf");
-         RenderTexture2D screenTex = LoadRenderTexture(screenWidth, screenHeight);
 
         SetTargetFPS(144);
 
         while (!WindowShouldClose())
         {
-            // Update
+	        if (IsWindowResized())
+	        {
+		        Resize();
+	        }
+	        
+            // Update loop
             _game.Tick();
+            
             // Draw
-            
             BeginDrawing();
-            BeginTextureMode(screenTex);
-            ClearBackground(Color.Black);
-
-            _window.Draw();
-            EndTextureMode();
-            
-           BeginShaderMode(postShader);
-           DrawTextureRec(screenTex.Texture, new Rectangle( 0, 0, (float)screenTex.Texture.Width, (float)-screenTex.Texture.Height ), new Vector2(0,0), Color.White);
-           EndShaderMode();
+	            ClearBackground(Color.Black);
+	            _window.Draw();
             EndDrawing();
         }
 
-        UnloadRenderTexture(screenTex);
-        UnloadShader(postShader);
+        
+        //Unload Resources
+		_window.OnClose();
         UnloadFont(terminalFont);
+        
         CloseWindow();
 
         return 0;
     }
-    
+
+	private static void Resize()
+	{
+		_window.SetSizes();
+	}
 }
