@@ -1,4 +1,5 @@
-﻿using MavisVsTheDevil.Engine;
+﻿using System.Numerics;
+using MavisVsTheDevil.Engine;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 namespace MavisVsTheDevil;
@@ -76,7 +77,7 @@ public class GameWindow
 		{
 			DrawRectangle(letterX-1, wordY, fontWidth, fontHeight, Color.White);
 		}
-		DrawText(letter.ToString(), letterX, wordY, fontHeight, color);
+		DrawTextEx(Program.terminalFont,letter.ToString(), new Vector2(letterX, wordY), fontHeight,0, color);
 		int coreMistakeOffset = -(int)(fontHeight * .8f);
 		int mistakeOffset = coreMistakeOffset;//just a little scrunch
 		foreach (char mistake in letter.Mistakes)
@@ -88,7 +89,7 @@ public class GameWindow
 			}
 
 			DrawRectangle(letterX - 1, wordY + mistakeOffset, fontWidth, fontHeight, Color.Red);
-			DrawText(m, letterX, wordY+mistakeOffset, fontHeight, Color.White);
+			DrawTextEx(Program.terminalFont,m, new Vector2(letterX, wordY+mistakeOffset), fontHeight,0, Color.White);
 			mistakeOffset += coreMistakeOffset;
 		}
 

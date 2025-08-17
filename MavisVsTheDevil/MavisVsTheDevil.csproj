@@ -8,7 +8,7 @@
     </PropertyGroup>
     
     <ItemGroup>
-        <ProjectReference Include="S:\csharp\MavisVsTheDevil\Gen\Gen.csproj">
+        <ProjectReference Include="..\Gen\Gen.csproj">
             <OutputItemType>Analyzer</OutputItemType>
         </ProjectReference>
     </ItemGroup>
@@ -18,5 +18,13 @@
     </ItemGroup>
     <ItemGroup>
         <AdditionalFiles Include ="WordLists/*" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="Resources\post.glsl">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\Terminal F4.ttf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>
