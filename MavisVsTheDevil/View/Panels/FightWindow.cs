@@ -5,10 +5,8 @@ namespace MavisVsTheDevil.Panels;
 
 public class FightWindow : PanelBase
 {
-	private GameWindow _gameWindow;
-	public FightWindow(GameWindow gameWindow)
+	public FightWindow(GameWindow gameWindow) : base(gameWindow)
 	{
-		_gameWindow = gameWindow;
 	}
 
 	public override void Draw()

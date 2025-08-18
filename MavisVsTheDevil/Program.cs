@@ -8,6 +8,7 @@ public static class Program
 {
     public static Random random = new Random();
     private static Game _game = new Game();
+    public static GameWindow GameWindow => _window;
     private static GameWindow _window;
     public const int GLSL_VERSION = 330;
     public static Font terminalFont;
@@ -24,6 +25,7 @@ public static class Program
 
         SetTargetFPS(144);
 
+        _game.StartGame();
         while (!WindowShouldClose())
         {
 	        if (IsWindowResized())

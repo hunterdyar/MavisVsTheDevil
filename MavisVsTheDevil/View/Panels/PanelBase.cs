@@ -6,10 +6,11 @@ public abstract class PanelBase
 	public int PosY;
 	public int Width;
 	public int Height;
-
-	public PanelBase()
+	public bool Enabled = true;
+	protected GameWindow _window;
+	public PanelBase(GameWindow window)
 	{
-		
+		_window = window;
 	}
 
 	public void Resize(int posX, int posY, int width, int height)
@@ -31,5 +32,10 @@ public abstract class PanelBase
 	public virtual void OnClose()
 	{
 		
+	}
+
+	public void SetActive(bool active)
+	{
+		Enabled = active;
 	}
 }

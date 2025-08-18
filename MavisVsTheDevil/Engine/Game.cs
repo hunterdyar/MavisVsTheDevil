@@ -4,22 +4,24 @@ namespace MavisVsTheDevil.Engine;
 
 public class Game
 {
-	public TypeTest? CurrentTest => CurrentRound.Test;
-
+	public TypeTest? CurrentTest => CurrentRound?.Test;
+	public StateMachine State;
 	public Round CurrentRound;
 	private int _round = 0;
 	public Game()
 	{
+		State = new StateMachine();
+		State.InitMavisStates();
 		Round.OnRoundStateChanged += OnRoundStateChanged;
-
-		StartGame();
 	}
 
-	private void StartGame()
+	public void StartGame()
 	{
-		_round = 0;
-		CurrentRound = new Round(_round);
-		StartRound();
+		State.GoToState(State.TitleState);
+		//move to ... one of the states?
+		// _round = 0;
+		// CurrentRound = new Round(_round);
+		// StartRound();
 	}
 
 
@@ -53,12 +55,13 @@ public class Game
 
 			press = Raylib_cs.Raylib.GetCharPressed();
 		}
-		
+
+		State.Tick();
 	}
 
 	private void TypeKeyPressed(char key)
 	{
-		//check state.
+		State.TypeKeyPressed(key);
 		CurrentRound?.Test?.TypeKeyPressed(key);
 	}
 }

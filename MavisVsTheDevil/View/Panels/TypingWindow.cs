@@ -6,8 +6,7 @@ namespace MavisVsTheDevil.Panels;
 
 public class TypingWindow :PanelBase
 {
-	private GameWindow _gameWindow;
-	private Game _game => _gameWindow.Game;
+	private Game _game => _window.Game;
 	private int fontWidth = 20;
 	private int fontHeight = 32;
 	private int wordsPerRow = 10;
@@ -16,10 +15,8 @@ public class TypingWindow :PanelBase
 	
 	private Shader postShader;
 	public RenderTexture2D screenTex;
-
-	public TypingWindow(GameWindow gameWindow)
+	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
 	{
-		_gameWindow = gameWindow;
 		screenTex = LoadRenderTexture(Width, Height);
 		postShader = Raylib.LoadShader(null, "Resources/post.glsl");
 	}
@@ -139,4 +136,6 @@ public class TypingWindow :PanelBase
 		UnloadRenderTexture(screenTex);
 		UnloadShader(postShader);
 	}
+
+
 }
