@@ -17,16 +17,16 @@ public class StateMachine
 		
 	}
 
-	public void Tick()
+	public void Tick(float delta)
 	{
-		_currentStateBase?.Tick();
+		_currentStateBase?.Tick(delta);
 	}
 
 	//this is a generic solution, but ...not
 	public void InitMavisStates()
 	{
 		TitleState = new TitleState(this);
-		IntroductionAnimationState = new AnimationState(this);
+		IntroductionAnimationState = new AnimationState(this, Program.GameWindow.TitleIntroAnim, TitleState);
 	}
 	
 	public void GoToState(StateBase stateBase)

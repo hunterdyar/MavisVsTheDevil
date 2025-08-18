@@ -11,8 +11,13 @@ public class Game
 	public Game()
 	{
 		State = new StateMachine();
-		State.InitMavisStates();
 		Round.OnRoundStateChanged += OnRoundStateChanged;
+	}
+
+	//race conditions for things that need windows yours.
+	public void Init()
+	{
+		State.InitMavisStates();
 	}
 
 	public void StartGame()
@@ -42,7 +47,7 @@ public class Game
 			StartRound();
 		}
 	}
-	public void Tick()
+	public void Tick(float delta)
 	{
 		var press = Raylib_cs.Raylib.GetCharPressed();
 		while (press != 0)
@@ -56,7 +61,7 @@ public class Game
 			press = Raylib_cs.Raylib.GetCharPressed();
 		}
 
-		State.Tick();
+		State.Tick(delta);
 	}
 
 	private void TypeKeyPressed(char key)

@@ -20,7 +20,7 @@ public abstract class StateBase
 		OnExitState?.Invoke();
 	}
 
-	public virtual void Tick()
+	public virtual void Tick(float delta)
 	{
 		
 	}

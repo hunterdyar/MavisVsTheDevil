@@ -25,6 +25,7 @@ public static class Program
 
         SetTargetFPS(144);
 
+        _game.Init();
         _game.StartGame();
         while (!WindowShouldClose())
         {
@@ -34,7 +35,7 @@ public static class Program
 	        }
 	        
             // Update loop
-            _game.Tick();
+            _game.Tick(Raylib.GetFrameTime());
             
             // Draw
             BeginDrawing();

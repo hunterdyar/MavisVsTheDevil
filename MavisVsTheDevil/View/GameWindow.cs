@@ -1,4 +1,5 @@
 ﻿using MavisVsTheDevil.Engine;
+using MavisVsTheDevil.GameAnimations;
 using MavisVsTheDevil.Panels;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
@@ -17,6 +18,8 @@ public class GameWindow
 	public GameTitleIdleScreen TitleIdleScreen => _gameTitleIdle;
 	private readonly GameTitleIdleScreen _gameTitleIdle;
 	
+	public TitleAnim TitleIntroAnim => _titleIntroAnim;
+	private readonly TitleAnim  _titleIntroAnim;
 	
 	private readonly DebugInfo _debugInfo;
 	public GameWindow(Game game)
@@ -25,6 +28,7 @@ public class GameWindow
 		_fightWindow = new FightWindow(this);
 		_typingWindow = new TypingWindow(this);
 		_gameTitleIdle =  new GameTitleIdleScreen(this);
+		_titleIntroAnim = new TitleAnim(this);
 		_debugInfo = new DebugInfo(Game);
 		SetSizes();
 	}
@@ -35,6 +39,7 @@ public class GameWindow
 		_typingWindow.SetActive(panels.Contains(_typingWindow));
 		_fightWindow.SetActive(panels.Contains(_fightWindow));
 		_gameTitleIdle.SetActive(panels.Contains(_gameTitleIdle));
+		_titleIntroAnim.SetActive(panels.Contains(_titleIntroAnim));
 	}
 
 	public void Draw()
@@ -43,6 +48,7 @@ public class GameWindow
 		{
 			_gameTitleIdle.Draw();
 		}
+		
 		if (_typingWindow.Enabled)
 		{
 			_typingWindow.Draw();
@@ -52,7 +58,11 @@ public class GameWindow
 		{
 			_fightWindow.Draw();
 		}
-		
+
+		if (_titleIntroAnim.Enabled)
+		{
+			_titleIntroAnim.Draw();
+		}
 		//
 		_debugInfo.Draw();
 	}
@@ -66,6 +76,8 @@ public class GameWindow
 		_typingWindow.Resize(0,fightSize,w,h-fightSize);
 		_fightWindow.Resize(0,0,w,fightSize);
 		_gameTitleIdle.Resize(0,0,w,h);
+		_titleIntroAnim.Resize(0,0,w,h);
+
 	}
 
 	public void OnClose()
