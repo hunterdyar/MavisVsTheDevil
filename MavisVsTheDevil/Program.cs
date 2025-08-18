@@ -4,7 +4,7 @@ using MavisVsTheDevil.Engine;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
-public static class Program
+public unsafe static class Program
 {
     public static Random random = new Random();
     private static Game _game = new Game();
@@ -17,7 +17,6 @@ public static class Program
         const int screenWidth = 1920;
         const int screenHeight = 1080;
         SetConfigFlags(ConfigFlags.ResizableWindow);
-
         InitWindow(screenWidth, screenHeight, "Mavis Vs. The Devil");
         _window = new GameWindow(_game);
         //Load Resources

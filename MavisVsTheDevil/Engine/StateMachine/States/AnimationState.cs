@@ -6,21 +6,24 @@ namespace MavisVsTheDevil.Engine;
 public class AnimationState : StateBase
 {
 	private AnimationPanel _animPanel;
-
+	private PanelBase[] AllActivePanels;
 	private StateBase _nextState;
 	//on skip input or on animationComplete, go to determined state
-	public AnimationState(StateMachine machine, AnimationPanel animPanel, StateBase nextState) : base(machine)
+	public AnimationState(StateMachine machine, AnimationPanel animPanel, StateBase nextState, params PanelBase[] AlsoActivePanels) : base(machine)
 	{
 		_animPanel = animPanel;
 		_nextState = nextState;
+		var p = new List<PanelBase>(AlsoActivePanels);
+		p.Add(_animPanel);
+		this.AllActivePanels =  p.ToArray();
 	}
 	
 	public override void OnEnter()
 	{
 		//we subscribe and ubsubscribe from the action so that the animations can be reused by multiple states, jic.
-		_animPanel.Primary.OnComplete += OnAnimComplete;
 		_animPanel.Start();
-		Program.GameWindow.SetActiveWindows(_animPanel);
+		_animPanel.Primary.OnComplete += OnAnimComplete;
+		Program.GameWindow.SetActiveWindows(AllActivePanels);
 		base.OnEnter();
 	}
 

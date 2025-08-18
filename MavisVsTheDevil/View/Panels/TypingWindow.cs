@@ -18,7 +18,7 @@ public class TypingWindow :PanelBase
 	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
 	{
 		screenTex = LoadRenderTexture(Width, Height);
-		postShader = Raylib.LoadShader(null, "Resources/post.glsl");
+		postShader = Raylib.LoadShader(null, "Resources/postBloom.fs");
 	}
 
 	protected override void OnResize()
