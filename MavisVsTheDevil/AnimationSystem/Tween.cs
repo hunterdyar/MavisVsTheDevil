@@ -7,14 +7,54 @@ namespace MavisVsTheDevil.Animation;
 /// </summary>
 public abstract class TweenBase
 {
+    public Action OnComplete;
+    public float TotalTime;
+    private float _elapsedTime = 0;
+    public bool IsComplete => _finished;
+    private bool _finished = false;
+    //Ease
     public abstract void Evaluate(float t);
+
+    public TweenBase(float totalTime)
+    {
+        TotalTime = totalTime;
+    }
+    public void Tick(float t)
+    {
+        _elapsedTime += t;
+        
+        //clamp
+        _elapsedTime = _elapsedTime < 0 ? 0 : _elapsedTime;
+        _elapsedTime = _elapsedTime >= TotalTime ? TotalTime : _elapsedTime;
+        
+        Evaluate(_elapsedTime/TotalTime);
+        if (_elapsedTime >= TotalTime && !_finished)
+        { 
+            OnComplete?.Invoke();   
+            _finished = true;
+        }
+
+        if (_elapsedTime >= TotalTime)
+        {
+            if (_finished)
+            {
+                Console.WriteLine("ahhhhhh");
+            }
+        }
+    }
+
+    public void Reset()
+    {
+        _elapsedTime = 0;
+        _finished = false;
+    }
 }
 
 public abstract class PropertyTween<T> : TweenBase
 {
     public Action<T> OnEval;
 
-    protected PropertyTween(Action<T> onEval)
+    protected PropertyTween(Action<T> onEval, float time) : base(time)
     {
         OnEval = onEval;
     }
@@ -28,7 +68,7 @@ public class ColorTween : PropertyTween<Color>
 {
     private Color _start;
     private Color _end;
-    public ColorTween(Action<Color> eval, Color start, Color end) : base(eval)
+    public ColorTween(Action<Color> eval, Color start, Color end, float time) : base(eval, time)
     {
         _start = start;
         _end = end;
@@ -46,7 +86,7 @@ public class FloatTween : PropertyTween<float>
 {
     private float _start;
     private float _end;
-    public FloatTween(Action<float> eval, float start, float end) : base(eval)
+    public FloatTween(Action<float> eval, float start, float end, float time) : base(eval, time)
     {
         _start = start;
         _end = end;
@@ -64,7 +104,7 @@ public class AlphaTween : PropertyTween<Color>
     private readonly Color _diffuse;
     private bool _fadeIn;
 
-    public AlphaTween(Action<Color> eval, Color color, bool fadeIn) : base(eval)
+    public AlphaTween(Action<Color> eval, Color color, bool fadeIn, float time) : base(eval, time)
     {
         _diffuse = color;
         _fadeIn = fadeIn;
@@ -89,12 +129,12 @@ public class IntTween : PropertyTween<int>
 {
     private int _start;
     private int _end;
-    public IntTween(Action<int> onEval, int start, int end) : base(onEval)
+    public IntTween(Action<int> onEval, int start, int end, float time) : base(onEval, time)
     {
         _start = start;
         _end = end;
     }
-    public IntTween(Action<int> onEval, int end) : base(onEval)
+    public IntTween(Action<int> onEval, int end, float time) : base(onEval, time)
     {
         _start = 0;
         _end = end;
@@ -115,7 +155,7 @@ public class IndexTween<T> : PropertyTween<T>
 {
     private IList<T> _values;
     
-    public IndexTween(Action<T> onEval, IList<T> items) : base(onEval)
+    public IndexTween(Action<T> onEval, IList<T> items, float time) : base(onEval, time)
     {
         _values = items;
     }
@@ -132,6 +172,10 @@ public class IndexTween<T> : PropertyTween<T>
 
 public class NopTween : TweenBase
 {
+    public NopTween(float totalTime) : base(totalTime)
+    {
+    }
+
     public override void Evaluate(float t)
     {
         

@@ -4,9 +4,10 @@ public class TweenSequence : TweenBase
 {
     private readonly TweenBase[] _tweens;
 
-    public TweenSequence(params TweenBase[] tweens)
+    public TweenSequence(params TweenBase[] tweens) : base(0)
     {
         _tweens = tweens;
+        TotalTime = _tweens.Sum(t => t.TotalTime);
     }
 
     public override void Evaluate(float t)

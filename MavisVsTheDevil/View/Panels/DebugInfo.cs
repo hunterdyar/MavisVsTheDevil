@@ -45,5 +45,17 @@ public class DebugInfo
 			Raylib.DrawText("Test: NULL", x, 0, 20, Color.Black);
 			x += 500;
 		}
+
+		var sm = Program.GameWindow.Game.State;
+		if (sm != null)
+		{
+			Raylib.DrawText($"State: {sm.CurrentStateName()}", x, 0, 20, Color.Black);
+			x += 500;
+		}
+		else
+		{
+			Raylib.DrawText("State: NULL", x, 0, 20, Color.Black);
+			x += 200;
+		}
 	}
 }

@@ -19,7 +19,7 @@ public class AnimationState : StateBase
 	{
 		//we subscribe and ubsubscribe from the action so that the animations can be reused by multiple states, jic.
 		_animPanel.Primary.OnComplete += OnAnimComplete;
-		_animPanel.Primary.Reset();
+		_animPanel.Start();
 		Program.GameWindow.SetActiveWindows(_animPanel);
 		base.OnEnter();
 	}

@@ -22,11 +22,9 @@ public class Game
 
 	public void StartGame()
 	{
+		_round = -1;
 		State.GoToState(State.TitleState);
 		//move to ... one of the states?
-		// _round = 0;
-		// CurrentRound = new Round(_round);
-		// StartRound();
 	}
 
 
@@ -37,14 +35,26 @@ public class Game
 		//when the round ends, we start the next round transition animation (see onroundstatechange)
 	}
 
+	public void StartNewRound()
+	{
+		_round++;
+		CurrentRound = new Round(_round);
+		StartRound();
+	}
+
 	private void OnRoundStateChanged(RoundState state)
 	{
 		if (state == RoundState.Complete)
 		{
 			// end state and start animation for next state.
-			_round++;
-			CurrentRound = new Round(_round);
-			StartRound();
+			// _round++;
+			// CurrentRound = new Round(_round);
+			// StartRound();
+			State.GoToState(State.MoveToNextRoundAnimation);
+		}else if (state == RoundState.Failure)
+		{
+			//go to failure round fail, animate the hole opening.
+			State.GoToState(State.TitleState);
 		}
 	}
 	public void Tick(float delta)
@@ -69,4 +79,6 @@ public class Game
 		State.TypeKeyPressed(key);
 		CurrentRound?.Test?.TypeKeyPressed(key);
 	}
+
+	
 }

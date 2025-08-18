@@ -8,7 +8,7 @@ public enum RoundState
 	WaitingForPlayerToStart,
 	Typing,
 	Complete,
-	AnimatingAfterComplete
+	Failure,
 }
 public class Round
 {

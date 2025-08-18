@@ -20,6 +20,9 @@ public class GameWindow
 	
 	public TitleAnim TitleIntroAnim => _titleIntroAnim;
 	private readonly TitleAnim  _titleIntroAnim;
+
+	public RoundStartAnimationPanel RoundIntroduction => _roundIntro;
+	private readonly RoundStartAnimationPanel _roundIntro;
 	
 	private readonly DebugInfo _debugInfo;
 	public GameWindow(Game game)
@@ -29,6 +32,8 @@ public class GameWindow
 		_typingWindow = new TypingWindow(this);
 		_gameTitleIdle =  new GameTitleIdleScreen(this);
 		_titleIntroAnim = new TitleAnim(this);
+		_roundIntro = new RoundStartAnimationPanel(this);
+		
 		_debugInfo = new DebugInfo(Game);
 		SetSizes();
 	}
@@ -40,6 +45,7 @@ public class GameWindow
 		_fightWindow.SetActive(panels.Contains(_fightWindow));
 		_gameTitleIdle.SetActive(panels.Contains(_gameTitleIdle));
 		_titleIntroAnim.SetActive(panels.Contains(_titleIntroAnim));
+		_roundIntro.SetActive(panels.Contains(_roundIntro));
 	}
 
 	public void Draw()
@@ -63,6 +69,11 @@ public class GameWindow
 		{
 			_titleIntroAnim.Draw();
 		}
+
+		if (_roundIntro.Enabled)
+		{
+			_roundIntro.Draw();
+		}
 		//
 		_debugInfo.Draw();
 	}
@@ -77,12 +88,15 @@ public class GameWindow
 		_fightWindow.Resize(0,0,w,fightSize);
 		_gameTitleIdle.Resize(0,0,w,h);
 		_titleIntroAnim.Resize(0,0,w,h);
-
+		_roundIntro.Resize(0,0,w,h);
 	}
 
 	public void OnClose()
 	{
 		_fightWindow.OnClose();
 		_typingWindow.OnClose();
+		_gameTitleIdle.OnClose();
+		_titleIntroAnim.OnClose();
+		_roundIntro.OnClose();
 	}
 }
