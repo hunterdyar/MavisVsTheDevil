@@ -97,6 +97,10 @@ public class Round
 					return ("Commonly Misspelled", Wordlist.Wordlist.TYPOD);
 			}
 		}
+		else
+		{
+			return ("DESPAIR", Wordlist.Wordlist.DESPAIR);
+		}
 
 		return ("Common Words", Wordlist.Wordlist.COMMON);
 	}

@@ -27,19 +27,19 @@ public class FightWindow : PanelBase
 		camera.FovY = 75;
 		camera.Projection = CameraProjection.Perspective;
 		mavisPos = new Vector3(0, 0, 0);
-		var FileInfo = new FileInfo("Resources/models/test/test.obj");
+		var FileInfo = new FileInfo("Resources/models/test/test.glb");
 		mavis = LoadModel(FileInfo.FullName);
 
-		// int animCount = 0;                                               
-		// var anims = LoadModelAnimations("Resources/models/test/test.fbx",ref animCount);
-		// if (animCount > 0)
-		// {
-		// 	mavisWalkAnimation = anims[0]; //we ... assume!
-		// }
-		// else
-		// {
-		// 	//UHH
-		// }
+		int animCount = 0;                                               
+		var anims = LoadModelAnimations("Resources/models/test/test.glb",ref animCount);
+		if (animCount > 0)
+		{
+			mavisWalkAnimation = anims[0]; //we ... assume!
+		}
+		else
+		{
+			//UHH
+		}
 	}
 
 	protected override void OnResize()
@@ -57,12 +57,12 @@ public class FightWindow : PanelBase
 		
 		//Loop walk Animation.
 		mavisWalkFrameCounter++;
-		//UpdateModelAnimation(mavis,mavisWalkAnimation, mavisWalkFrameCounter);
-		// if (mavisWalkFrameCounter >= mavisWalkAnimation.FrameCount)
-		// {
-		// 	mavisWalkFrameCounter = 0;
-		// }
-		//
+		UpdateModelAnimation(mavis,mavisWalkAnimation, mavisWalkFrameCounter);
+		 if (mavisWalkFrameCounter >= mavisWalkAnimation.FrameCount)
+		 {
+		 	mavisWalkFrameCounter = 0;
+		 }
+		
 		
 		BeginTextureMode(fightScreenTex);
 			ClearBackground(Color.Black);
@@ -75,7 +75,7 @@ public class FightWindow : PanelBase
 					mavisPos + new Vector3(0, -2f, 0),
 					new Vector3(1.0f, 0.0f, 0.0f),
 					0.0f,
-					new Vector3(4.0f, 4.0f, 4.0f),
+					new Vector3(0.1f, .1f, .10f),
 					Color.White
 				);
 			EndMode3D();
