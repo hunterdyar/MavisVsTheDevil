@@ -67,7 +67,7 @@ public class StateMachine
 	{
 		if (stateBase == _currentStateBase)
 		{
-			throw new Exception("Should not enter same state as was already in!");
+			throw new Exception($"Should not enter same state as was already in! {CurrentStateName()}");
 		}
 
 		if (stateBase == null)

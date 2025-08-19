@@ -16,9 +16,9 @@ public class RoundStartAnimationPanel : AnimationPanel
 	}
 	public override void Draw()
 	{
-		Raylib.DrawText("You Encounter Zaboomafoo.", PosX, PosY, 24, Color.White);
-		Raylib.DrawText("Cause of death: Starvation.", PosX, PosY+24, 24, Color.White);
-		Raylib.DrawText("It gives you wordlist: ...", PosX, PosY + 48, 24, Color.White);
-		Raylib.DrawText("It gives you modifiers: ...", PosX, PosY + 68, 24, Color.White);
+		Raylib.DrawText("You Encounter Zaboomafoo.", PosX, PosY+24, 24, Color.White);
+		Raylib.DrawText("Cause of death: Starvation.", PosX, PosY+44, 24, Color.White);
+		Raylib.DrawText("It gives you wordlist: ...", PosX, PosY + 68, 24, Color.White);
+		Raylib.DrawText("It gives you modifiers: ...", PosX, PosY + 88, 24, Color.White);
 	}
 }
