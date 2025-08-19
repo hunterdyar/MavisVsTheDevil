@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MavisVsTheDevil", "MavisVsT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gen", "Gen\Gen.csproj", "{2BCA3D06-3AE1-4A0C-9B91-2D46F5E3B69C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneTest", "SceneTest\SceneTest.csproj", "{403EF106-1DFD-4F45-9E08-524349528762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{2BCA3D06-3AE1-4A0C-9B91-2D46F5E3B69C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BCA3D06-3AE1-4A0C-9B91-2D46F5E3B69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BCA3D06-3AE1-4A0C-9B91-2D46F5E3B69C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{403EF106-1DFD-4F45-9E08-524349528762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{403EF106-1DFD-4F45-9E08-524349528762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{403EF106-1DFD-4F45-9E08-524349528762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{403EF106-1DFD-4F45-9E08-524349528762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

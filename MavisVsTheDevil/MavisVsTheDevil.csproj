@@ -42,6 +42,9 @@
       <None Update="Resources\models\test\test.glb">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="Resources\models\scenetest\sceneTest.glb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
 
     </ItemGroup>
     <ItemGroup>
