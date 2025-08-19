@@ -60,7 +60,7 @@ public class StateMachine
 		RoundStartAnimation.OnEnterState += Program.GameWindow.Game.StartNewRound;
 		IntroductionAnimationState = new AnimationState(this, Program.GameWindow.TitleIntroAnim, RoundStartAnimation);
 		//make new anim for 'walking forwards'
-		MoveToNextRoundAnimation = new AnimationState(this, Program.GameWindow.RoundIntroduction, RoundStartAnimation, Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
+		MoveToNextRoundAnimation = new AnimationState(this, Program.GameWindow.RoundSurvivedAnim, RoundStartAnimation, Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 	}
 	
 	public void GoToState(StateBase stateBase)

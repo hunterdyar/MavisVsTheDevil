@@ -35,6 +35,7 @@ public class AnimationState : StateBase
 		Console.WriteLine("animation complete, exit state!");
 		_machine.GoToState(_nextState);
 	}
+	
 	public override void OnExit()
 	{
 		Console.WriteLine("exit animation state");

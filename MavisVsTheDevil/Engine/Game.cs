@@ -7,6 +7,7 @@ public class Game
 	public TypeTest? CurrentTest => CurrentRound?.Test;
 	public StateMachine State;
 	public Round CurrentRound;
+	
 	private int _round = 0;
 	public Game()
 	{

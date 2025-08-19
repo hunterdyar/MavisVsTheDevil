@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using MavisVsTheDevil.Demons;
+using Raylib_cs;
 
 namespace MavisVsTheDevil.Engine;
 
@@ -12,6 +13,7 @@ public enum RoundState
 }
 public class Round
 {
+	public Demon Demon;
 	public static Action<RoundState> OnRoundStateChanged;
 	public readonly int RoundNumber;
 	public readonly TypeTest Test;
@@ -25,6 +27,7 @@ public class Round
 	{
 		RoundNumber = round;
 		this._state = RoundState.AnimatingBeforeStart;
+		Demon = Demon.GetRandomDemon();
 		int wordCount = GetWordCount();
 		var w = GetWordlist(RoundNumber);
 		WordlistName = w.Item1;

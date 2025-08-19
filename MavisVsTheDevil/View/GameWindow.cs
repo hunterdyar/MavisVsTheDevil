@@ -23,6 +23,9 @@ public class GameWindow
 
 	public RoundStartAnimationPanel RoundIntroduction => _roundIntro;
 	private readonly RoundStartAnimationPanel _roundIntro;
+
+	public RoundSurvivedAnimationPanel RoundSurvivedAnim => _roundSurvived;
+	private readonly RoundSurvivedAnimationPanel _roundSurvived;
 	
 	private readonly DebugInfo _debugInfo;
 	public GameWindow(Game game)
@@ -33,6 +36,7 @@ public class GameWindow
 		_gameTitleIdle =  new GameTitleIdleScreen(this);
 		_titleIntroAnim = new TitleAnim(this);
 		_roundIntro = new RoundStartAnimationPanel(this);
+		_roundSurvived = new RoundSurvivedAnimationPanel(this);
 		
 		_debugInfo = new DebugInfo(Game);
 		SetSizes();
@@ -46,6 +50,7 @@ public class GameWindow
 		_gameTitleIdle.SetActive(panels.Contains(_gameTitleIdle));
 		_titleIntroAnim.SetActive(panels.Contains(_titleIntroAnim));
 		_roundIntro.SetActive(panels.Contains(_roundIntro));
+		_roundSurvived.SetActive(panels.Contains(_roundSurvived));
 	}
 
 	public void Draw()
@@ -74,6 +79,11 @@ public class GameWindow
 		{
 			_roundIntro.Draw();
 		}
+
+		if (_roundSurvived.Enabled)
+		{
+			_roundSurvived.Draw();
+		}
 		//
 		_debugInfo.Draw();
 	}
@@ -89,6 +99,7 @@ public class GameWindow
 		_gameTitleIdle.Resize(0,0,w,h);
 		_titleIntroAnim.Resize(0,0,w,h);
 		_roundIntro.Resize(0,0,w,h);
+		_roundSurvived.Resize(0,0,w,h);
 	}
 
 	public void OnClose()
@@ -98,5 +109,6 @@ public class GameWindow
 		_gameTitleIdle.OnClose();
 		_titleIntroAnim.OnClose();
 		_roundIntro.OnClose();
+		_roundSurvived.OnClose();
 	}
 }
