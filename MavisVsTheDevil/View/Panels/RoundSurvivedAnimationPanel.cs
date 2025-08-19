@@ -24,9 +24,11 @@ public class RoundSurvivedAnimationPanel : AnimationPanel
 		{
 			return;
 		}
-		
-		
-		Raylib.DrawText($"You Defeated {demon.Name}.", PosX, PosY+24, 24, Color.White);
-		Raylib.DrawText($"The Demon Wails: {demon.Struggle}", PosX, PosY + 68, 24, Color.White); 
+
+		var x = PosX + 50;
+		var y = PosY + 50;
+		Raylib.DrawText($"You have defeated the demon {demon.Name}.", x, y+24, 24, Color.White);
+		Raylib.DrawText($"{demon.Name} is banished deeper into hell.", x, y + 34, 24, Color.White);
+		Raylib.DrawText($"The Demon Wails: {demon.Struggle}", x, y + 68, 24, Color.White); 
 	}
 }
