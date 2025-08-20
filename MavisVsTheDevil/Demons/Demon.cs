@@ -112,8 +112,14 @@ public class Demon
 		new Demon()
 		{
 			Name = "Pablo Sanchez",
-			Struggle = "I Just wanted to play baseball.",
+			Struggle = "You Demanded So Much From Me",
 			CauseOfDeath = "Picked a Fight With Multiple Professional Baseball Players"
+		},
+		new Demon()
+		{
+			Name = "Martha Speaks",
+			Struggle = "You Should Never Have Cursed Me With Knowledge",
+			CauseOfDeath = "Foreign Body Airway Obstruction"
 		}
 	};
 
