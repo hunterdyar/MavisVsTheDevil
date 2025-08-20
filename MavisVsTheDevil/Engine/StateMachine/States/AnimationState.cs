@@ -8,6 +8,8 @@ public class AnimationState : StateBase
 	private AnimationPanel _animPanel;
 	private PanelBase[] AllActivePanels;
 	private StateBase _nextState;
+
+	private bool _waitForPressAfterAnimationComplete = false;
 	//on skip input or on animationComplete, go to determined state
 	public AnimationState(StateMachine machine, AnimationPanel animPanel, StateBase nextState, params PanelBase[] AlsoActivePanels) : base(machine)
 	{
@@ -18,7 +20,11 @@ public class AnimationState : StateBase
 		this.AllActivePanels =  p.ToArray();
 
 	}
-	
+
+	public void SetWaitForPressAfterAnimationComplete(bool wait)
+	{
+		_waitForPressAfterAnimationComplete = wait;
+	}
 	public override void OnEnter()
 	{
 		_animPanel.Primary.Reset();
@@ -45,12 +51,24 @@ public class AnimationState : StateBase
 
 	public override void Tick(float delta)
 	{
-		_animPanel.Tick(delta);
-		if (_animPanel.Primary.IsComplete)
+		//it's sort of an anti-pattern to stop this here and not internally, but i have some console.writes i want to supress soooooo
+		if (!_animPanel.Primary.IsComplete)
+		{
+			_animPanel.Tick(delta);
+		}
+
+		if (_animPanel.Primary.IsComplete && !_waitForPressAfterAnimationComplete)
 		{
 			OnAnimComplete();
 		}
 		base.Tick(delta);
 	}
-	
+
+	public override void TypeKeyPressed(char key)
+	{
+		if (_waitForPressAfterAnimationComplete && _animPanel.Primary.IsComplete)
+		{
+			OnAnimComplete();
+		}
+	}
 }

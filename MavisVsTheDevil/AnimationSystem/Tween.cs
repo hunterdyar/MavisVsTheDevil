@@ -38,11 +38,7 @@ public abstract class TweenBase
         {
             if (_finished)
             {
-                Console.WriteLine("ahhhhhh");
-                if (OnComplete == null)
-                {
-                    Console.WriteLine("No listeners, yet i must scream;");
-                }
+                //this is actually fine now, because of the AnimState that waits.
             }
         }
     }

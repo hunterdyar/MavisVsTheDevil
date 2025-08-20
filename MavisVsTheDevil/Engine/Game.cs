@@ -27,8 +27,7 @@ public class Game
 		State.GoToState(State.TitleState);
 		//move to ... one of the states?
 	}
-
-
+	
 	public void StartRound()
 	{
 		//first we are animating. then when the tween is done, we start the round.
@@ -47,15 +46,10 @@ public class Game
 	{
 		if (state == RoundState.Complete)
 		{
-			// end state and start animation for next state.
-			// _round++;
-			// CurrentRound = new Round(_round);
-			// StartRound();
 			State.GoToState(State.MoveToNextRoundAnimation);
 		}else if (state == RoundState.Failure)
 		{
-			//go to failure round fail, animate the hole opening.
-			State.GoToState(State.TitleState);
+			State.GoToState(State.RoundFailureAnimation);
 		}
 	}
 	public void Tick(float delta)
@@ -73,12 +67,12 @@ public class Game
 		}
 
 		State.Tick(delta);
+		
 	}
 
 	private void TypeKeyPressed(char key)
 	{
 		State.TypeKeyPressed(key);
-		CurrentRound?.Test?.TypeKeyPressed(key);
 	}
 
 	

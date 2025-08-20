@@ -10,9 +10,9 @@ public class StateMachine
 	public StateBase IntroductionAnimationState;
 	public StateBase RoundStartAnimation;
 	public StateBase TypeGameplay;
-	public StateBase MoveToNextRoundAnimation;
-	public StateBase RoundFailureAnimation;
-	
+	public AnimationState MoveToNextRoundAnimation;
+	public AnimationState RoundFailureAnimation;
+
 	//any states that we "exit to previous" from?
 	// paused, lost focus, etc? lets say no
 	public string CurrentStateName()
@@ -61,6 +61,9 @@ public class StateMachine
 		IntroductionAnimationState = new AnimationState(this, Program.GameWindow.TitleIntroAnim, RoundStartAnimation);
 		//make new anim for 'walking forwards'
 		MoveToNextRoundAnimation = new AnimationState(this, Program.GameWindow.RoundSurvivedAnim, RoundStartAnimation, Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
+		MoveToNextRoundAnimation.SetWaitForPressAfterAnimationComplete(true);
+		RoundFailureAnimation = new AnimationState(this, Program.GameWindow.RoundFailedAnim, TitleState);
+		RoundFailureAnimation.SetWaitForPressAfterAnimationComplete(true);
 	}
 	
 	public void GoToState(StateBase stateBase)

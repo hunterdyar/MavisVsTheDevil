@@ -26,6 +26,11 @@ public class GameWindow
 
 	public RoundSurvivedAnimationPanel RoundSurvivedAnim => _roundSurvived;
 	private readonly RoundSurvivedAnimationPanel _roundSurvived;
+
+	public RoundLostAnimationPanel RoundFailedAnim => _roundFailed;
+	private readonly RoundLostAnimationPanel _roundFailed;
+
+	private PanelBase[] _panels;
 	
 	private readonly DebugInfo _debugInfo;
 	public GameWindow(Game game)
@@ -37,6 +42,17 @@ public class GameWindow
 		_titleIntroAnim = new TitleAnim(this);
 		_roundIntro = new RoundStartAnimationPanel(this);
 		_roundSurvived = new RoundSurvivedAnimationPanel(this);
+		_roundFailed = new RoundLostAnimationPanel(this);
+
+		_panels = [
+			_typingWindow,
+			_fightWindow,
+			_gameTitleIdle,
+			_titleIntroAnim,
+			_roundIntro,
+			_roundSurvived,
+			_roundFailed,
+		];
 		
 		_debugInfo = new DebugInfo(Game);
 		SetSizes();
@@ -44,45 +60,20 @@ public class GameWindow
 
 	public void SetActiveWindows(params PanelBase[] panels)
 	{
-		//there is probably a better way to intersect two lists :p
-		_typingWindow.SetActive(panels.Contains(_typingWindow));
-		_fightWindow.SetActive(panels.Contains(_fightWindow));
-		_gameTitleIdle.SetActive(panels.Contains(_gameTitleIdle));
-		_titleIntroAnim.SetActive(panels.Contains(_titleIntroAnim));
-		_roundIntro.SetActive(panels.Contains(_roundIntro));
-		_roundSurvived.SetActive(panels.Contains(_roundSurvived));
+		foreach (PanelBase panel in _panels)
+		{
+			panel.SetActive(panels.Contains(panel));
+		}
 	}
 
 	public void Draw()
 	{
-		if (_gameTitleIdle.Enabled)
+		foreach (PanelBase panel in _panels)
 		{
-			_gameTitleIdle.Draw();
-		}
-		
-		if (_typingWindow.Enabled)
-		{
-			_typingWindow.Draw();
-		}
-
-		if (_fightWindow.Enabled)
-		{
-			_fightWindow.Draw();
-		}
-
-		if (_titleIntroAnim.Enabled)
-		{
-			_titleIntroAnim.Draw();
-		}
-
-		if (_roundIntro.Enabled)
-		{
-			_roundIntro.Draw();
-		}
-
-		if (_roundSurvived.Enabled)
-		{
-			_roundSurvived.Draw();
+			if (panel.Enabled)
+			{
+				panel.Draw();
+			}
 		}
 		//
 		_debugInfo.Draw();
@@ -104,11 +95,9 @@ public class GameWindow
 
 	public void OnClose()
 	{
-		_fightWindow.OnClose();
-		_typingWindow.OnClose();
-		_gameTitleIdle.OnClose();
-		_titleIntroAnim.OnClose();
-		_roundIntro.OnClose();
-		_roundSurvived.OnClose();
+		foreach (PanelBase panel in _panels)
+		{
+			panel.OnClose();
+		}
 	}
 }

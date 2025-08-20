@@ -22,4 +22,9 @@ public class GameplayState : StateBase
 	{
 		base.OnExit();
 	}
+
+	public override void TypeKeyPressed(char key)
+	{
+		Program.GameWindow.Game.CurrentRound?.Test?.TypeKeyPressed(key);
+	}
 }
