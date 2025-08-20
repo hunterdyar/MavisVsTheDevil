@@ -37,5 +37,8 @@ public class RoundStartAnimationPanel : AnimationPanel
 			return;
 		}
 		Raylib.DrawText("It gives you modifiers: ...", PosX, PosY + 88, 24, Color.White);
+
+		Raylib.DrawText("... ready? ... ", PosX, PosY + 108, 12, Color.White);
+
 	}
 }

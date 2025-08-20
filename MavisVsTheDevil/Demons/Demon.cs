@@ -102,8 +102,19 @@ public class Demon
 			Name = "I.M. Meen",
 			Struggle = "You Did Not Escape The Labyrinth",
 			CauseOfDeath = "Better Grammar"
+		},
+		new Demon()
+		{
+			Name = "Gus Oddman",
+			Struggle = "They were pushing the power plants to their limits!",
+			CauseOfDeath = "Five Tornado"
+		},
+		new Demon()
+		{
+			Name = "Pablo Sanchez",
+			Struggle = "I Just wanted to play baseball.",
+			CauseOfDeath = "Picked a Fight With Multiple Professional Baseball Players"
 		}
-		
 	};
 
 

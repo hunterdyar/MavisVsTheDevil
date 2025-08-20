@@ -8,7 +8,7 @@ public class StateMachine
 	public static Action<StateBase> OnStateEntered;
 	public StateBase TitleState;
 	public StateBase IntroductionAnimationState;
-	public StateBase RoundStartAnimation;
+	public AnimationState RoundStartAnimation;
 	public StateBase TypeGameplay;
 	public AnimationState MoveToNextRoundAnimation;
 	public AnimationState RoundFailureAnimation;
@@ -58,10 +58,10 @@ public class StateMachine
 		TitleState = new TitleState(this);
 		RoundStartAnimation = new AnimationState(this, Program.GameWindow.RoundIntroduction, TypeGameplay);
 		RoundStartAnimation.OnEnterState += Program.GameWindow.Game.StartNewRound;
+		RoundStartAnimation.SetWaitForPressAfterAnimationComplete(true);
 		IntroductionAnimationState = new AnimationState(this, Program.GameWindow.TitleIntroAnim, RoundStartAnimation);
 		//make new anim for 'walking forwards'
 		MoveToNextRoundAnimation = new AnimationState(this, Program.GameWindow.RoundSurvivedAnim, RoundStartAnimation, Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
-		MoveToNextRoundAnimation.SetWaitForPressAfterAnimationComplete(true);
 		RoundFailureAnimation = new AnimationState(this, Program.GameWindow.RoundFailedAnim, TitleState);
 		RoundFailureAnimation.SetWaitForPressAfterAnimationComplete(true);
 	}
