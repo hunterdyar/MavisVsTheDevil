@@ -1,3 +1,41 @@
 ﻿Argentina
 United States
 Mexico
+Japan
+Amsterdam
+Netherlands
+Panama
+Paris
+Peoria
+Copenhagen
+China
+Bratislava
+Dallas
+Ecuador
+Scotland
+San Francisco
+San Diego
+Switzerland
+Sydney
+Australia
+Tasmania
+Geneva
+Germany
+Florence
+Salt Lake
+Yalta
+Hopei
+Hong Kong
+India
+Iceland
+Indonesia
+Zurich
+Yugoslavia
+Czechoslovakia
+Trinidad
+Gibraltar
+London
+Antwerp
+Turkey
+Anchorage
+Brazil

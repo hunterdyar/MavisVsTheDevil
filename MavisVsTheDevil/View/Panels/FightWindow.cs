@@ -57,7 +57,7 @@ public class FightWindow : PanelBase
 		
 		//Loop walk Animation.
 		mavisWalkFrameCounter++;
-		UpdateModelAnimation(mavis,mavisWalkAnimation, mavisWalkFrameCounter);
+		//UpdateModelAnimation(mavis,mavisWalkAnimation, mavisWalkFrameCounter);
 		 if (mavisWalkFrameCounter >= mavisWalkAnimation.FrameCount)
 		 {
 		 	mavisWalkFrameCounter = 0;
@@ -75,7 +75,7 @@ public class FightWindow : PanelBase
 					mavisPos + new Vector3(0, -2f, 0),
 					new Vector3(1.0f, 0.0f, 0.0f),
 					0.0f,
-					new Vector3(0.1f, .1f, .10f),
+					new Vector3(0.01f, .01f, .010f),
 					Color.White
 				);
 			EndMode3D();
