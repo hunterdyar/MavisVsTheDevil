@@ -45,6 +45,12 @@
       <None Update="Resources\models\scenetest\sceneTest.glb">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="Resources\models\scenetest\test2.glb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\models\scenetest\planepop.glb">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
 
     </ItemGroup>
     <ItemGroup>
