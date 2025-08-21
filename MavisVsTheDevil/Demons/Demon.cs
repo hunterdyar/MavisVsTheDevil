@@ -52,7 +52,7 @@ public class Demon
 		new Demon()
 		{
 			Name = "Prometheus & Bob",
-			Struggle = "You Did Not Embrace Hyperbolic Whimsy",
+			Struggle = "You cannot understand them",
 			CauseOfDeath = "Scurvy"
 		},
 		new Demon()
@@ -70,13 +70,13 @@ public class Demon
 		new Demon()
 		{
 			Name = "Mazlo",
-			Struggle = "You Did Not Observe The Warnings",
+			Struggle = "I Could Have Left Whenever I Wanted",
 			CauseOfDeath = "Cat And/Or Dog Bite"
 		},
 		new Demon()
 		{
 			Name = "Carmen Sandiego",
-			Struggle = "You Did Not Want To Be Found",
+			Struggle = "I Did Not Want To Be Found",
 			CauseOfDeath = "Titan Submersible Implosion",
 		},
 		new Demon()
@@ -94,7 +94,7 @@ public class Demon
 		new Demon()
 		{
 			Name = "Time Rider In American History",
-			Struggle = "You Did Not Remember",
+			Struggle = "I Never Wanted To Ignore The Sins",
 			CauseOfDeath = "Dread",
 		},
 		new Demon()
