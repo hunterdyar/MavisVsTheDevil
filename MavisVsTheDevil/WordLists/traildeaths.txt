@@ -1,0 +1,15 @@
+fever
+dysentery
+measles
+cholera
+typhoid
+exhaustion
+snakebite
+broken leg
+broken arm
+drowning
+blizzard
+pneumonia
+injuries
+drowning
+donner

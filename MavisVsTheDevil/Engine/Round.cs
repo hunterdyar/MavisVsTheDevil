@@ -64,8 +64,14 @@ public class Round
 		return rs[RoundNumber];
 	}
 
-	public static (string, string[]) GetWordlist(int roundNumber)
+	public (string, string[]) GetWordlist(int roundNumber)
 	{
+		//a demon with it's own word list overrides.
+		if (Demon.GetWordList(out var n, out var l))
+		{
+			return (n, l);
+		}
+		
 		if (roundNumber <= 1)
 		{
 			return ("Common Words", Wordlist.Wordlist.COMMON);

@@ -5,6 +5,9 @@ public class Demon
 	public string Name;
 	public string Struggle;
 	public string CauseOfDeath;
+	private string WordListName;
+	private string[] DemonWordList = [];
+	
 	//word lists
 	//modifier 
 	private static Demon[] LastDemons = new Demon[5];
@@ -13,6 +16,22 @@ public class Demon
 	private static Demon RandomDemon()
 	{
 		return Demons[Program.random.Next(Demons.Length)];
+	}
+
+	public bool GetWordList(out string wordlistName, out string[] wordList)
+	{
+		if (DemonWordList.Length == 0)
+		{
+			wordlistName = "";
+			wordList = null;
+			return false;
+		}
+		else
+		{
+			wordlistName = WordListName;
+			wordList = DemonWordList;
+			return true;
+		}
 	}
 
 	public static Demon GetRandomDemon()
@@ -78,6 +97,8 @@ public class Demon
 			Name = "Carmen Sandiego",
 			Struggle = "I Did Not Want To Be Found",
 			CauseOfDeath = "Titan Submersible Implosion",
+			DemonWordList = Wordlist.Wordlist.PLACES,
+			WordListName = "Where She Fled To",
 		},
 		new Demon()
 		{
@@ -89,7 +110,9 @@ public class Demon
 		{
 			Name = "The Carriage from Oregon Trail",
 			Struggle = "You Did Not Allocate The Resources",
-			CauseOfDeath = "Super Dysentery"
+			CauseOfDeath = "Super Dysentery",
+			DemonWordList = Wordlist.Wordlist.TRAILDEATHS,
+			WordListName = "How I Watched Them Go"
 		},
 		new Demon()
 		{
@@ -113,7 +136,10 @@ public class Demon
 		{
 			Name = "Pablo Sanchez",
 			Struggle = "You Demanded So Much From Me",
-			CauseOfDeath = "Picked a Fight With Multiple Professional Baseball Players"
+			CauseOfDeath = "Picked a Fight With Multiple Professional Baseball Players",
+			DemonWordList = Wordlist.Wordlist.BACKYARDPLAYERS,
+			WordListName = "Those Who I Left Behind",
+			
 		},
 		new Demon()
 		{
