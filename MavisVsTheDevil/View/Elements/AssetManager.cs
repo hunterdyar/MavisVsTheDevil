@@ -44,13 +44,16 @@ public static class AssetManager
 		_models.Add(modelFile, model);
 
 		int count = 0;
-		var anims = Raylib.LoadModelAnimations(modelFile.Name, ref count);
+		var anims = Raylib.LoadModelAnimations(modelFile.FullName, ref count);
 		animations = new ModelAnimation[count];
 		for (int i = 0; i < count; i++)
 		{
 			animations[i] = anims[i];
 		}
+
 		_modelAnimations.Add(modelFile, animations);
+
+		Console.WriteLine($"Loaded {modelFile.Name}. Animation Count: {count}");
 	}
 
 	public static unsafe void UnloadAll()

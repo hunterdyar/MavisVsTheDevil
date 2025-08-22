@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using MavisVsTheDevil;
+using MavisVsTheDevil.Elements;
 using MavisVsTheDevil.Engine;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
@@ -47,7 +48,7 @@ public unsafe static class Program
         //Unload Resources
 		_window.OnClose();
         UnloadFont(terminalFont);
-        
+        AssetManager.UnloadAll();
         CloseWindow();
 
         return 0;

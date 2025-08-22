@@ -1,10 +1,12 @@
 ﻿using System.Numerics;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 namespace MavisVsTheDevil.Elements;
 
 public class VisualModel
 {
+	public string Name;
 	private Vector3 position;
 	private Vector3 rotationAxis = new Vector3(0, 1, 0);
 	private float rotationAngle = 0;
@@ -25,18 +27,28 @@ public class VisualModel
 
 	private FileInfo loadedModel;
 
-	public VisualModel(string modelPath)
+	public VisualModel(string modelPath, bool loop = false)
 	{
 		Load(modelPath);
-		
+		this.loop = loop;
+
 	}
 	public void Load(string path)
 	{
 		var fileInfo = new FileInfo(path);
+		Name = fileInfo.Name.ToLower();
 		AssetManager.LoadModel(fileInfo, out model, out animations);
 		animCount = animations.Length;
 		animFrame = new int[animCount];
-		frameCount = animations.Max(x => x.FrameCount);
+		if (animations.Length == 0)
+		{
+			frameCount = 0;
+		}
+		else
+		{
+			frameCount = animations.Max(x => x.FrameCount);
+		}
+
 	}
 	/// <summary>
 	/// Should be called from within BeginMode3D

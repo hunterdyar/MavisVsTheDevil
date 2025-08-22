@@ -54,12 +54,13 @@
       <None Update="Resources\models\scenetest\torus.glb">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Resources\demons\putt-putt.png">
+      <None Update="Resources\demons\*">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
 
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Resources\mavis\" />
+        <Folder Include="Resources\demons\" />
     </ItemGroup>
 </Project>
