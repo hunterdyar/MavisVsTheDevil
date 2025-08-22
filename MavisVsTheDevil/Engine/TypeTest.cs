@@ -89,6 +89,19 @@ public class TypeTest
 		{
 			return;
 		}
+
+		//dev hacks cheat2win4lyfe
+		if (c == '=')
+		{
+			foreach (TestLetter testLetter in _testLetters)
+			{
+				testLetter.State = LetterState.Pass;
+			}
+
+			_state = TypeTestState.Finished;
+			OnStateChange.Invoke(TypeTestState.Finished);
+			return;
+		}
 		
 		_rawInput.Add(c);
 		TestCurrentLetter(c);

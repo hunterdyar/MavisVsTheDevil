@@ -14,7 +14,8 @@ public class ScenePanel
 	private Model plane;
 	private Vector3 mavisPos;
 	private ModelAnimation[] animations;
-	private int animFrame = 0;
+	private int[] animFrame;
+	private float _playback = 0;
 	private int animCount = 0;
 	private Shader postShader;
 	public RenderTexture2D fightScreenTex;
@@ -23,7 +24,6 @@ public class ScenePanel
 	{
 		int width = GetScreenWidth();
 		int height = GetScreenHeight();
-		
 		
 		fightScreenTex = LoadRenderTexture(width, height);
 		postShader = Raylib.LoadShader(null, "Resources/postPixel.fs");
@@ -36,10 +36,17 @@ public class ScenePanel
 		camera.Projection = CameraProjection.Perspective;
 		mavisPos = new Vector3(0, 0, 0);
 		var fileInfo = new FileInfo("Resources/models/scenetest/planepop.glb");
-
+		var demonTex = LoadTexture("Resources/demons/putt-putt.png");
+		
 		if (fileInfo.Exists)
 		{
 			plane = LoadModel(fileInfo.FullName);
+			
+			for (int i = 0; i < plane.MaterialCount; i++)
+			{
+				plane.Materials[i].Maps->Texture = demonTex;
+			}
+			// plane.Materials[0].
 		}
 		else
 		{
@@ -47,11 +54,12 @@ public class ScenePanel
 		}
 
 		//BoundingBox bounds = GetMeshBoundingBox(mavis.Meshes[0]);
-
+		int animCount = 0;
 		var anims = LoadModelAnimations("Resources/models/scenetest/planepop.glb",ref animCount);
 		animations = new ModelAnimation[animCount];
+		animFrame = new int[animCount];
 		for (int i = 0; i < animCount; i++)
-		{
+		{	
 			animations[i] = anims[i]; //we ... assume!
 		}
 	}
@@ -62,26 +70,34 @@ public class ScenePanel
 		fightScreenTex = LoadRenderTexture(Raylib.GetScreenWidth(), GetScreenHeight());
 	}
 
+	private bool playing = false;
 	public unsafe void Draw()
 	{
 		//todo: tick
 		
 		//rotate camera slowly
 		camera.Position = new  Vector3(MathF.Sin((float)Raylib.GetTime()/8f)*10, 5, MathF.Sin(Single.Pi/2+(float)Raylib.GetTime() / 8f) * 10);
-		//Loop walk Animation.
-		// animFrame++;
-		// if (animFrame >= animations[0].FrameCount)
-		// {
-		// 	animFrame = 0;
-		// }
-		// for (int i = 0; i < animations.Length; i++)
-		// {
-		// 	UpdateModelAnimation(plane, animations[i], 0);
-		// }
-
-		UpdateModelAnimation(plane, animations[0], 0);
-
-
+		camera.Position = new Vector3(MathF.Sin((float)Raylib.GetTime())*2f, 5, 10f);
+		//UpdateCamera(ref camera,CameraMode.Free);
+		if (playing)
+		{
+			_playback += (Raylib.GetFrameTime() * GetFPS());
+			for (int i = 0; i < animations.Length; i++)
+			{
+				
+				UpdateModelAnimation(plane, animations[i], animFrame[i]);
+				animFrame[i] = (int)MathF.Floor(_playback);
+				if (animFrame[i] >= animations[i].FrameCount || _playback > 200)
+				{
+					animFrame[i] = 0;
+					playing = false;
+				}
+			}
+		}
+		else
+		{
+			UpdateModelAnimation(plane, animations[0], 0);
+		}
 
 		BeginTextureMode(fightScreenTex);
 		
@@ -95,7 +111,7 @@ public class ScenePanel
 					new Vector3(0, 0, 0),
 					new Vector3(0.0f, 1.0f, 0.0f), 
 					0.0f,
-					new Vector3(1f, 1f, 1f),
+					new Vector3(2f, 2f, 2f),
 					Color.White
 				);
 			EndMode3D();
@@ -119,4 +135,12 @@ public class ScenePanel
 		}
 		UnloadModel(plane);
 	}
+
+	public void Play()
+	{
+		playing = true;
+		_playback = 0;
+	}
+
+
 }

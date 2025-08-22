@@ -1,4 +1,5 @@
 ﻿using MavisVsTheDevil.Animation;
+using MavisVsTheDevil.Elements;
 using MavisVsTheDevil.Engine;
 using Raylib_cs;
 
@@ -7,6 +8,7 @@ namespace MavisVsTheDevil.Panels;
 public class RoundSurvivedAnimationPanel : AnimationPanel
 {
 	private int _val;
+	private VisualModel _demon;
 	public RoundSurvivedAnimationPanel(GameWindow window) : base(window)
 	{
 		Primary = new IntTween((x=>_val=x),5, 3);
@@ -14,9 +16,13 @@ public class RoundSurvivedAnimationPanel : AnimationPanel
 
 	public override void Start()
 	{
+		//blow the demon up (this should live in a tween, so it gets properly reset?)
+		_demon = Program.GameWindow.FightWindow.ActiveScene?.GetModel(0);
+		_demon?.Play();
 		_val = 0;
 		base.Start();
 	}
+
 	public override void Draw()
 	{
 		var demon = _window.Game.CurrentRound?.Demon;

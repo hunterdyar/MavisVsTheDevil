@@ -56,7 +56,7 @@ public class StateMachine
 	{
 		TypeGameplay = new GameplayState(this);
 		TitleState = new TitleState(this);
-		RoundStartAnimation = new AnimationState(this, Program.GameWindow.RoundIntroduction, TypeGameplay);
+		RoundStartAnimation = new AnimationState(this, Program.GameWindow.RoundIntroduction, TypeGameplay, Program.GameWindow.FightWindow);
 		RoundStartAnimation.OnEnterState += Program.GameWindow.Game.StartNewRound;
 		RoundStartAnimation.SetWaitForPressAfterAnimationComplete(true);
 		IntroductionAnimationState = new AnimationState(this, Program.GameWindow.TitleIntroAnim, RoundStartAnimation);

@@ -15,6 +15,14 @@ public class RoundStartAnimationPanel : AnimationPanel
 	public override void Start()
 	{
 		_val = 0;
+		_window.FightWindow.SetScene(FightScene.MeetDemon);
+		
+		//hate this... this has to live somewhere else :/
+		var _demon = Program.GameWindow.FightWindow.ActiveScene?.GetModel(0);
+		_demon?.Stop();
+		
+		
+		
 		base.Start();
 	}
 	public override void Draw()
