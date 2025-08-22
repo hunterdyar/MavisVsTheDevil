@@ -32,6 +32,18 @@ public static class Program
 			ClearBackground(Color.RayWhite);
 			scene.Draw();
 			EndDrawing();
+			
+			//
+			var c = Raylib.GetCharPressed();
+			while (c != 0)
+			{
+				if ((char)c == ' ')
+				{
+					scene.Play();
+				}
+
+				c = GetCharPressed();
+			}
 		}
 
 
