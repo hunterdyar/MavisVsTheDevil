@@ -26,19 +26,19 @@ public class RoundStartAnimationPanel : AnimationPanel
 		}
 		
 		
-		Raylib.DrawText($"You Encounter {demon.Name}.", PosX, PosY+24, 24, Color.White);
+		DrawUtility.DrawLineCentered($"You Encounter {demon.Name}.", Width, PosY+24, 24, Color.White);
 		if (_val < 1)
 		{
 			return;
 		}
-		Raylib.DrawText($"Cause of death: {demon.CauseOfDeath}.", PosX, PosY+44, 24, Color.White);
+		DrawUtility.DrawLineCentered($"Cause of death: {demon.CauseOfDeath}.", Width, PosY+44, 24, Color.White);
 		if (_val < 2)
 		{
 			return;
 		}
-		Raylib.DrawText("It gives you modifiers: ...", PosX, PosY + 88, 24, Color.White);
+		DrawUtility.DrawLineCentered("It gives you modifiers: ...", Width, PosY + 88, 24, Color.White);
 
-		Raylib.DrawText("... ready? ... ", PosX, PosY + 108, 12, Color.White);
+		DrawUtility.DrawLineCentered("... ready? ... ", Width, PosY + 108, 12, Color.White);
 
 	}
 }

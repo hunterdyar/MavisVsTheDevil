@@ -120,6 +120,12 @@ public class Demon
 			Name = "Martha Speaks",
 			Struggle = "You Should Never Have Cursed Me With Knowledge",
 			CauseOfDeath = "Foreign Body Airway Obstruction"
+		},
+		new Demon()
+		{
+			Name = "Putt-Putt",
+			Struggle = "I couldn't remove the Al Gore bumper sticker",
+			CauseOfDeath = "Cracked Piston Rod"
 		}
 	};
 

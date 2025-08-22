@@ -42,6 +42,6 @@ public class TitleAnim : AnimationPanel
     
     public override void Draw()
     {
-        Raylib.DrawTextEx(Program.terminalFont, text, new Vector2(PosX+Width/2 -350,PosY+Height/2),32,0,_color);
+        DrawUtility.DrawLineCentered(text, Width, PosY+Height/2, 32,_color,0);
     }
 }

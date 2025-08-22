@@ -29,7 +29,7 @@ public class GameTitleIdleScreen : PanelBase
 		for (int i = 0; i < titleLines.Length; i++)
 		{
 			int px = (Width - (characterCounts[i] * fontHeight))/2;
-			Raylib.DrawTextEx(Program.terminalFont,titleLines[i],new Vector2(px,py),fontHeight,0, Color.White);
+			DrawUtility.DrawLineCentered(titleLines[i], Width, py, fontHeight, Color.White, PosX);
 			py += fontHeight;
 		}
 		
