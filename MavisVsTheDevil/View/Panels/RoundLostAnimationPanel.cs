@@ -3,6 +3,7 @@ using Raylib_cs;
 
 namespace MavisVsTheDevil.Panels;
 
+//todo: remove the panels and put them in the StateMachines, these panels are not real.
 public class RoundLostAnimationPanel : AnimationPanel
 {
 	private int _val;
