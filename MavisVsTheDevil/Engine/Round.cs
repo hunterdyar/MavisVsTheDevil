@@ -28,6 +28,7 @@ public class Round
 		RoundNumber = round;
 		this._state = RoundState.AnimatingBeforeStart;
 		Demon = Demon.GetRandomDemon();
+		Demons.Demon.OnDemonChosen?.Invoke(Demon);
 		int wordCount = GetWordCount();
 		var w = GetWordlist(RoundNumber);
 		WordlistName = w.Item1;

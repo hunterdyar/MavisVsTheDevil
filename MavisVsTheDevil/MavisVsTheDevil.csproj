@@ -57,6 +57,9 @@
       <None Update="Resources\demons\*">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="Resources\models\demon.glb">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
 
     </ItemGroup>
     <ItemGroup>

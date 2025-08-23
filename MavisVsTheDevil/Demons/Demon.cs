@@ -7,7 +7,9 @@ public class Demon
 	public string CauseOfDeath;
 	private string WordListName;
 	private string[] DemonWordList = [];
-	
+	public string imagePath;
+
+	public static Action<Demon> OnDemonChosen;
 	//word lists
 	//modifier 
 	private static Demon[] LastDemons = new Demon[5];
@@ -36,6 +38,7 @@ public class Demon
 
 	public static Demon GetRandomDemon()
 	{
+		return Demons[^1];
 		var d = RandomDemon();
 		while (LastDemons.Contains(d))
 		{
@@ -151,7 +154,8 @@ public class Demon
 		{
 			Name = "Putt-Putt",
 			Struggle = "I couldn't remove the Al Gore bumper sticker",
-			CauseOfDeath = "Cracked Piston Rod"
+			CauseOfDeath = "Cracked Piston Rod",
+			imagePath = "putt-putt.png"
 		}
 	};
 

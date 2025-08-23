@@ -22,7 +22,7 @@ public class VisualModel
 	private int _playbackFrame;
 	private bool _playing;
 	private float _playback;
-
+	private int animFrameRate = 30;
 	private int frameCount;
 
 	private FileInfo loadedModel;
@@ -58,7 +58,7 @@ public class VisualModel
 		//update frame
 		if (_playing)
 		{
-			_playback += delta * Raylib.GetFPS();
+			_playback += delta * Raylib.GetFPS() / (GetFPS()/(float)animFrameRate);
 			_playbackFrame = (int)MathF.Floor(_playback);
 
 			if (_playbackFrame >= frameCount)
@@ -106,14 +106,42 @@ public class VisualModel
 		_playing = false;
 	}
 
-	public void Stop()
+	public void StopAndResetAnim()
 	{
 		_playing = false;
 		_playback = 0;
+		_playbackFrame = 0;
+
+		for (int i = 0; i < animCount; i++)
+		{
+			animFrame[i] = 0;
+			UpdateModelAnimation(model, animations[i], 0);
+		}
+
 	}
 
 	public void Dispose()
 	{
 		//unload loaded things if needed.
+	}
+
+	public unsafe void SetTexture(Texture2D texture, int map = 0, int matSlot = -1)
+	{
+		if (matSlot < 0)
+		{
+			for (int i = 0; i < model.MaterialCount; i++)
+			{
+				model.Materials[i].Maps->Texture = texture;
+			}
+		}
+		else
+		{
+			model.Materials[matSlot].Maps->Texture = texture;
+		}
+	}
+
+	public void SetScale(float scale)
+	{
+		_scale = new Vector3(scale, scale, scale);
 	}
 }

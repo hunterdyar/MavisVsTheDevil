@@ -1,4 +1,5 @@
 ﻿using MavisVsTheDevil.Animation;
+using MavisVsTheDevil.Elements;
 using MavisVsTheDevil.Engine;
 using Raylib_cs;
 
@@ -7,22 +8,24 @@ namespace MavisVsTheDevil.Panels;
 public class RoundStartAnimationPanel : AnimationPanel
 {
 	private int _val;
+	private Scene _scene;
+	
 	public RoundStartAnimationPanel(GameWindow window) : base(window)
 	{
 		Primary = new IntTween((x=>_val=x),5, 3);
+		_scene = new Scene();
+		_scene.SetDemon(true);
 	}
 
 	public override void Start()
 	{
 		_val = 0;
-		_window.FightWindow.SetScene(FightScene.MeetDemon);
+		
+		_window.FightWindow.SetScene(_scene);
 		
 		//hate this... this has to live somewhere else :/
-		var _demon = Program.GameWindow.FightWindow.ActiveScene?.GetModel(0);
-		_demon?.Stop();
-		
-		
-		
+		AssetManager.Demon.StopAndResetAnim();
+
 		base.Start();
 	}
 	public override void Draw()

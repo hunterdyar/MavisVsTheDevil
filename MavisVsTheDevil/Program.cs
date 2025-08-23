@@ -19,10 +19,13 @@ public unsafe static class Program
         const int screenHeight = 1080;
         SetConfigFlags(ConfigFlags.ResizableWindow);
         InitWindow(screenWidth, screenHeight, "Mavis Vs. The Devil");
+        BeginDrawing();
+	    Raylib.DrawText("Loading", 20,20,30, Color.Black);
+        EndDrawing();
         _window = new GameWindow(_game);
         //Load Resources
         terminalFont = LoadFont("Resources/terminal F4.ttf");
-
+		AssetManager.Initiate();
         SetTargetFPS(144);
 
         _game.Init();

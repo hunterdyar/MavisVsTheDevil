@@ -31,11 +31,11 @@ public class TitleAnim : AnimationPanel
     private Color _color = Color.White;
     public TitleAnim(GameWindow window) : base(window)
     {
-        _suffixAnim = new IndexTween<string>((v) => { text = prefix + v; _color = Color.White;}, suffix, 3);
+        _suffixAnim = new IndexTween<string>((v) => { text = prefix + v; _color = Color.White;}, suffix, 2);
         _fadeOutAnim = new ColorTween((c) =>
         {
             _color = c;
-        }, Color.White, new Color(255,255,255,0), 1);
+        }, Color.White, new Color(255,255,255,0), 0.25f);
         _sequence = new TweenSequence(_suffixAnim, _fadeOutAnim, new NopTween(0.5f));
         Primary = _sequence;
     }

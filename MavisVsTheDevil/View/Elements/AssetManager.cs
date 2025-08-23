@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using MavisVsTheDevil.Demons;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Raylib_cs;
 
 namespace MavisVsTheDevil.Elements;
@@ -9,6 +10,29 @@ public static class AssetManager
 	private static readonly Dictionary<FileInfo, ModelAnimation[]> _modelAnimations = new Dictionary<FileInfo, ModelAnimation[]>();
 	private static readonly Dictionary<FileInfo, Texture2D> _textures = new Dictionary<FileInfo, Texture2D>();
 
+	public static VisualModel Demon;
+	public const string texturePath = "Resources/demons/";
+	
+	public static void Initiate()
+	{
+		Demon = new VisualModel("Resources/models/demon.glb");
+		Demon.SetScale(3);
+		Demons.Demon.OnDemonChosen += SetDemonTexture;
+	}
+
+	public static void SetDemonTexture(Demon demon)
+	{
+		string filename = demon.imagePath;
+		if (string.IsNullOrEmpty(filename))
+		{
+			return;
+		}
+		var path = texturePath + filename;
+		var info = new FileInfo(path);
+		LoadTexture(info, out var texture);
+		Demon.SetTexture(texture);
+	}
+	
 	public static void LoadTexture(FileInfo file, out Texture2D texture)
 	{
 		if (_textures.ContainsKey(file))

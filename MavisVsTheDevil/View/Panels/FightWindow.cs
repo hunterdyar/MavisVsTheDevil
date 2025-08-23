@@ -7,12 +7,10 @@ namespace MavisVsTheDevil.Panels;
 
 public class FightWindow : PanelBase
 {
-	private Camera3D camera;
+	public static Camera3D camera;
 	private Shader postShader;
 	public RenderTexture2D fightScreenTex;
 	//
-	
-	private Scene _meetDemonScene;
 	public Scene? ActiveScene => _activeScene;
 	private Scene? _activeScene;
 	
@@ -29,9 +27,6 @@ public class FightWindow : PanelBase
 		camera.Projection = CameraProjection.Perspective;
 		
 		//
-		
-		_meetDemonScene = new Scene(camera);
-		_meetDemonScene.CreateDemonScene();
 	}
 
 	protected override void OnResize()
@@ -58,34 +53,24 @@ public class FightWindow : PanelBase
 			DrawTextureRec(fightScreenTex.Texture,
 			new Rectangle(0, 0, (float)fightScreenTex.Texture.Width, (float)-fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
 		EndShaderMode();
+		DrawUtility.DrawLineCentered("Wordlist: " + _window.Game.CurrentRound.WordlistName, Width, PosY + Height - 30,
+			28, Color.White);
+
 	}
 
 	public override void OnClose()
 	{
 		UnloadRenderTexture(fightScreenTex);
 		UnloadShader(postShader);
-		_meetDemonScene.Dispose();
+		// ActiveScene?.Dispose();
 		base.OnClose();
 	}
 
-	public void SetScene(FightScene scene)
+	public void SetScene(Scene scene)
 	{
-		switch (scene)
+		if (scene != null)
 		{
-			case FightScene.MeetDemon:
-				_activeScene = _meetDemonScene;
-				break;
-			default:
-				_activeScene = _meetDemonScene; 
-				break;
+			_activeScene = scene;
 		}
-		//
 	}
-}
-
-public enum FightScene{
-	MeetDemon,
-	IdleDemon,
-	DemonExplode,
-	PlayerExplode,
 }

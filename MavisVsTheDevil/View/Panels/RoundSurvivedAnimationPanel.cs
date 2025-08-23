@@ -17,10 +17,9 @@ public class RoundSurvivedAnimationPanel : AnimationPanel
 	public override void Start()
 	{
 		//blow the demon up (this should live in a tween, so it gets properly reset?)
-		_demon = Program.GameWindow.FightWindow.ActiveScene?.GetModel(0);
-		_demon?.Play();
+		AssetManager.Demon?.Play();
 		_val = 0;
-		base.Start();
+		base.Start(); 
 	}
 
 	public override void Draw()
