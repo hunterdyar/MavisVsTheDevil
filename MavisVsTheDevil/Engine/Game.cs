@@ -15,7 +15,7 @@ public class Game
 		Round.OnRoundStateChanged += OnRoundStateChanged;
 	}
 
-	//race conditions for things that need windows yours.
+	//race conditions for things that need windows.
 	public void Init()
 	{
 		State.InitMavisStates();
@@ -25,14 +25,11 @@ public class Game
 	{
 		_round = -1;
 		State.GoToState(State.TitleState);
-		//move to ... one of the states?
 	}
 	
 	public void StartRound()
 	{
-		//first we are animating. then when the tween is done, we start the round.
 		CurrentRound.Start();
-		//when the round ends, we start the next round transition animation (see onroundstatechange)
 	}
 
 	public void StartNewRound()
@@ -58,7 +55,7 @@ public class Game
 		while (press != 0)
 		{
 			char c = (char)press;
-			if (char.IsAsciiLetterOrDigit(c) || c == ' ' || c == '\'' || c == '-')
+			if (char.IsAsciiLetterOrDigit(c) || c == ' ' || c == '\'' || c == '-' || c == '=')//= is only for the cheat
 			{
 				TypeKeyPressed(c);
 			}

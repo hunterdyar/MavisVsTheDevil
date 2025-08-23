@@ -14,15 +14,10 @@ public class GameplayState : StateBase
 
 	}
 
-	override public void OnEnter()
+	public override void OnEnter()
 	{
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		base.OnEnter();
-	}
-
-	override public void OnExit()
-	{
-		base.OnExit();
 	}
 
 	public override void TypeKeyPressed(char key)

@@ -6,51 +6,52 @@ namespace MavisVsTheDevil.Panels;
 
 public class TypingWindow :PanelBase
 {
-	private Game _game => _window.Game;
-	private int fontWidth = 20;
-	private int fontHeight = 32;
-	private int wordsPerRow = 10;
-	private int centerY;
-	private int linePadding = 5;
-	
-	private Shader postShader;
-	public RenderTexture2D screenTex;
+	private Game Game => _window.Game;
+	private const int FontWidth = 20;
+	private const int FontHeight = 32;
+	private int _wordsPerRow = 10;
+	private int _centerY;
+	private const int LinePadding = 5;
+
+	private readonly Shader _postShader;
+	private RenderTexture2D _screenTex;
 	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
 	{
-		screenTex = LoadRenderTexture(Width, Height);
-		postShader = Raylib.LoadShader(null, "Resources/postBloom.fs");
+		_screenTex = LoadRenderTexture(Width, Height);
+		_postShader = Raylib.LoadShader(null, "Resources/postBloom.fs");
 	}
 
 	protected override void OnResize()
 	{
-		centerY = (Height / 2);
-		UnloadRenderTexture(screenTex);
-		screenTex = LoadRenderTexture(Width, Height);
+		_centerY = (Height / 2);
+		UnloadRenderTexture(_screenTex);
+		_screenTex = LoadRenderTexture(Width, Height);
 	}
 
 	public override void Draw()
 	{
-		BeginTextureMode(screenTex);
+		BeginTextureMode(_screenTex);
 			ClearBackground(Color.Black);
 			DoDraw();
 		EndTextureMode();
-		BeginShaderMode(postShader);
-			DrawTextureRec(screenTex.Texture,
-				new Rectangle(0, 0, (float)screenTex.Texture.Width, (float)-screenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
+		BeginShaderMode(_postShader);
+			DrawTextureRec(_screenTex.Texture,
+				new Rectangle(0, 0, (float)_screenTex.Texture.Width, (float)-_screenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
 		EndShaderMode();
 	}
 	private void DoDraw(){
 		//todo: move to draw test text panel.
-		var test = _game.CurrentTest;
+		var test = Game.CurrentTest;
 		if (test == null)
 		{
 			return;
 		}
 		
 		//total lines then offset
-		int lines = (int)Math.Ceiling(test.WordCount / (float)wordsPerRow);
-		float vOffset = lines * (fontHeight + linePadding) / (float)2f;
-		int wordY = centerY - (int) MathF.Floor(vOffset) - fontHeight-linePadding;
+		int lines = (int)Math.Ceiling(test.WordCount / (float)_wordsPerRow);
+		float vOffset = lines * (FontHeight + LinePadding) / (float)2f;
+		int wordY = _centerY - (int) MathF.Floor(vOffset) - FontHeight-LinePadding;
+		
 		//todo: Get proper width
 		int lastWord = -1;
 		int paddingX = 20;
@@ -70,20 +71,20 @@ public class TypingWindow :PanelBase
 				if (drawnWords > lastWord)
 				{
 					int firstWordOnLine = drawnWords;
-					lastWord = drawnWords + wordsPerRow;
+					lastWord = drawnWords + _wordsPerRow;
 					lastWord = lastWord > test.WordCount - 1 ? test.WordCount - 1 : lastWord;
 					int lineWidthLetterCount = test.GetLetterCountForFirstNumberWords(firstWordOnLine, lastWord);
-					int lineWidth = lineWidthLetterCount * fontWidth;
+					int lineWidth = lineWidthLetterCount * FontWidth;
 					if (lineWidth > Width)
 					{
-						wordsPerRow--;
+						_wordsPerRow--;
 						//the screen will blink black for a frame, which is graceful enough failure.
 						return;
 					}
 					paddingX = (Width - (lineWidth))/2;
 					
 					letterX = paddingX;
-					wordY += fontHeight + linePadding;
+					wordY += FontHeight + LinePadding;
 				}
 			}
 			
@@ -110,10 +111,10 @@ public class TypingWindow :PanelBase
 
 		if (letter.State == LetterState.Current || letter.State == LetterState.Failure)
 		{
-			DrawRectangle(letterX-1, wordY, fontWidth, fontHeight, Color.White);
+			DrawRectangle(letterX-1, wordY, FontWidth, FontHeight, Color.White);
 		}
-		DrawTextEx(Program.terminalFont,letter.ToString(), new Vector2(letterX, wordY), fontHeight,0, color);
-		int coreMistakeOffset = -(int)(fontHeight * .8f);
+		DrawTextEx(Program.terminalFont,letter.ToString(), new Vector2(letterX, wordY), FontHeight,0, color);
+		int coreMistakeOffset = -(int)(FontHeight * .8f);
 		int mistakeOffset = coreMistakeOffset;//just a little scrunch
 		foreach (char mistake in letter.Mistakes)
 		{
@@ -123,18 +124,18 @@ public class TypingWindow :PanelBase
 				m = "_";
 			}
 
-			DrawRectangle(letterX - 1, wordY + mistakeOffset, fontWidth, fontHeight, Color.Red);
-			DrawTextEx(Program.terminalFont,m, new Vector2(letterX, wordY+mistakeOffset), fontHeight,0, Color.White);
+			DrawRectangle(letterX - 1, wordY + mistakeOffset, FontWidth, FontHeight, Color.Red);
+			DrawTextEx(Program.terminalFont,m, new Vector2(letterX, wordY+mistakeOffset), FontHeight,0, Color.White);
 			mistakeOffset += coreMistakeOffset;
 		}
 
-		letterX += fontWidth;
+		letterX += FontWidth;
 	}
 
 	public override void OnClose()
 	{
-		UnloadRenderTexture(screenTex);
-		UnloadShader(postShader);
+		UnloadRenderTexture(_screenTex);
+		UnloadShader(_postShader);
 	}
 
 

@@ -54,8 +54,9 @@ public class GameWindow
 				panel.Draw();
 			}
 		}
-		//
+		#if DEBUG
 		_debugInfo.Draw();
+		#endif
 	}
 
 	public void SetSizes()

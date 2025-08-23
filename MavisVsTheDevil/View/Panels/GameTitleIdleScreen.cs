@@ -5,32 +5,32 @@ namespace MavisVsTheDevil.Panels;
 
 public class GameTitleIdleScreen : PanelBase
 {
-	private string[] titleLines =
+	private readonly string[] _titleLines =
 	[
 		"You Are Mavis Beacon.",
 		"You Are In Hell.",
 		"You Must Type."
 	];
 
-	private int[] characterCounts;
-	private int fontHeight = 48;
+	private readonly int[] _characterCounts;
+	private readonly int _fontHeight = 48;
 	public GameTitleIdleScreen(GameWindow window) : base(window)
 	{
-		characterCounts = new int[titleLines.Length];
-		for (int i = 0; i < titleLines.Length; i++)
+		_characterCounts = new int[_titleLines.Length];
+		for (int i = 0; i < _titleLines.Length; i++)
 		{
-			characterCounts[i] = titleLines[i].Length;
+			_characterCounts[i] = _titleLines[i].Length;
 		}
 	}
 
 	public override void Draw()
 	{
-		int py = ((Height - (titleLines.Length*fontHeight)/2)/2);
-		for (int i = 0; i < titleLines.Length; i++)
+		int py = ((Height - (_titleLines.Length*_fontHeight)/2)/2);
+		for (int i = 0; i < _titleLines.Length; i++)
 		{
-			int px = (Width - (characterCounts[i] * fontHeight))/2;
-			DrawUtility.DrawLineCentered(titleLines[i], Width, py, fontHeight, Color.White, PosX);
-			py += fontHeight;
+			int px = (Width - (_characterCounts[i] * _fontHeight))/2;
+			DrawUtility.DrawLineCentered(_titleLines[i], Width, py, _fontHeight, Color.White, PosX);
+			py += _fontHeight;
 		}
 		
 	}

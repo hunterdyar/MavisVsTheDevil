@@ -7,8 +7,8 @@ namespace MavisVsTheDevil.Engine;
 public class RoundFailed : StateBase
 {
 	private int _val;
-	private TweenBase _tween;
-	private Scene _scene;
+	private readonly TweenBase _tween;
+	private readonly Scene _scene;
 	
 	public RoundFailed(StateMachine machine) : base(machine)
 	{
@@ -22,9 +22,6 @@ public class RoundFailed : StateBase
 		Program.GameWindow.Game.StartNewRound();
 		_tween.Reset();
 		Console.WriteLine("round start ");
-		//we subscribe and ubsubscribe from the action so that the animations can be reused by multiple states, jic.
-
-		// _animPanel.Primary.OnComplete += OnAnimComplete;
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon?.Play();
@@ -32,14 +29,8 @@ public class RoundFailed : StateBase
 		base.OnEnter();
 	}
 
-	public override void OnExit()
-	{
-		base.OnExit();
-	}
-
 	public override void Tick(float delta)
 	{
-		//it's sort of an anti-pattern to stop this here and not internally, but i have some console.writes i want to supress soooooo
 		if (!_tween.IsComplete)
 		{
 			_tween.Tick(delta);
@@ -67,7 +58,13 @@ public class RoundFailed : StateBase
 		int width = Raylib.GetScreenWidth();
 		var y = Raylib.GetScreenHeight()/2 + 50;
 		DrawUtility.DrawLineCentered($"The demon {demon.Name} defeated you.", width, y + 24, 24, Color.White);
-		DrawUtility.DrawLineCentered("You are banished deeper into hell.", width, y + 46, 24, Color.White);
-		DrawUtility.DrawLineCentered($"Why must you struggle?", width, y + 68, 24, Color.White);
+		if (_val > 2)
+		{
+			DrawUtility.DrawLineCentered("You are banished deeper into hell.", width, y + 46, 24, Color.White);
+		}
+		if (_val > 4)
+		{
+			DrawUtility.DrawLineCentered($"Why must you struggle?", width, y + 68, 24, Color.White);
+		}
 	}
 }

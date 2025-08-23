@@ -6,9 +6,9 @@ namespace MavisVsTheDevil.Engine;
 
 public class RoundStartState : StateBase
 {
-	private TweenBase _tween;
+	private readonly TweenBase _tween;
 	private int _textVal;
-	private Scene _scene;
+	private readonly Scene _scene;
 	public RoundStartState(StateMachine machine) : base(machine)
 	{
 		_tween = new IntTween((x => _textVal = x), 5, 3);
@@ -20,27 +20,15 @@ public class RoundStartState : StateBase
 	{
 		Program.GameWindow.Game.StartNewRound();
 		_tween.Reset();
-		Console.WriteLine("round start ");
-		//we subscribe and ubsubscribe from the action so that the animations can be reused by multiple states, jic.
-		
-		// _animPanel.Primary.OnComplete += OnAnimComplete;
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon.StopAndResetAnim();
 
 		base.OnEnter();
 	}
-	
-	public override void OnExit()
-	{
-		Console.WriteLine("exit animation state");
-		// _animPanel.Primary.OnComplete -= OnAnimComplete;
-		base.OnExit();
-	}
 
 	public override void Tick(float delta)
 	{
-		//it's sort of an anti-pattern to stop this here and not internally, but i have some console.writes i want to supress soooooo
 		if (!_tween.IsComplete)
 		{
 			_tween.Tick(delta);
@@ -81,7 +69,7 @@ public class RoundStartState : StateBase
 
 		DrawUtility.DrawLineCentered("It gives you modifiers: ...", width, posY + 88, 24, Color.White);
 
-		DrawUtility.DrawLineCentered("... ready? ... ", width, posY + 108, 12, Color.White);
+		DrawUtility.DrawLineCentered("... ready? ... ", width, posY + 128, 38, Color.White);
 
 	}
 }

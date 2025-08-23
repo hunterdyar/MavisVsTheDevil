@@ -13,11 +13,11 @@ public enum RoundState
 }
 public class Round
 {
-	public Demon Demon;
-	public static Action<RoundState> OnRoundStateChanged;
+	public readonly Demon Demon;
+	public static Action<RoundState>? OnRoundStateChanged;
 	public readonly int RoundNumber;
 	public readonly TypeTest Test;
-	public string WordlistName;
+	public readonly string WordlistName;
 	public RoundState State => _state;
 
 	private RoundState _state;
@@ -26,9 +26,9 @@ public class Round
 	public Round(int round)
 	{
 		RoundNumber = round;
-		this._state = RoundState.AnimatingBeforeStart;
+		_state = RoundState.AnimatingBeforeStart;
 		Demon = Demon.GetRandomDemon();
-		Demons.Demon.OnDemonChosen?.Invoke(Demon);
+		Demon.OnDemonChosen?.Invoke(Demon);
 		int wordCount = GetWordCount();
 		var w = GetWordlist(RoundNumber);
 		WordlistName = w.Item1;
@@ -61,7 +61,7 @@ public class Round
 
 	private int GetWordCount()
 	{
-		int[] rs = [10, 20, 30, 35,40,40,50,50,50];
+		int[] rs = [10, 12, 20, 25,30,30,30,35,25];
 		return rs[RoundNumber];
 	}
 

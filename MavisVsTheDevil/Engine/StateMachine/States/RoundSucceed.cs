@@ -21,19 +21,13 @@ public class RoundSucceed : StateBase
 	{
 		Program.GameWindow.Game.StartNewRound();
 		_tween.Reset();
-		Console.WriteLine("round start ");
-		//we subscribe and ubsubscribe from the action so that the animations can be reused by multiple states, jic.
-
-		// _animPanel.Primary.OnComplete += OnAnimComplete;
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon?.Play();
-		
 		base.OnEnter();
 	}
 	public override void Tick(float delta)
 	{
-		//it's sort of an anti-pattern to stop this here and not internally, but i have some console.writes i want to supress soooooo
 		if (!_tween.IsComplete)
 		{
 			_tween.Tick(delta);

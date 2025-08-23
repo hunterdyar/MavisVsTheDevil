@@ -10,7 +10,7 @@ public class Scene
 
 	public Scene()
 	{
-		this.camera = FightWindow.camera;
+		this.camera = FightWindow.Camera;
 	}
 
 	public void Draw()

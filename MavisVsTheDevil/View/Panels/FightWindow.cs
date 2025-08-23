@@ -7,61 +7,52 @@ namespace MavisVsTheDevil.Panels;
 
 public class FightWindow : PanelBase
 {
-	public static Camera3D camera;
-	private Shader postShader;
-	public RenderTexture2D fightScreenTex;
-	//
+	public static Camera3D Camera;
+	private readonly Shader _postShader;
+	private RenderTexture2D _fightScreenTex;
 	public Scene? ActiveScene => _activeScene;
 	private Scene? _activeScene;
 	
 	public unsafe FightWindow(GameWindow gameWindow) : base(gameWindow)
 	{
-		fightScreenTex = LoadRenderTexture(Width, Height);
-		postShader = Raylib.LoadShader(null, "Resources/postPixel.fs");
-		//
-		camera = new Camera3D();
-		camera.Position = new Vector3(0, 5, -10f);
-		camera.Target = new Vector3(0, 0, 0);
-		camera.Up = new Vector3(0, 1, 0);
-		camera.FovY = 75;
-		camera.Projection = CameraProjection.Perspective;
+		_fightScreenTex = LoadRenderTexture(Width, Height);
+		_postShader = Raylib.LoadShader(null, "Resources/postPixel.fs");
 		
-		//
+		//make a camera. we'll share it across the scenes with it being static, which is - yes - dumb.
+		Camera = new Camera3D();
+		Camera.Position = new Vector3(0, 5, -10f);
+		Camera.Target = new Vector3(0, 0, 0);
+		Camera.Up = new Vector3(0, 1, 0);
+		Camera.FovY = 75;
+		Camera.Projection = CameraProjection.Perspective;
 	}
 
 	protected override void OnResize()
 	{
-		UnloadRenderTexture(fightScreenTex);
-		fightScreenTex = LoadRenderTexture(Width, Height);
+		UnloadRenderTexture(_fightScreenTex);
+		_fightScreenTex = LoadRenderTexture(Width, Height);
 	}
 
 	public override void Draw()
 	{
-		//todo: tick
+		Camera.Position = new  Vector3(MathF.Sin((float)Raylib.GetTime()/8f)*10, 5, MathF.Sin(Single.Pi/2+(float)Raylib.GetTime() / 8f) * 10);
 		
-		//rotate camera slowly
-		camera.Position = new  Vector3(MathF.Sin((float)Raylib.GetTime()/8f)*10, 5, MathF.Sin(Single.Pi/2+(float)Raylib.GetTime() / 8f) * 10);
-		
-		BeginTextureMode(fightScreenTex);
+		BeginTextureMode(_fightScreenTex);
 			ClearBackground(Color.Black);
-			//DrawRectangle(PosX, PosY, Width, Height, Color.Black);
 			DrawCircle(Width/2, Height/2, 400,Color.Red);
 			_activeScene?.Draw();
 		EndTextureMode();
 		
-		BeginShaderMode(postShader);
-			DrawTextureRec(fightScreenTex.Texture,
-			new Rectangle(0, 0, (float)fightScreenTex.Texture.Width, (float)-fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
+		BeginShaderMode(_postShader);
+			DrawTextureRec(_fightScreenTex.Texture,
+			new Rectangle(0, 0, (float)_fightScreenTex.Texture.Width, (float)-_fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
 		EndShaderMode();
-
-
 	}
 
 	public override void OnClose()
 	{
-		UnloadRenderTexture(fightScreenTex);
-		UnloadShader(postShader);
-		// ActiveScene?.Dispose();
+		UnloadRenderTexture(_fightScreenTex);
+		UnloadShader(_postShader);
 		base.OnClose();
 	}
 
