@@ -44,6 +44,7 @@ public unsafe static class Program
             BeginDrawing();
 	            ClearBackground(Color.Black);
 	            _window.Draw();
+	            _game.Draw();
             EndDrawing();
         }
 

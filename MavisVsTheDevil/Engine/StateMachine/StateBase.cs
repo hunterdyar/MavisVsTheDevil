@@ -27,6 +27,10 @@ public abstract class StateBase
 
 	public virtual void TypeKeyPressed(char key)
 	{
-		
+
+	}
+
+	public virtual void Draw()
+	{
 	}
 }

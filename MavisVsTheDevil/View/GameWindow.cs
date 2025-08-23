@@ -1,5 +1,4 @@
 ﻿using MavisVsTheDevil.Engine;
-using MavisVsTheDevil.GameAnimations;
 using MavisVsTheDevil.Panels;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
@@ -17,18 +16,6 @@ public class GameWindow
 	private readonly FightWindow _fightWindow;
 	public GameTitleIdleScreen TitleIdleScreen => _gameTitleIdle;
 	private readonly GameTitleIdleScreen _gameTitleIdle;
-	
-	public TitleAnim TitleIntroAnim => _titleIntroAnim;
-	private readonly TitleAnim  _titleIntroAnim;
-
-	public RoundStartAnimationPanel RoundIntroduction => _roundIntro;
-	private readonly RoundStartAnimationPanel _roundIntro;
-
-	public RoundSurvivedAnimationPanel RoundSurvivedAnim => _roundSurvived;
-	private readonly RoundSurvivedAnimationPanel _roundSurvived;
-
-	public RoundLostAnimationPanel RoundFailedAnim => _roundFailed;
-	private readonly RoundLostAnimationPanel _roundFailed;
 
 	private PanelBase[] _panels;
 	
@@ -39,19 +26,11 @@ public class GameWindow
 		_fightWindow = new FightWindow(this);
 		_typingWindow = new TypingWindow(this);
 		_gameTitleIdle =  new GameTitleIdleScreen(this);
-		_titleIntroAnim = new TitleAnim(this);
-		_roundIntro = new RoundStartAnimationPanel(this);
-		_roundSurvived = new RoundSurvivedAnimationPanel(this);
-		_roundFailed = new RoundLostAnimationPanel(this);
-
+		
 		_panels = [
 			_typingWindow,
 			_fightWindow,
 			_gameTitleIdle,
-			_titleIntroAnim,
-			_roundIntro,
-			_roundSurvived,
-			_roundFailed,
 		];
 		
 		_debugInfo = new DebugInfo(Game);
@@ -88,9 +67,6 @@ public class GameWindow
 		_typingWindow.Resize(0,fightSize,w,h-fightSize);
 		_fightWindow.Resize(0,0,w,fightSize);
 		_gameTitleIdle.Resize(0,0,w,h);
-		_titleIntroAnim.Resize(0,0,w,h);
-		_roundIntro.Resize(0,0,w,h);
-		_roundSurvived.Resize(0,0,w,h);
 	}
 
 	public void OnClose()

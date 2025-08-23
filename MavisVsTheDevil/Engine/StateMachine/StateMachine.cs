@@ -8,11 +8,13 @@ public class StateMachine
 	public static Action<StateBase> OnStateEntered;
 	public StateBase TitleState;
 	public StateBase IntroductionAnimationState;
-	public AnimationState RoundStartAnimation;
+	public StateBase RoundStartAnimation;
 	public StateBase TypeGameplay;
-	public AnimationState MoveToNextRoundAnimation;
-	public AnimationState RoundFailureAnimation;
+	public StateBase MoveToNextRoundAnimation;
+	public StateBase RoundFailureAnimation;
 
+	public Game Game => _game;
+	private Game _game;
 	//any states that we "exit to previous" from?
 	// paused, lost focus, etc? lets say no
 	public string CurrentStateName()
@@ -41,9 +43,9 @@ public class StateMachine
 	}
 	private StateBase _currentStateBase;
 
-	public StateMachine()
+	public StateMachine(Game game)
 	{
-		
+		_game = game;
 	}
 
 	public void Tick(float delta)
@@ -56,14 +58,12 @@ public class StateMachine
 	{
 		TypeGameplay = new GameplayState(this);
 		TitleState = new TitleState(this);
-		RoundStartAnimation = new AnimationState(this, Program.GameWindow.RoundIntroduction, TypeGameplay, Program.GameWindow.FightWindow);
-		RoundStartAnimation.OnEnterState += Program.GameWindow.Game.StartNewRound;
-		RoundStartAnimation.SetWaitForPressAfterAnimationComplete(true);
-		IntroductionAnimationState = new AnimationState(this, Program.GameWindow.TitleIntroAnim, RoundStartAnimation);
+		RoundStartAnimation = new RoundStartState(this);
+		IntroductionAnimationState = new IntroductionState(this);
 		//make new anim for 'walking forwards'
-		MoveToNextRoundAnimation = new AnimationState(this, Program.GameWindow.RoundSurvivedAnim, RoundStartAnimation, Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
-		RoundFailureAnimation = new AnimationState(this, Program.GameWindow.RoundFailedAnim, TitleState);
-		RoundFailureAnimation.SetWaitForPressAfterAnimationComplete(true);
+		MoveToNextRoundAnimation = new RoundSucceed(this);
+		RoundFailureAnimation = new RoundFailed(this);
+		
 	}
 	
 	public void GoToState(StateBase stateBase)
@@ -107,5 +107,10 @@ public class StateMachine
 				GoToState(RoundFailureAnimation);
 				break;
 		}
+	}
+
+	public void Draw()
+	{
+		_currentStateBase.Draw();
 	}
 }

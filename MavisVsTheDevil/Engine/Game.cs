@@ -11,7 +11,7 @@ public class Game
 	private int _round = 0;
 	public Game()
 	{
-		State = new StateMachine();
+		State = new StateMachine(this);
 		Round.OnRoundStateChanged += OnRoundStateChanged;
 	}
 
@@ -75,5 +75,9 @@ public class Game
 		State.TypeKeyPressed(key);
 	}
 
-	
+
+	public void Draw()
+	{
+		State.Draw();
+	}
 }
