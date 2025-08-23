@@ -53,12 +53,7 @@ public class FightWindow : PanelBase
 			DrawTextureRec(fightScreenTex.Texture,
 			new Rectangle(0, 0, (float)fightScreenTex.Texture.Width, (float)-fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
 		EndShaderMode();
-		if (_window.Game.CurrentRound != null)
-		{
-			DrawUtility.DrawLineCentered("Wordlist: " + _window.Game.CurrentRound.WordlistName, Width,
-				PosY + Height - 30,
-				28, Color.White);
-		}
+
 
 	}
 

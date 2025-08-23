@@ -16,7 +16,8 @@ public static class AssetManager
 	public static void Initiate()
 	{
 		Demon = new VisualModel("Resources/models/demon.glb");
-		Demon.SetScale(3);
+		Demon.SetRootScale(3);
+		Demon.SetScale(1);
 		Demons.Demon.OnDemonChosen += SetDemonTexture;
 	}
 

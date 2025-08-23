@@ -24,7 +24,7 @@ public class VisualModel
 	private float _playback;
 	private int animFrameRate = 30;
 	private int frameCount;
-
+	private int _baseScale = 1;
 	private FileInfo loadedModel;
 
 	public VisualModel(string modelPath, bool loop = false)
@@ -88,7 +88,7 @@ public class VisualModel
 			position,
 			rotationAxis,
 			rotationAngle,
-			_scale,
+			_scale*_baseScale,
 			_tint
 		);
 	}
@@ -143,5 +143,11 @@ public class VisualModel
 	public void SetScale(float scale)
 	{
 		_scale = new Vector3(scale, scale, scale);
+	}
+
+	public void SetRootScale(int scale)
+	{
+		_baseScale = scale;
+		
 	}
 }

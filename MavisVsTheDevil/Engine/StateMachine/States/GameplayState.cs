@@ -1,4 +1,6 @@
-﻿namespace MavisVsTheDevil.Engine;
+﻿using Raylib_cs;
+
+namespace MavisVsTheDevil.Engine;
 
 public class GameplayState : StateBase
 {
@@ -26,5 +28,15 @@ public class GameplayState : StateBase
 	public override void TypeKeyPressed(char key)
 	{
 		Program.GameWindow.Game.CurrentRound?.Test?.TypeKeyPressed(key);
+	}
+
+	public override void Draw()
+	{
+		if (_machine.Game.CurrentRound != null)
+		{
+			DrawUtility.DrawLineCentered("Wordlist: " + _machine.Game.CurrentRound.WordlistName, Program.GameWindow.FightWindow.Width, Program.GameWindow.FightWindow.PosY + Program.GameWindow.FightWindow.Height - 30, 28, Color.White);
+		}
+
+		base.Draw();
 	}
 }
