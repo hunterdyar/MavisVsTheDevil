@@ -17,6 +17,7 @@ public class GameWindow
 	public GameTitleIdleScreen TitleIdleScreen => _gameTitleIdle;
 	private readonly GameTitleIdleScreen _gameTitleIdle;
 
+	private HellPanel _hellPanel;
 	private PanelBase[] _panels;
 	
 	private readonly DebugInfo _debugInfo;
@@ -26,7 +27,8 @@ public class GameWindow
 		_fightWindow = new FightWindow(this);
 		_typingWindow = new TypingWindow(this);
 		_gameTitleIdle =  new GameTitleIdleScreen(this);
-		
+		_hellPanel = new HellPanel(this);
+		_hellPanel.SetActive(true);
 		_panels = [
 			_typingWindow,
 			_fightWindow,
@@ -47,6 +49,8 @@ public class GameWindow
 
 	public void Draw()
 	{
+		_hellPanel.Draw();
+
 		foreach (PanelBase panel in _panels)
 		{
 			if (panel.Enabled)
@@ -54,6 +58,8 @@ public class GameWindow
 				panel.Draw();
 			}
 		}
+
+
 		#if DEBUG
 		_debugInfo.Draw();
 		#endif
@@ -68,6 +74,7 @@ public class GameWindow
 		_typingWindow.Resize(0,fightSize,w,h-fightSize);
 		_fightWindow.Resize(0,0,w,fightSize);
 		_gameTitleIdle.Resize(0,0,w,h);
+		_hellPanel.Resize(0,0,w,h);
 	}
 
 	public void OnClose()

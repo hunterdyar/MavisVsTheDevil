@@ -60,6 +60,9 @@
       <None Update="Resources\models\demon.glb">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Resources\hell.fs">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
 
     </ItemGroup>
     <ItemGroup>

@@ -38,8 +38,8 @@ public class FightWindow : PanelBase
 		Camera.Position = new  Vector3(MathF.Sin((float)Raylib.GetTime()/8f)*10, 5, MathF.Sin(Single.Pi/2+(float)Raylib.GetTime() / 8f) * 10);
 		
 		BeginTextureMode(_fightScreenTex);
-			ClearBackground(Color.Black);
-			DrawCircle(Width/2, Height/2, 400,Color.Red);
+			ClearBackground(Color.Blank);
+			DrawCircle(Width/2, Height/2, 250,Color.Red);
 			_activeScene?.Draw();
 		EndTextureMode();
 		

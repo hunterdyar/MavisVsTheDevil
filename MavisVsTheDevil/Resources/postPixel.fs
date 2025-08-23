@@ -27,7 +27,7 @@ void main()
 
     vec2 coord = vec2(dx*floor(fragTexCoord.x/dx), dy*floor(fragTexCoord.y/dy));
 
-    vec3 tc = texture(texture0, coord).rgb;
+    vec4 tc = texture(texture0, coord).rgba;
 
-    finalColor = vec4(tc, 1.0);
+    finalColor = vec4(tc);
 }

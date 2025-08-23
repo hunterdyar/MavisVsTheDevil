@@ -31,7 +31,7 @@ public class TypingWindow :PanelBase
 	public override void Draw()
 	{
 		BeginTextureMode(_screenTex);
-			ClearBackground(Color.Black);
+			ClearBackground(Color.Blank);
 			DoDraw();
 		EndTextureMode();
 		BeginShaderMode(_postShader);
