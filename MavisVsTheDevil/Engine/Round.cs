@@ -31,14 +31,34 @@ public class Round
 		Demon.OnDemonChosen?.Invoke(Demon);
 		int wordCount = GetWordCount();
 		var w = GetWordlist(RoundNumber);
+		var modifiers = GetModifiers(round);
 		WordlistName = w.Item1;
 		string[] words = new  string[wordCount];
 		for (int i = 0; i < words.Length; i++)
 		{
 			words[i] = w.Item2[Program.random.Next(w.Item2.Length)];
 		}
-		Test = new TypeTest(words);
+		Test = new TypeTest(this, words, modifiers, 30);
 		TypeTest.OnStateChange += OnTypeTestStatechange;
+		
+	}
+
+	private List<Modifier> GetModifiers(int round)
+	{
+		return new List<Modifier>([new MistakesAddedToEnd()]);
+		
+		if (round == 0)
+		{
+			//no modifier on first round
+			return new List<Modifier>();
+		}else if (round < 3)
+		{
+			//get one
+		}
+		else
+		{
+			//get two
+		}
 	}
 
 	private void OnTypeTestStatechange(TypeTestState test)
@@ -125,5 +145,10 @@ public class Round
 	{
 		_state = roundState;
 		OnRoundStateChanged?.Invoke(_state);
+	}
+
+	public void Tick()
+	{
+		Test.Tick();
 	}
 }

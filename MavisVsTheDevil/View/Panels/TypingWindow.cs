@@ -12,7 +12,7 @@ public class TypingWindow :PanelBase
 	private int _wordsPerRow = 10;
 	private int _centerY;
 	private const int LinePadding = 5;
-
+	private Color _bg = new Color(0, 0, 0, 0.75f);
 	private readonly Shader _postShader;
 	private RenderTexture2D _screenTex;
 	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
@@ -40,12 +40,18 @@ public class TypingWindow :PanelBase
 		EndShaderMode();
 	}
 	private void DoDraw(){
-		//todo: move to draw test text panel.
+		Raylib.DrawRectangle(0, 0, Width, Height, _bg);
+
 		var test = Game.CurrentTest;
 		if (test == null)
 		{
 			return;
 		}
+		
+		
+		var percentage = 1-Math.Clamp(test.Elapsed / test._allowedTime, 0, 1);
+		int width = (int)(percentage * Width);
+		Raylib.DrawRectangle(0, 0, width, 25, Color.Red);
 		
 		//total lines then offset
 		int lines = (int)Math.Ceiling(test.WordCount / (float)_wordsPerRow);
@@ -90,7 +96,9 @@ public class TypingWindow :PanelBase
 			
 			DrawLetter(test.Letters[i], ref letterX, wordY);
 		}
+
 		
+
 	}
 
 	private void DrawLetter(TestLetter letter, ref int letterX, int wordY)

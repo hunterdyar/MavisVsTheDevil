@@ -1,4 +1,5 @@
-﻿using static Raylib_cs.Raylib;
+﻿using Raylib_cs;
+using static Raylib_cs.Raylib;
 namespace MavisVsTheDevil.Engine;
 
 public enum TypeTestState
@@ -6,6 +7,7 @@ public enum TypeTestState
 	WaitingToStart,
 	Typing,
 	Finished,
+	OutOfTime,
 	Idle,//do nothing, wait for someone else to tell you to wait for input.
 }
 
@@ -28,14 +30,23 @@ public class TypeTest
 	private TypeTestState _state;
 	public int[] LetterCountByWordIndex;
 
+	public double Elapsed => (_state == TypeTestState.Typing) ? Raylib.GetTime() - _startTime : 0;
 	public double _startTime;
 	public double _allowedTime;
+	
+	public readonly List<Modifier> Modifiers = new List<Modifier>();
+
 
 	//used for devil modifier "only words you suck at"
 	public List<string> _failedWords = new List<string>();
-	public TypeTest(string[] words)
+	private Round _round;
+	public TypeTest(Round round, string[] words, List<Modifier> modifiers, double allowedTime)
 	{
+		_round = round;
 		_words = words;
+		Modifiers = modifiers;
+		_allowedTime = allowedTime;
+		
 		_testLetters.Clear();
 		LetterCountByWordIndex = new int[_words.Length];
 		for (var w = 0; w < words.Length; w++)
@@ -64,7 +75,17 @@ public class TypeTest
 		WordCount = _words.Length;
 		_rawInput.Clear();
 		_state = TypeTestState.Idle;
+
+		foreach (var modifier in Modifiers)
+		{
+			var test = this;
+			//these can be one thing I guess.
+			modifier.OnTypingTestCreated(ref test);
+		}
+		
+		
 		OnStateChange?.Invoke(TypeTestState.Idle);
+		
 	}
 
 	public void Reset()
@@ -86,6 +107,7 @@ public class TypeTest
 		if (_state == TypeTestState.WaitingToStart)
 		{
 			_state = TypeTestState.Typing;
+			_startTime = Raylib.GetTime();
 			OnStateChange.Invoke(TypeTestState.Typing);
 			_testLetters[0].SetCurrentSafe();
 		}else if (_state == TypeTestState.Finished)
@@ -123,6 +145,7 @@ public class TypeTest
 				//DONE
 				_state = TypeTestState.Finished;
 				OnStateChange.Invoke(TypeTestState.Finished);
+				
 			}
 			else
 			{
@@ -131,12 +154,27 @@ public class TypeTest
 		}
 	}
 
-	public void LetterFailure(TestLetter letter)
+	public void LetterFailure(TestLetter letter, char typedLetter)
 	{
 		var failedWord = _words[letter.Word];
 		if (!_failedWords.Contains(failedWord))
 		{
 			_failedWords.Add(failedWord);
+		}
+
+		var test = this;
+		foreach (var modifier in Modifiers)
+		{
+			modifier.OnWrongLetter(ref test, letter, typedLetter);
+		}
+	}
+
+	public void LetterPass(TestLetter testLetter)
+	{
+		var test = this;
+		foreach (var modifier in Modifiers)
+		{
+			modifier.OnCorrectLetter(ref test, testLetter);
 		}
 	}
 
@@ -168,5 +206,36 @@ public class TypeTest
 		}
 		
 		return LetterCountByWordIndex[lastWord] - LetterCountByWordIndex[firstWord];
+	}
+
+	public void SetTestLetters(List<TestLetter> newTest)
+	{
+		_testLetters = newTest;
+	}
+
+	public void AppendLetterToTest(char letter, bool newWord)
+	{
+		if (newWord)
+		{
+			throw new NotImplementedException();
+		}
+		//if it's a space, we'll bork word breaksssss. soooo. gotta fix that.
+		_testLetters.Add(new TestLetter(this, letter, WordCount-1));
+		LetterCountByWordIndex[^1]++;
+	}
+
+
+	public void Tick()
+	{
+		if (_state == TypeTestState.Typing)
+		{
+			var t = Raylib.GetTime();
+			var elapsed = t - _startTime;
+			if (elapsed > _allowedTime)
+			{
+				_state = TypeTestState.OutOfTime;
+				OnStateChange?.Invoke(_state);
+			}
+	}
 	}
 }

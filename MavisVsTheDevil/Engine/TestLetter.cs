@@ -3,7 +3,7 @@
 public class TestLetter
 {
 	private TypeTest _test;
-	public readonly char Letter;
+	public char Letter;
 	public readonly int Word;
 	public LetterState State = LetterState.Waiting;
 	public readonly List<char> Mistakes = new List<char>();
@@ -23,13 +23,14 @@ public class TestLetter
 		if (Letter == c)
 		{
 			State = LetterState.Pass;
+			_test.LetterPass(this);
 			return true;
 		}
 		else
 		{
 			Mistakes.Add(c);
 			State = LetterState.Failure;
-			_test.LetterFailure(this);
+			_test.LetterFailure(this, c);
 			return false;
 		}
 	}
@@ -49,5 +50,19 @@ public class TestLetter
 		{
 			throw new Exception("The letter is not current, we should go back.");
 		}
+	}
+
+	public void SetLetter(char letter)
+	{
+		Letter = letter;
+	}
+
+	public TestLetter Clone()
+	{
+		//todo: doesn't clone mistakes. that's probably correct behaviour.
+		return new TestLetter(_test, Letter, Word)
+		{
+			State = this.State,
+		};
 	}
 }

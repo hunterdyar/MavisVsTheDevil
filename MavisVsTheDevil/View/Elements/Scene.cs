@@ -6,16 +6,14 @@ namespace MavisVsTheDevil.Elements;
 public class Scene
 {
 	private bool _withDemon = false;
-	private Camera3D camera;
 
 	public Scene()
 	{
-		this.camera = FightWindow.Camera;
 	}
 
 	public void Draw()
 	{
-		Raylib.BeginMode3D(camera);
+		Raylib.BeginMode3D(FightWindow.Camera);
 		if(_withDemon)
 		{
 			AssetManager.Demon.Draw3D(Raylib.GetFrameTime());

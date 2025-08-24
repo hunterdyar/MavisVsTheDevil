@@ -4,32 +4,32 @@ public abstract class Modifier
 {
 	public abstract string GetModifierName();
 	
-	protected virtual void OnRoundCreated(ref Round round)
+	public virtual void OnRoundCreated(ref Round round)
 	{
 		
 	}
 
-	protected virtual void OnTypingTestCreated(ref TypeTest typeTest)
+	public virtual void OnTypingTestCreated(ref TypeTest typeTest)
 	{
 		
 	}
 
-	protected virtual void OnRoundFinished(ref Round round)
+	public virtual void OnRoundFinished(ref Round round)
 	{
 		
 	}
 
-	protected virtual void OnCorrectLetter(ref TypeTest typeTest, char letter)
+	public virtual void OnCorrectLetter(ref TypeTest typeTest, TestLetter letter)
 	{
 		
 	}
 
-	protected virtual void OnWrongLetter(ref TypeTest typeTest, char letter)
+	public virtual void OnWrongLetter(ref TypeTest typeTest, TestLetter letter, char typedLetter)
 	{
 		
 	}
 
-	protected virtual void OnWord(ref TypeTest typeTest, int pos)
+	public virtual void OnWord(ref TypeTest typeTest, int pos)
 	{
 		
 	}

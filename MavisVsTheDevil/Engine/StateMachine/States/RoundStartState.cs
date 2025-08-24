@@ -9,6 +9,7 @@ public class RoundStartState : StateBase
 	private readonly TweenBase _tween;
 	private int _textVal;
 	private readonly Scene _scene;
+	private string _modifiers = "";
 	public RoundStartState(StateMachine machine) : base(machine)
 	{
 		_tween = new IntTween((x => _textVal = x), 5, 3);
@@ -23,7 +24,7 @@ public class RoundStartState : StateBase
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon.StopAndResetAnim();
-
+		_modifiers = ModifierUtility.GetModifierNames(_machine.Game.CurrentRound.Test.Modifiers);
 		base.OnEnter();
 	}
 
@@ -67,7 +68,7 @@ public class RoundStartState : StateBase
 			return;
 		}
 
-		DrawUtility.DrawLineCentered("It gives you modifiers: ...", width, posY + 88, 24, Color.White);
+		DrawUtility.DrawLineCentered($"It gives you modifiers: {_modifiers}", width, posY + 88, 24, Color.White);
 
 		DrawUtility.DrawLineCentered("... ready? ... ", width, posY + 128, 38, Color.White);
 

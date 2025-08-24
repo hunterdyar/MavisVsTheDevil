@@ -12,7 +12,8 @@ public class FightWindow : PanelBase
 	private RenderTexture2D _fightScreenTex;
 	public Scene? ActiveScene => _activeScene;
 	private Scene? _activeScene;
-	
+
+	private Color _circleColor = new Color(1, 0, 0, 0.4f);
 	public unsafe FightWindow(GameWindow gameWindow) : base(gameWindow)
 	{
 		_fightScreenTex = LoadRenderTexture(Width, Height);
@@ -35,11 +36,11 @@ public class FightWindow : PanelBase
 
 	public override void Draw()
 	{
-		Camera.Position = new  Vector3(MathF.Sin((float)Raylib.GetTime()/8f)*10, 5, MathF.Sin(Single.Pi/2+(float)Raylib.GetTime() / 8f) * 10);
+		Camera.Position = new  Vector3(MathF.Sin((float)Raylib.GetTime()/1f)*1.2f, 5, 10);
 		
 		BeginTextureMode(_fightScreenTex);
 			ClearBackground(Color.Blank);
-			DrawCircle(Width/2, Height/2, 250,Color.Red);
+			DrawCircle(Width/2, Height/2, 250,_circleColor);
 			_activeScene?.Draw();
 		EndTextureMode();
 		
