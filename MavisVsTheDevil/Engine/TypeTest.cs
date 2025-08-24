@@ -28,6 +28,9 @@ public class TypeTest
 	private TypeTestState _state;
 	public int[] LetterCountByWordIndex;
 
+	public double _startTime;
+	public double _allowedTime;
+
 	//used for devil modifier "only words you suck at"
 	public List<string> _failedWords = new List<string>();
 	public TypeTest(string[] words)
