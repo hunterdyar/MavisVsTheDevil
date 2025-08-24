@@ -19,7 +19,6 @@ public class RoundSucceed : StateBase
 
 	public override void OnEnter()
 	{
-		Program.GameWindow.Game.StartNewRound();
 		_tween.Reset();
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);

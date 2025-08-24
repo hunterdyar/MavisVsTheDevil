@@ -75,6 +75,9 @@ public class Round
 			if (test == TypeTestState.Finished)
 			{
 				ChangeState(RoundState.Complete);
+			}else if (test == TypeTestState.OutOfTime)
+			{
+				ChangeState(RoundState.Failure);
 			}
 		}
 	}

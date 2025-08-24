@@ -17,7 +17,8 @@ public class Demon
 	
 	private static Demon RandomDemon()
 	{
-		return Demons[Program.random.Next(Demons.Length)];
+		var valid = Demons.Where(x => !string.IsNullOrEmpty(x.imagePath)).ToList();
+		return valid[Program.random.Next(valid.Count)];
 	}
 
 	public bool GetWordList(out string wordlistName, out string[] wordList)
@@ -38,11 +39,12 @@ public class Demon
 
 	public static Demon GetRandomDemon()
 	{
-		return Demons[^1];
 		var d = RandomDemon();
-		while (LastDemons.Contains(d))
+		int escape = 0;
+		while (LastDemons.Contains(d) && escape < 100)
 		{
 			d = RandomDemon();
+			escape++;
 		}
 		//got one!
 		LDIndex += 1;
@@ -58,30 +60,35 @@ public class Demon
 			Name = "Zaboomafoo",
 			Struggle = "You Did Not Care For The Animals",
 			CauseOfDeath = "Starvation",
+			imagePath = "zaboomafoo.png",
 		},
 		new Demon()
 		{
-			Name = "Angelica Anaconda",
+			Name = "Angela Anaconda",
 			Struggle = "You Did Not Remember The Family",
 			CauseOfDeath = "Hit By a Ford F-150",
+			imagePath = "angelaanaconda.png",
 		},
 		new Demon()
 		{
 			Name = "Ruff Ruffman",
 			Struggle = "You Did Not Enjoy Life To The Fullest",
 			CauseOfDeath = "Lyme Disease",
+			imagePath = "ruffruffman.png"
 		},
 		new Demon()
 		{
 			Name = "Prometheus & Bob",
 			Struggle = "You cannot understand them",
-			CauseOfDeath = "Scurvy"
+			CauseOfDeath = "Scurvy",
+			imagePath = "prometheusandbob.png",
 		},
 		new Demon()
 		{
 			Name = "Zoombini",
 			Struggle = "We Just Wanted To Live In Comfort",
-			CauseOfDeath = "Wildfire"
+			CauseOfDeath = "Wildfire",
+			imagePath = "zoombinis.png"
 		},
 		new Demon()
 		{
@@ -102,12 +109,14 @@ public class Demon
 			CauseOfDeath = "Titan Submersible Implosion",
 			DemonWordList = Wordlist.Wordlist.PLACES,
 			WordListName = "Where She Fled To",
+			imagePath = "carmensandiego.png"
 		},
 		new Demon()
 		{
 			Name = "Morty Maxwell",
 			Struggle = "You Did Not Follow The Simple Machines Into Complexity",
-			CauseOfDeath = "Cancer"
+			CauseOfDeath = "Cancer",
+			imagePath = "mortymaxwell.png"
 		},
 		new Demon()
 		{
@@ -115,7 +124,8 @@ public class Demon
 			Struggle = "You Did Not Allocate The Resources",
 			CauseOfDeath = "Super Dysentery",
 			DemonWordList = Wordlist.Wordlist.TRAILDEATHS,
-			WordListName = "How I Watched Them Go"
+			WordListName = "How I Watched Them Go",
+			imagePath = "oregontrail.png"
 		},
 		new Demon()
 		{
@@ -133,7 +143,8 @@ public class Demon
 		{
 			Name = "Gus Oddman",
 			Struggle = "They were pushing the power plants to their limits!",
-			CauseOfDeath = "Five Tornado"
+			CauseOfDeath = "Five Tornados",
+			imagePath = "gusoddman.png",
 		},
 		new Demon()
 		{
@@ -142,13 +153,15 @@ public class Demon
 			CauseOfDeath = "Picked a Fight With Multiple Professional Baseball Players",
 			DemonWordList = Wordlist.Wordlist.BACKYARDPLAYERS,
 			WordListName = "Those Who I Left Behind",
+			imagePath = "pablo_sliding.png",
 			
 		},
 		new Demon()
 		{
 			Name = "Martha Speaks",
 			Struggle = "You Should Never Have Cursed Me With Knowledge",
-			CauseOfDeath = "Foreign Body Airway Obstruction"
+			CauseOfDeath = "Foreign Body Airway Obstruction",
+			imagePath = "marthaspeaks.png",
 		},
 		new Demon()
 		{
