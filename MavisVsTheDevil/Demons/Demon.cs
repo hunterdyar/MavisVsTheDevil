@@ -153,7 +153,7 @@ public class Demon
 			DemonWordList = Wordlist.Wordlist.BACKYARDPLAYERS,
 			WordListName = "Those Who I Left Behind",
 			imagePath = "pablo_sliding.png",
-			
+
 		},
 		new Demon()
 		{
@@ -168,8 +168,27 @@ public class Demon
 			Struggle = "I couldn't remove the Al Gore bumper sticker",
 			CauseOfDeath = "Cracked Piston Rod",
 			imagePath = "putt-putt.png"
+		},
+		new Demon()
+		{
+			Name = "Math Blaster!",
+			Struggle = "What is 5 + 3?",
+			CauseOfDeath = "Crushed By Alien Spaceship",
+			imagePath = "blasternaut.png"
+		},
+		new Demon()
+		{
+			Name = "A Piece of the Aggro Crag",
+			Struggle = "They Did Not Have It",
+			CauseOfDeath = "Forgotten in an Attic",
+			imagePath = "agrocrag.png"
+		},
+		new Demon()
+		{
+			Name = "Tim and Moby",
+			Struggle = "We Never Graduated High School!",
+			CauseOfDeath = "Adobe Flash",
+			imagePath = "timandmoby.png",
 		}
 	};
-
-
 }
