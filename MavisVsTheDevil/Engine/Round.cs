@@ -88,7 +88,7 @@ public class Round
 			return ("Common Words", Wordlist.Wordlist.COMMON);
 		}else if (roundNumber <= 3)
 		{
-			var r = Program.random.Next(4);
+			var r = Program.random.Next(8);
 			switch (r)
 			{
 				case 0:
@@ -101,10 +101,14 @@ public class Round
 					return ("Wordle Words", Wordlist.Wordlist.WORDLE);
 				case 4:
 					return ("Home Row", Wordlist.Wordlist.HOMEROW);
+				case 5: return ("Pizza Toppings", Wordlist.Wordlist.PIZZATOPPINGS);
+				case 6: return ("Wine Descriptions", Wordlist.Wordlist.WINEDESCRIPTIONS);
+				case 7: return ("Crayola Colors", Wordlist.Wordlist.CRAYOLA);
+
 				}
 		}else if (roundNumber <= 5)
 		{
-			var r = Program.random.Next(6);
+			var r = Program.random.Next(7);
 			switch (r)
 			{
 				case 0:
@@ -119,6 +123,7 @@ public class Round
 					return ("Tedious", Wordlist.Wordlist.TRIGRAMS);
 				case 5:
 					return ("Commonly Misspelled", Wordlist.Wordlist.TYPOD);
+				case 6: return ("Dinosaurs", Wordlist.Wordlist.DINOSAURS);
 			}
 		}
 		else
