@@ -48,6 +48,11 @@ public class FightWindow : PanelBase
 			DrawTextureRec(_fightScreenTex.Texture,
 			new Rectangle(0, 0, (float)_fightScreenTex.Texture.Width, (float)-_fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
 		EndShaderMode();
+
+		if (Game.IsCapsDown)
+		{
+			DrawUtility.DrawLineCentered("CapsLock Will Not Save You", Width, Height/2+60, 120, Color.White, PosX);
+		}
 	}
 
 	public override void OnClose()

@@ -99,6 +99,8 @@ public class Round
 					return ("Apostrophes", Wordlist.Wordlist.APOSTROPHE);
 				case 3:
 					return ("Wordle Words", Wordlist.Wordlist.WORDLE);
+				case 4:
+					return ("Home Row", Wordlist.Wordlist.HOMEROW);
 				}
 		}else if (roundNumber <= 5)
 		{
