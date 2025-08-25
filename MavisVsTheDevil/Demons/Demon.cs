@@ -8,7 +8,6 @@ public class Demon
 	private string WordListName;
 	private string[] DemonWordList = [];
 	public string imagePath;
-
 	public static Action<Demon> OnDemonChosen;
 	//word lists
 	//modifier 

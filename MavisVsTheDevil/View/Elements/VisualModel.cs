@@ -38,6 +38,7 @@ public class VisualModel
 		var fileInfo = new FileInfo(path);
 		Name = fileInfo.Name.ToLower();
 		AssetManager.LoadModel(fileInfo, out model, out animations);
+
 		animCount = animations.Length;
 		animFrame = new int[animCount];
 		if (animations.Length == 0)

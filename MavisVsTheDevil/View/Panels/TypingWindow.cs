@@ -9,12 +9,14 @@ public class TypingWindow :PanelBase
 	private Game Game => _window.Game;
 	private const int FontWidth = 20;
 	private const int FontHeight = 32;
-	private int _wordsPerRow = 10;
+	private int _wordsPerRow = 20;
 	private int _centerY;
 	private const int LinePadding = 5;
 	private Color _bg = new Color(0, 0, 0, 0.75f);
 	private readonly Shader _postShader;
 	private RenderTexture2D _screenTex;
+	private Color _textColor = Color.White;
+	private Color _passedTextColor = Color.Gold;
 	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
 	{
 		_screenTex = LoadRenderTexture(Width, Height);
@@ -26,12 +28,14 @@ public class TypingWindow :PanelBase
 		_centerY = (Height / 2);
 		UnloadRenderTexture(_screenTex);
 		_screenTex = LoadRenderTexture(Width, Height);
+		_wordsPerRow = 20;
 	}
 
 	public override void Draw()
 	{
 		BeginTextureMode(_screenTex);
 			ClearBackground(Color.Blank);
+			Raylib.DrawRectangle(0, 0, Width, Height, _bg);
 			DoDraw();
 		EndTextureMode();
 		BeginShaderMode(_postShader);
@@ -40,7 +44,6 @@ public class TypingWindow :PanelBase
 		EndShaderMode();
 	}
 	private void DoDraw(){
-		Raylib.DrawRectangle(0, 0, Width, Height, _bg);
 
 		var test = Game.CurrentTest;
 		if (test == null)
@@ -81,13 +84,15 @@ public class TypingWindow :PanelBase
 					lastWord = lastWord > test.WordCount - 1 ? test.WordCount - 1 : lastWord;
 					int lineWidthLetterCount = test.GetLetterCountForFirstNumberWords(firstWordOnLine, lastWord);
 					int lineWidth = lineWidthLetterCount * FontWidth;
-					if (lineWidth > Width)
+
+					if (lineWidth >= Width)
 					{
 						_wordsPerRow--;
 						//the screen will blink black for a frame, which is graceful enough failure.
 						return;
 					}
-					paddingX = (Width - (lineWidth))/2;
+
+					paddingX = (Width - (lineWidth)) / 2;
 					
 					letterX = paddingX;
 					wordY += FontHeight + LinePadding;
@@ -103,7 +108,7 @@ public class TypingWindow :PanelBase
 
 	private void DrawLetter(TestLetter letter, ref int letterX, int wordY)
 	{
-		var color = Color.White;
+		var color = _textColor;
 		
 		//if gamestate is active:
 		if (letter.State == LetterState.Failure)
@@ -111,7 +116,7 @@ public class TypingWindow :PanelBase
 			color = Color.Red;
 		}else if (letter.State == LetterState.Pass)
 		{
-			color = Color.Gold;
+			color = _passedTextColor;
 		}else if (letter.State == LetterState.Current)
 		{
 			color = Color.Black;
@@ -121,6 +126,7 @@ public class TypingWindow :PanelBase
 		{
 			DrawRectangle(letterX-1, wordY, FontWidth, FontHeight, Color.White);
 		}
+		
 		DrawTextEx(Program.terminalFont,letter.ToString(), new Vector2(letterX, wordY), FontHeight,0, color);
 		int coreMistakeOffset = -(int)(FontHeight * .8f);
 		int mistakeOffset = coreMistakeOffset;//just a little scrunch
@@ -147,4 +153,10 @@ public class TypingWindow :PanelBase
 	}
 
 
+	public void SetTextOpacity(float f)
+	{
+		_textColor = new Color(_textColor.R,
+			_textColor.G, _textColor.B, f);
+		_passedTextColor = new Color(_passedTextColor.R, _passedTextColor.G, _passedTextColor.B, f);
+	}
 }

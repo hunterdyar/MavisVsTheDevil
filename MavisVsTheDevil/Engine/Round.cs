@@ -43,22 +43,9 @@ public class Round
 		
 	}
 
-	private List<Modifier> GetModifiers(int round)
+	private Modifier[] GetModifiers(int round)
 	{
-		return new List<Modifier>([new MistakesAddedToEnd()]);
-		
-		if (round == 0)
-		{
-			//no modifier on first round
-			return new List<Modifier>();
-		}else if (round < 3)
-		{
-			//get one
-		}
-		else
-		{
-			//get two
-		}
+		return Modifier.GetModifierForRound(round);
 	}
 
 	private void OnTypeTestStatechange(TypeTestState test)

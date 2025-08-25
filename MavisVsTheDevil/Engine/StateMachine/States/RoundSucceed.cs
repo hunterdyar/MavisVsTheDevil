@@ -20,7 +20,8 @@ public class RoundSucceed : StateBase
 	public override void OnEnter()
 	{
 		_tween.Reset();
-		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow);
+		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
+		Program.GameWindow.TypingWindow.SetTextOpacity(0.5f);
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon?.Play();
 		base.OnEnter();

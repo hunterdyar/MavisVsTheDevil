@@ -33,14 +33,14 @@ public class TypeTest
 	public double Elapsed => (_state == TypeTestState.Typing) ? Raylib.GetTime() - _startTime : 0;
 	public double _startTime;
 	public double _allowedTime;
-	
-	public readonly List<Modifier> Modifiers = new List<Modifier>();
+
+	public Modifier[] Modifiers = [];
 
 
 	//used for devil modifier "only words you suck at"
 	public List<string> _failedWords = new List<string>();
 	private Round _round;
-	public TypeTest(Round round, string[] words, List<Modifier> modifiers, double allowedTime)
+	public TypeTest(Round round, string[] words, Modifier[] modifiers, double allowedTime)
 	{
 		_round = round;
 		_words = words;
@@ -127,6 +127,11 @@ public class TypeTest
 			OnStateChange.Invoke(TypeTestState.Finished);
 			return;
 		}
+
+		foreach (var modifier in Modifiers)
+		{
+			c = modifier.OnLetterTyped(c);
+		}
 		
 		_rawInput.Add(c);
 		TestCurrentLetter(c);
@@ -204,7 +209,7 @@ public class TypeTest
 		{
 			return 0;
 		}
-		
+
 		return LetterCountByWordIndex[lastWord] - LetterCountByWordIndex[firstWord];
 	}
 

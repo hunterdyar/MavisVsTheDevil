@@ -17,6 +17,7 @@ public class GameplayState : StateBase
 
 	public override void OnEnter()
 	{
+		Program.GameWindow.TypingWindow.SetTextOpacity(1f);
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		_modifiers = ModifierUtility.GetModifierNames(_machine.Game.CurrentRound.Test.Modifiers);
 		base.OnEnter();

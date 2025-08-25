@@ -21,10 +21,11 @@ public class RoundStartState : StateBase
 	{
 		Program.GameWindow.Game.StartNewRound();
 		_tween.Reset();
-		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow);
+		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon.StopAndResetAnim();
 		_modifiers = ModifierUtility.GetModifierNames(_machine.Game.CurrentRound.Test.Modifiers);
+		Program.GameWindow.TypingWindow.SetTextOpacity(0.5f);
 		base.OnEnter();
 	}
 
@@ -35,15 +36,19 @@ public class RoundStartState : StateBase
 			_tween.Tick(delta);
 		}
 
+		if (_tween.IsComplete)
+		{
+			_machine.GoToState(_machine.TypeGameplay);
+		}	
 		base.Tick(delta);
 	}
 
 	public override void TypeKeyPressed(char key)
 	{
-		if (_tween.IsComplete)
-		{
-			_machine.GoToState(_machine.TypeGameplay);
-		}	
+		// if (_tween.IsComplete)
+		// {
+		// 	_machine.GoToState(_machine.TypeGameplay);
+		// }	
 	}
 
 	public override void Draw()
