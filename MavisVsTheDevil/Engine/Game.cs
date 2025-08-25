@@ -60,7 +60,8 @@ public class Game
 		while (press != 0)
 		{
 			char c = (char)press;
-			if (char.IsAsciiLetterOrDigit(c) || c == ' ' || c == '\'' || c == '-' || c == '=')//= is only for the cheat
+			//added the programming languages and need more chars lol
+			if (char.IsAsciiLetterOrDigit(c) || c == ' ' || c == '\'' || c == '-' || c == '=' || c == '+' || c == '=' || c == ':' || c == '@' || c == '$' || c == '%' || c == '*')//= is only for the cheat
 			{
 				//this ignores capslock by reversing it, but still respecting the shift key.
 				if ((IsCapsDown && !IsShiftDown))
