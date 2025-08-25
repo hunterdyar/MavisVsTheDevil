@@ -83,12 +83,12 @@ public class Round
 			return (n, l);
 		}
 		
-		if (roundNumber <= 1)
+		if (roundNumber < 1)
 		{
 			return ("Common Words", Wordlist.Wordlist.COMMON);
 		}else if (roundNumber <= 3)
 		{
-			var r = Program.random.Next(3);
+			var r = Program.random.Next(4);
 			switch (r)
 			{
 				case 0:
@@ -97,6 +97,8 @@ public class Round
 					return ("Hyphens", Wordlist.Wordlist.HYPHENS);
 				case 2:
 					return ("Apostrophes", Wordlist.Wordlist.APOSTROPHE);
+				case 3:
+					return ("Wordle Words", Wordlist.Wordlist.WORDLE);
 				}
 		}else if (roundNumber <= 5)
 		{
