@@ -24,7 +24,7 @@ public unsafe static class Program
         EndDrawing();
         _window = new GameWindow(_game);
         //Load Resources
-        terminalFont = LoadFont("Resources/terminal F4.ttf");
+        terminalFont = LoadFont("Resources/terminal.ttf");
 		AssetManager.Initiate();
         SetTargetFPS(144);
 

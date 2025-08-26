@@ -27,7 +27,7 @@
     <None Update="Resources\postPixel.fs">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-      <None Update="Resources\Terminal F4.ttf">
+      <None Update="Resources\terminal.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Resources\models\test\test.fbx">
