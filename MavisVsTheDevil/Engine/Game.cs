@@ -26,7 +26,6 @@ public class Game
 
 	public void StartGame()
 	{
-		_round = -1;
 		State.GoToState(State.TitleState);
 	}
 	
@@ -103,5 +102,11 @@ public class Game
 	public void Draw()
 	{
 		State.Draw();
+	}
+
+	public void ResetGame()
+	{
+		_round = -1;
+		//reset "failed words" tracking
 	}
 }

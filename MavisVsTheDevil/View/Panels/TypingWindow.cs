@@ -18,6 +18,8 @@ public class TypingWindow :PanelBase
 	private Color _textColor = Color.White;
 	private Color _passedTextColor = Color.Gold;
 	private TextLayout _textLayout;
+	private int countdownBarHeight = 30;
+	private double _errorBGBonk = 0.25;
 	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
 	{
 		_screenTex = LoadRenderTexture(Width, Height);
@@ -41,7 +43,6 @@ public class TypingWindow :PanelBase
 	{
 		BeginTextureMode(_screenTex);
 			ClearBackground(Color.Blank);
-			Raylib.DrawRectangle(0, 0, Width, Height, _bg);
 			DoDraw();
 		EndTextureMode();
 		if (Program.UseShaders)
@@ -64,13 +65,32 @@ public class TypingWindow :PanelBase
 		var test = Game.CurrentTest;
 		if (test == null)
 		{
+			Raylib.DrawRectangle(0, 0, Width, Height, _bg);
 			return;
 		}
-		
-		var percentage = 1-Math.Clamp(test.Elapsed / test._allowedTime, 0, 1);
-		int width = (int)(percentage * Width);
-		Raylib.DrawRectangle(0, 0, width, 25, Color.Red);
 
+		var time = Raylib.GetTime();
+		var percentage = 1-Math.Clamp(test.Elapsed / test._allowedTime, 0, 1);
+
+
+		float errorBonk = 0;
+		var timeSinceError = time - test._lastMistakeTime;
+		if (timeSinceError < _errorBGBonk)
+		{
+			timeSinceError = (_errorBGBonk - timeSinceError)/_errorBGBonk;
+			errorBonk = (float)(timeSinceError * timeSinceError);
+		}
+		Console.WriteLine($"{errorBonk}");
+		float bgt = 1-(float)Math.Clamp(percentage*3f, 0f, 1f);//3 means the last third fades to red. 4 would be the last 25%
+		bgt = Math.Clamp(bgt+errorBonk, 0f, 1f);
+		var bg = ColorLerp(_bg, Color.Red, bgt);
+		Raylib.DrawRectangle(0, 0, Width, Height, bg);
+		
+		int width = (int)(percentage * Width);
+		Raylib.DrawRectangle(Width/2-width/2, 0, width, countdownBarHeight, Color.Red);
+
+		
+		
 		int xPadding = 0;
 		int linePaddingCalculatedFor = -1;
 		int vPadding = (int)((Height - (_textLayout.TotalLines * FontHeight) + 1) / 2);

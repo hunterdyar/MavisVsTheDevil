@@ -34,6 +34,7 @@ public class TypeTest
 	public double Elapsed => (_state == TypeTestState.Typing) ? Raylib.GetTime() - _startTime : 0;
 	public double _startTime;
 	public double _allowedTime;
+	public double _lastMistakeTime;
 
 	public Modifier[] Modifiers = [];
 
@@ -174,6 +175,7 @@ public class TypeTest
 		{
 			modifier.OnWrongLetter(ref test, letter, typedLetter);
 		}
+		_lastMistakeTime = Raylib.GetTime();
 	}
 
 	public void LetterPass(TestLetter testLetter)

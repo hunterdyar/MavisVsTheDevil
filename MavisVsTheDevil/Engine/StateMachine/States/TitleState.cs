@@ -8,6 +8,7 @@ public class TitleState : StateBase
 
 	public override void OnEnter()
 	{
+		Program.GameWindow.Game.ResetGame();
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.TitleIdleScreen);
 		base.OnEnter();
 	}
