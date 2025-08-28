@@ -15,7 +15,8 @@ public class VisualModel
 
 	private bool loop;
 
-	private Model model;
+	public Model Model => _model;
+	private Model _model;
 	private int animCount;
 	private ModelAnimation[] animations;
 	private int[] animFrame;
@@ -24,7 +25,7 @@ public class VisualModel
 	private float _playback;
 	private int animFrameRate = 30;
 	private int frameCount;
-	private int _baseScale = 1;
+	private float _baseScale = 1;
 	private FileInfo loadedModel;
 
 	public VisualModel(string modelPath, bool loop = false)
@@ -37,7 +38,7 @@ public class VisualModel
 	{
 		var fileInfo = new FileInfo(path);
 		Name = fileInfo.Name.ToLower();
-		AssetManager.LoadModel(fileInfo, out model, out animations);
+		AssetManager.LoadModel(fileInfo, out _model, out animations);
 
 		animCount = animations.Length;
 		animFrame = new int[animCount];
@@ -80,12 +81,12 @@ public class VisualModel
 			for (int i = 0; i < animCount; i++)
 			{
 				animFrame[i] = _playbackFrame % animations[i].FrameCount;
-				UpdateModelAnimation(model, animations[i], animFrame[i]);
+				UpdateModelAnimation(_model, animations[i], animFrame[i]);
 			}
 		}
 
 		DrawModelEx(
-			model,
+			_model,
 			position,
 			rotationAxis,
 			rotationAngle,
@@ -116,7 +117,7 @@ public class VisualModel
 		for (int i = 0; i < animCount; i++)
 		{
 			animFrame[i] = 0;
-			UpdateModelAnimation(model, animations[i], 0);
+			UpdateModelAnimation(_model, animations[i], 0);
 		}
 
 	}
@@ -130,14 +131,29 @@ public class VisualModel
 	{
 		if (matSlot < 0)
 		{
-			for (int i = 0; i < model.MaterialCount; i++)
+			for (int i = 0; i < _model.MaterialCount; i++)
 			{
-				model.Materials[i].Maps->Texture = texture;
+				_model.Materials[i].Maps->Texture = texture;
 			}
 		}
 		else
 		{
-			model.Materials[matSlot].Maps->Texture = texture;
+			_model.Materials[matSlot].Maps->Texture = texture;
+		}
+	}
+
+	public unsafe void SetTint(Color color, int map = 0, int matSlot = -1)
+	{
+		if (matSlot < 0)
+		{
+			for (int i = 0; i < _model.MaterialCount; i++)
+			{
+				_model.Materials[i].Maps->Color = color;
+			}
+		}
+		else
+		{
+			_model.Materials[matSlot].Maps->Color = color;
 		}
 	}
 
@@ -146,7 +162,7 @@ public class VisualModel
 		_scale = new Vector3(scale, scale, scale);
 	}
 
-	public void SetRootScale(int scale)
+	public void SetRootScale(float scale)
 	{
 		_baseScale = scale;
 		
