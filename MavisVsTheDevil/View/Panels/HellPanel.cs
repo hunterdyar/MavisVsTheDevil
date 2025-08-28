@@ -17,7 +17,8 @@ public class HellPanel : PanelBase
 		int height = GetScreenHeight();
 
 		_hellTex = LoadRenderTexture(width, height);
-		_hellShader = Raylib.LoadShader(null, "Resources/hell.fs");
+		_hellShader = Raylib.LoadShaderFromMemory(null, SHADER.HELL);
+		//_hellShader = Raylib.LoadShader(null, "Resources/hell.fs");
 		//
 		_timeLoc = GetShaderLocation(_hellShader, "iTime");
 		_resolutionLoc = GetShaderLocation(_hellShader, "iResolution");

@@ -18,7 +18,7 @@ public class FightWindow : PanelBase
 	{
 		_fightScreenTex = LoadRenderTexture(Width, Height);
 		_postShader = Raylib.LoadShader(null, "Resources/postPixel.fs");
-		
+		_postShader = LoadShaderFromMemory(null, SHADER.PIXEL);
 		//make a camera. we'll share it across the scenes with it being static, which is - yes - dumb.
 		Camera = new Camera3D();
 		Camera.Position = new Vector3(0, 5, -10f);

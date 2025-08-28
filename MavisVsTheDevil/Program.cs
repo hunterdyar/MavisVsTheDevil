@@ -16,7 +16,7 @@ public unsafe static class Program
     public static bool UseShaders = true;
 	public static int Main()
 	{
-		UseShaders = false;//mac!
+		//UseShaders = false;//mac!
         const int screenWidth = 1920;
         const int screenHeight = 1080;
         SetConfigFlags(ConfigFlags.ResizableWindow);

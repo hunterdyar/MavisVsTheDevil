@@ -21,7 +21,8 @@ public class TypingWindow :PanelBase
 	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
 	{
 		_screenTex = LoadRenderTexture(Width, Height);
-		_postShader = Raylib.LoadShader(null, "Resources/postBloom.fs");
+		//_postShader = Raylib.LoadShader(null, "Resources/postBloom.fs");
+		_postShader = LoadShaderFromMemory(null, SHADER.BLOOM);
 		_textLayout = new TextLayout(50);
 	}
 
