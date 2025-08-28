@@ -17,6 +17,7 @@ public class TypeTest
 	//todo: on constructor, turn this into a list of LETTERATTEMPTS, and we run through character by character not word by word.
 	
 	public static Action<TypeTestState> OnStateChange;
+	public static Action<TypeTest> OnTestChange;
 	public List<TestLetter> Letters => _testLetters;
 	private List<TestLetter> _testLetters = new List<TestLetter>();
 	public int WordCount { get; }
@@ -85,7 +86,7 @@ public class TypeTest
 		
 		
 		OnStateChange?.Invoke(TypeTestState.Idle);
-		
+		OnTestChange?.Invoke(this);
 	}
 
 	public void Reset()
@@ -99,6 +100,7 @@ public class TypeTest
 			testLetter.State = LetterState.Waiting;
 		}
 		_currentLetter = 0;
+		OnTestChange?.Invoke(this);
 	}
 
 	public void TypeKeyPressed(char c)
@@ -216,6 +218,7 @@ public class TypeTest
 	public void SetTestLetters(List<TestLetter> newTest)
 	{
 		_testLetters = newTest;
+		OnTestChange?.Invoke(this);
 	}
 
 	public void AppendLetterToTest(char letter, bool newWord)
@@ -227,6 +230,7 @@ public class TypeTest
 		//if it's a space, we'll bork word breaksssss. soooo. gotta fix that.
 		_testLetters.Add(new TestLetter(this, letter, WordCount-1));
 		LetterCountByWordIndex[^1]++;
+		OnTestChange?.Invoke(this);
 	}
 
 
@@ -241,6 +245,6 @@ public class TypeTest
 				_state = TypeTestState.OutOfTime;
 				OnStateChange?.Invoke(_state);
 			}
-	}
+		}
 	}
 }

@@ -37,6 +37,10 @@ public class HellPanel : PanelBase
 		// BeginTextureMode(_hellTex);
 		// ClearBackground(Color.Black);
 		// EndTextureMode();
+		if (!Program.UseShaders)
+		{
+			return;
+		}
 
 		SetShaderValue(_hellShader, _timeLoc, (float)Raylib.GetTime(), ShaderUniformDataType.Float);
 		BeginShaderMode(_hellShader);

@@ -43,11 +43,20 @@ public class FightWindow : PanelBase
 			DrawCircle(Width/2, Height/2, 250,_circleColor);
 			_activeScene?.Draw();
 		EndTextureMode();
-		
-		BeginShaderMode(_postShader);
+
+		if (Program.UseShaders)
+		{
+			BeginShaderMode(_postShader);
 			DrawTextureRec(_fightScreenTex.Texture,
-			new Rectangle(0, 0, (float)_fightScreenTex.Texture.Width, (float)-_fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
-		EndShaderMode();
+				new Rectangle(0, 0, (float)_fightScreenTex.Texture.Width, (float)-_fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
+			EndShaderMode();
+		}
+		else
+		{
+			DrawTextureRec(_fightScreenTex.Texture,
+				new Rectangle(0, 0, (float)_fightScreenTex.Texture.Width, (float)-_fightScreenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
+		}
+		
 
 		if (Game.IsCapsDown)
 		{

@@ -17,10 +17,12 @@ public class TypingWindow :PanelBase
 	private RenderTexture2D _screenTex;
 	private Color _textColor = Color.White;
 	private Color _passedTextColor = Color.Gold;
+	private TextLayout _textLayout;
 	public TypingWindow(GameWindow gameWindow) : base(gameWindow)
 	{
 		_screenTex = LoadRenderTexture(Width, Height);
 		_postShader = Raylib.LoadShader(null, "Resources/postBloom.fs");
+		_textLayout = new TextLayout(50);
 	}
 
 	protected override void OnResize()
@@ -29,6 +31,9 @@ public class TypingWindow :PanelBase
 		UnloadRenderTexture(_screenTex);
 		_screenTex = LoadRenderTexture(Width, Height);
 		_wordsPerRow = 20;
+		int maxWidth = (int)MathF.Floor((Width-1) / (float)FontWidth)-2;
+		_textLayout.SetMaxWidth(maxWidth);
+
 	}
 
 	public override void Draw()
@@ -38,10 +43,20 @@ public class TypingWindow :PanelBase
 			Raylib.DrawRectangle(0, 0, Width, Height, _bg);
 			DoDraw();
 		EndTextureMode();
-		BeginShaderMode(_postShader);
+		if (Program.UseShaders)
+		{
+			BeginShaderMode(_postShader);
 			DrawTextureRec(_screenTex.Texture,
-				new Rectangle(0, 0, (float)_screenTex.Texture.Width, (float)-_screenTex.Texture.Height), new Vector2(PosX, PosY), Color.White);
-		EndShaderMode();
+				new Rectangle(0, 0, (float)_screenTex.Texture.Width, (float)-_screenTex.Texture.Height),
+				new Vector2(PosX, PosY), Color.White);
+			EndShaderMode();
+		}
+		else
+		{
+			DrawTextureRec(_screenTex.Texture,
+				new Rectangle(0, 0, (float)_screenTex.Texture.Width, (float)-_screenTex.Texture.Height),
+				new Vector2(PosX, PosY), Color.White);
+		}
 	}
 	private void DoDraw(){
 
@@ -51,62 +66,33 @@ public class TypingWindow :PanelBase
 			return;
 		}
 		
-		
 		var percentage = 1-Math.Clamp(test.Elapsed / test._allowedTime, 0, 1);
 		int width = (int)(percentage * Width);
 		Raylib.DrawRectangle(0, 0, width, 25, Color.Red);
-		
-		//total lines then offset
-		int lines = (int)Math.Ceiling(test.WordCount / (float)_wordsPerRow);
-		float vOffset = lines * (FontHeight + LinePadding) / (float)2f;
-		int wordY = _centerY - (int) MathF.Floor(vOffset) - FontHeight-LinePadding;
-		
-		//todo: Get proper width
-		int lastWord = -1;
-		int paddingX = 20;
-		int letterX = paddingX;
-		int wordIndex = -1;
-		int drawnWords = 0;
-		for (int i = 0; i < test.Letters.Count; i++)
+
+		int xPadding = 0;
+		int linePaddingCalculatedFor = -1;
+		int vPadding = (int)((Height - (_textLayout.TotalLines * FontHeight) + 1) / 2);
+		if (vPadding < 0)
 		{
-			//line break
-			
-			if (wordIndex != test.Letters[i].Word)
-			{
-				//word break
-				drawnWords++;
-				wordIndex =  test.Letters[i].Word;
-				// //line break
-				if (drawnWords > lastWord)
-				{
-					int firstWordOnLine = drawnWords;
-					lastWord = drawnWords + _wordsPerRow;
-					lastWord = lastWord > test.WordCount - 1 ? test.WordCount - 1 : lastWord;
-					int lineWidthLetterCount = test.GetLetterCountForFirstNumberWords(firstWordOnLine, lastWord);
-					int lineWidth = lineWidthLetterCount * FontWidth;
-
-					if (lineWidth >= Width)
-					{
-						_wordsPerRow--;
-						//the screen will blink black for a frame, which is graceful enough failure.
-						return;
-					}
-
-					paddingX = (Width - (lineWidth)) / 2;
-					
-					letterX = paddingX;
-					wordY += FontHeight + LinePadding;
-				}
-			}
-			
-			DrawLetter(test.Letters[i], ref letterX, wordY);
+			vPadding = 0;
 		}
 
-		
-
+		for (int i = 0; i < test.Letters.Count; i++)
+		{
+			var lf = _textLayout.Get(i);
+			if (lf.Line != linePaddingCalculatedFor)
+			{
+				linePaddingCalculatedFor = lf.Line;
+				xPadding = (int)((Width - (_textLayout.LineWidths[lf.Line]*FontWidth)) / (float)2);
+				Console.WriteLine(lf.Line+": "+xPadding);
+			}
+			//todo: we don't have to keep calculating this.
+			DrawLetter(test.Letters[i],lf.Column*FontWidth + xPadding, lf.Line*FontHeight + vPadding);
+		}
 	}
 
-	private void DrawLetter(TestLetter letter, ref int letterX, int wordY)
+	private void DrawLetter(TestLetter letter, int letterX, int wordY)
 	{
 		var color = _textColor;
 		
@@ -142,8 +128,6 @@ public class TypingWindow :PanelBase
 			DrawTextEx(Program.terminalFont,m, new Vector2(letterX, wordY+mistakeOffset), FontHeight,0, Color.White);
 			mistakeOffset += coreMistakeOffset;
 		}
-
-		letterX += FontWidth;
 	}
 
 	public override void OnClose()

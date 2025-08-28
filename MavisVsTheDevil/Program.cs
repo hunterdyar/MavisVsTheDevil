@@ -13,8 +13,10 @@ public unsafe static class Program
     private static GameWindow _window;
     public const int GLSL_VERSION = 330;
     public static Font terminalFont;
+    public static bool UseShaders = true;
 	public static int Main()
-    {
+	{
+		UseShaders = false;//mac!
         const int screenWidth = 1920;
         const int screenHeight = 1080;
         SetConfigFlags(ConfigFlags.ResizableWindow);
