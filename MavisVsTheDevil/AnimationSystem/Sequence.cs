@@ -2,7 +2,7 @@ namespace MavisVsTheDevil.Animation;
 
 public class TweenSequence : TweenBase
 {
-    private readonly List<TweenBase> _tweens =  new List<TweenBase>();
+    private readonly List<TweenBase> _tweens;
 
     public TweenSequence(params TweenBase[] tweens) : base(0)
     {
@@ -12,8 +12,9 @@ public class TweenSequence : TweenBase
 
     public override void Evaluate(float t)
     {
-        float c = _tweens.Count-1;
+        float c = _tweens.Count;
         int index = (int)MathF.Floor(t * c - Single.Epsilon);
+        index = (int)MathF.Min(index, _tweens.Count - 1);
         float remainder = (t * c) % 1;
         _tweens[index].Evaluate(remainder);
     }

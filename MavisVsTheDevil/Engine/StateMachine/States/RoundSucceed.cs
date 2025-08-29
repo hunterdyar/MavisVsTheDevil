@@ -12,7 +12,7 @@ public class RoundSucceed : StateBase
 	
 	public RoundSucceed(StateMachine machine) : base(machine)
 	{
-		_tween = new IntTween((x => _val = x), 5, 3);
+		_tween = new IntTween((x => _val = x), 5, 2.5f);
 		_scene = new Scene();
 		_scene.SetDemon(true);
 	}
@@ -32,16 +32,26 @@ public class RoundSucceed : StateBase
 		{
 			_tween.Tick(delta);
 		}
+		else
+		{
+			GoToNextState();
+		}
 
 		base.Tick(delta);
 	}
 
 	public override void TypeKeyPressed(char key)
 	{
+		GoToNextState();
 		if (_tween.IsComplete)
 		{
-			_machine.GoToState(_machine.RoundStartAnimation);
+			GoToNextState();
 		}
+	}
+
+	private void GoToNextState()
+	{
+		_machine.GoToState(_machine.RoundStartAnimation);
 	}
 
 	public override void Draw()

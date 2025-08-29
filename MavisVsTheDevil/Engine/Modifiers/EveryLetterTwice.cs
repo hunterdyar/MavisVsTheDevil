@@ -9,7 +9,7 @@ public class EveryLetterTwice : Modifier
 
 	public override string GetModifierName()
 	{
-		return "Every Letter Twice";
+		return "Every Vowel Twice";
 	}
 
 	public override void OnTypingTestCreated(ref TypeTest typeTest)
@@ -18,9 +18,12 @@ public class EveryLetterTwice : Modifier
 		foreach (var letter in typeTest.Letters)
 		{
 			newTest.Add(letter);
-			if (char.IsLetterOrDigit(letter.Letter))
+			if (ModifierUtility.IsVowel(letter.Letter))
 			{
-				newTest.Add(letter.Clone());
+				if (char.IsLetterOrDigit(letter.Letter))
+				{
+					newTest.Add(letter.Clone());
+				}
 			}
 		}
 

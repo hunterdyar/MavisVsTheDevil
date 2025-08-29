@@ -6,6 +6,8 @@ public abstract class Modifier
 	private static int _recentIndex = 0;
 	public static Modifier[] GetModifierForRound(int round)
 	{
+		return [GetRandomNoRecent(), GetRandomNoRecent()];
+
 		if (round == 0)
 		{
 			//no modifier on first round
@@ -45,24 +47,24 @@ public abstract class Modifier
 	
 	private static Modifier mistakesToEndOfTest = new MistakesAddedToEnd();
 	private static Modifier everyLetterTwice = new EveryLetterTwice();
-	private static Modifier randomCap20 = new RandomCapitalization(.2f);
-	private static Modifier randomCap50 = new RandomCapitalization(.5f);
+	private static Modifier randomCap = new RandomCapitalization(.333f);
 	private static Modifier vowelsWithO = new ReplaceLettersWithLetter("Replace Vowels With o",'o', 'a', 'e', 'i', 'u');
 
 	private static Modifier swampMN = new SwapLetters('m', 'n');
 	private static Modifier swampFJ = new SwapLetters('f', 'j');
 	private static Modifier reverseCaps = new ReverseCapitalization();
+	private static Modifier lostTimeOnmistake = new LoseTimeOnMistake(0.5f);
 
 	private static Modifier[] _allModifiersNoWeighting = new[]
 	{
 		mistakesToEndOfTest,
 		everyLetterTwice,
-		randomCap20,
-		randomCap50,
+		randomCap,
 		vowelsWithO,
 		swampMN,
 		swampFJ,
-		reverseCaps
+		reverseCaps,
+		lostTimeOnmistake,
 	};
 	
 	public abstract string GetModifierName();

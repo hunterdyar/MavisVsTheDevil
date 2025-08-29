@@ -44,4 +44,13 @@ public static class ModifierUtility
 
 		return _sb.ToString();
 	}
+
+	public static bool IsVowel(char letter)
+	{
+		return letter == 'a'
+		       || letter == 'e'
+		       || letter == 'i'
+		       || letter == 'o'
+		       || letter == 'u';
+	}
 }

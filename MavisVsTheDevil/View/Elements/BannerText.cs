@@ -18,6 +18,8 @@ public class BannerText
     private int _width;
     private int _y;
     private int _currentTextEntering = -1;
+    public Color Background = Color.White;
+    public Color Foreground = Color.Black;
     
     //todo: xPadding to center the text.
     public BannerText(int height,int y, string title, params string[] text)
@@ -49,11 +51,11 @@ public class BannerText
             {
                 int k = i - 1;
                 var exit  = new IntTween((x) => _textDrawXPos[k] = x, 0, -_width, 0.5f);
-                textAnim.Add(new TweenSequence(new TweenGroup(0,enter,exit), delay,delay));
+                textAnim.Add(new TweenSequence(new TweenGroup(0,enter,exit), delay));
             }
             else
             {
-                textAnim.Add(new TweenSequence(enter, delay,delay));
+                textAnim.Add(new TweenSequence(enter, delay));
             }
             //_textExitTween[i] =  new IntTween((x) => _textDrawXPos[j] = x, 0, -_width, 0.5f);
         }
@@ -70,12 +72,12 @@ public class BannerText
 
     public void Draw()
     {
-        Raylib.DrawRectangle(_xPos, _y, _width, _height, Color.Black);
-        Raylib.DrawTextEx(Program.terminalFont, _bannerTitle, new Vector2(_xPos, _y),_height/4, 0, Color.White);
+        Raylib.DrawRectangle(_xPos, _y, _width, _height, Background);
+        Raylib.DrawTextEx(Program.terminalFont, _bannerTitle, new Vector2(_xPos, _y),_height/4, 0, Foreground);
 
         for (int i = 0; i < count; i++)
         {
-            Raylib.DrawTextEx(Program.terminalFont, _bannerText[i], new Vector2(_textDrawXPos[i], _y),_height/2, 0, Color.White);
+            Raylib.DrawTextEx(Program.terminalFont, _bannerText[i], new Vector2(_xPos+_textDrawXPos[i], _y+_height/4),_height/2, 0, Foreground);
         }
         // //Text entering.
         // if (_currentTextEntering >= 0)
