@@ -189,6 +189,13 @@ public class Demon
 			Struggle = "We Never Graduated High School!",
 			CauseOfDeath = "Adobe Flash",
 			imagePath = "timandmoby.png",
+		},
+		new Demon()
+		{
+			Name = "Sagwa The Chinese Siamese Cat",
+			Struggle = "Why are you so mean to the mice?",
+			CauseOfDeath = "Bat Bite Rabies",
+			imagePath = "sagwa.png",
 		}
 	};
 }

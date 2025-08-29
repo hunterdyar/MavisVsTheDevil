@@ -48,7 +48,7 @@ public abstract class Modifier
 	private static Modifier mistakesToEndOfTest = new MistakesAddedToEnd();
 	private static Modifier everyLetterTwice = new EveryLetterTwice();
 	private static Modifier randomCap = new RandomCapitalization(.333f);
-	private static Modifier vowelsWithO = new ReplaceLettersWithLetter("Replace Vowels With o",'o', 'a', 'e', 'i', 'u');
+	private static Modifier vowelsWithO = new ReplaceLettersWithLetter("Replace Vowels With o",'o', 'a', 'e', 'i', 'u','A', 'E', 'I', 'U');
 
 	private static Modifier swampMN = new SwapLetters('m', 'n');
 	private static Modifier swampFJ = new SwapLetters('f', 'j');

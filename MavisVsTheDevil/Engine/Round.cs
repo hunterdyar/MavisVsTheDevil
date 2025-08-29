@@ -33,12 +33,16 @@ public class Round
 		var w = GetWordlist(RoundNumber);
 		var modifiers = GetModifiers(round);
 		WordlistName = w.Item1;
-		string[] words = new  string[wordCount];
-		for (int i = 0; i < words.Length; i++)
+		var words = new List<string>();
+		for (int i = 0; i < wordCount; i++)
 		{
-			words[i] = w.Item2[Program.random.Next(w.Item2.Length)];
+			var word = w.Item2[Program.random.Next(w.Item2.Length)];
+			foreach (var subword in word.Split(' '))
+			{
+				words.Add(subword);
+			}
 		}
-		Test = new TypeTest(this, words, modifiers, 30);
+		Test = new TypeTest(this, words.ToArray(), modifiers, 30);
 		TypeTest.OnStateChange += OnTypeTestStatechange;
 		
 	}
@@ -104,6 +108,7 @@ public class Round
 				case 5: return ("Pizza Toppings", Wordlist.Wordlist.PIZZATOPPINGS);
 				case 6: return ("Wine Descriptions", Wordlist.Wordlist.WINEDESCRIPTIONS);
 				case 7: return ("Crayola Colors", Wordlist.Wordlist.CRAYOLA);
+				case 8: return ("Common Password Words", Wordlist.Wordlist.PASSWORDS);
 
 				}
 		}else if (roundNumber <= 5)
