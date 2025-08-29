@@ -9,7 +9,7 @@ public class EveryLetterTwice : Modifier
 
 	public override string GetModifierName()
 	{
-		return "Random Letters Capitalized";
+		return "Every Letter Twice";
 	}
 
 	public override void OnTypingTestCreated(ref TypeTest typeTest)

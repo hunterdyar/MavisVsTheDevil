@@ -23,6 +23,10 @@ public static class ModifierUtility
 	public static string GetModifierNames(Modifier[] modifiers)
 	{
 		var count = modifiers.Length;
+		if (count == 0)
+		{
+			return "None";
+		}
 		if (count == 1)
 		{
 			return modifiers[0].GetModifierName();

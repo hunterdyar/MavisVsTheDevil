@@ -80,7 +80,6 @@ public class TypingWindow :PanelBase
 			timeSinceError = (_errorBGBonk - timeSinceError)/_errorBGBonk;
 			errorBonk = (float)(timeSinceError * timeSinceError);
 		}
-		Console.WriteLine($"{errorBonk}");
 		float bgt = 1-(float)Math.Clamp(percentage*3f, 0f, 1f);//3 means the last third fades to red. 4 would be the last 25%
 		bgt = Math.Clamp(bgt+errorBonk, 0f, 1f);
 		var bg = ColorLerp(_bg, Color.Red, bgt);
@@ -105,8 +104,7 @@ public class TypingWindow :PanelBase
 			if (lf.Line != linePaddingCalculatedFor)
 			{
 				linePaddingCalculatedFor = lf.Line;
-				xPadding = (int)((Width - (_textLayout.LineWidths[lf.Line]*FontWidth)) / (float)2);
-				Console.WriteLine(lf.Line+": "+xPadding);
+				xPadding = (int)((Width - (_textLayout.LineWidths[lf.Line]*FontWidth)) / (float)2); 
 			}
 			//todo: we don't have to keep calculating this.
 			DrawLetter(test.Letters[i],lf.Column*FontWidth + xPadding, lf.Line*FontHeight + vPadding);

@@ -10,6 +10,7 @@ public class RoundStartState : StateBase
 	private int _textVal;
 	private readonly Scene _scene;
 	private string _modifiers = "";
+	private BannerText _modifierBanner;
 	public RoundStartState(StateMachine machine) : base(machine)
 	{
 		_tween = new IntTween((x => _textVal = x), 5, 3);
@@ -25,6 +26,16 @@ public class RoundStartState : StateBase
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon.StopAndResetAnim();
 		_modifiers = ModifierUtility.GetModifierNames(_machine.Game.CurrentRound.Test.Modifiers);
+		var bannerHeight = Raylib.GetScreenHeight()/3;
+		if (_machine.Game.CurrentRound.Test.Modifiers.Length == 0)
+		{
+			_modifierBanner = new BannerText(bannerHeight, Raylib.GetScreenHeight() / 2 - bannerHeight / 2, "Modifiers:","None");
+		}
+		else
+		{
+			_modifierBanner = new BannerText(bannerHeight, Raylib.GetScreenHeight() / 2 - bannerHeight / 2, "Modifiers:",_machine.Game.CurrentRound.Test.Modifiers.Select(x=>x.GetModifierName()).ToArray());
+		}
+
 		Program.GameWindow.TypingWindow.SetTextOpacity(0.5f);
 		base.OnEnter();
 	}
@@ -35,8 +46,9 @@ public class RoundStartState : StateBase
 		{
 			_tween.Tick(delta);
 		}
+		_modifierBanner.Tick(delta);
 
-		if (_tween.IsComplete)
+		if (_tween.IsComplete && _modifierBanner.IsComplete)
 		{
 			_machine.GoToState(_machine.TypeGameplay);
 		}	
@@ -53,6 +65,8 @@ public class RoundStartState : StateBase
 
 	public override void Draw()
 	{
+		_modifierBanner.Draw();
+		
 		var demon = _machine.Game.CurrentRound?.Demon;
 		if (demon == null)
 		{

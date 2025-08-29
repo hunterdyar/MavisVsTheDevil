@@ -1,28 +1,30 @@
 namespace MavisVsTheDevil.Animation;
 
-public class TweenGroup
+public class TweenGroup : TweenBase
 {
     public List<TweenBase> Tweens = new List<TweenBase>();
-
-    public TweenGroup()
+    
+    public TweenGroup(float total) : base(total)
     {
         Tweens = new List<TweenBase>();
     }
 
-    public TweenGroup(params TweenBase[] tweens)
+    public TweenGroup(float total, params TweenBase[] tweens) :  base(total)
     {
         foreach (var tween in tweens)
         {
             Tweens.Add(tween);
         }
+        TotalTime = Tweens.Max(x=>x.TotalTime);
     }
 
     public void AddTween(TweenBase tween)
     {
         Tweens.Add(tween);
+        TotalTime = Tweens.Max(x=>x.TotalTime);
     }
 
-    public void Evaluate(float t)
+    public override void Evaluate(float t)
     {
         foreach (var tween in Tweens)
         {

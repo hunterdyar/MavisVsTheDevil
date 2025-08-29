@@ -48,6 +48,8 @@ public abstract class TweenBase
         _elapsedTime = 0;
         _finished = false;
     }
+
+    
 }
 
 public abstract class PropertyTween<T> : TweenBase
