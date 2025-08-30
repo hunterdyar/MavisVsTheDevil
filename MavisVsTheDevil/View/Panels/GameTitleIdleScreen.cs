@@ -13,7 +13,7 @@ public class GameTitleIdleScreen : PanelBase
 	];
 
 	private readonly int[] _characterCounts;
-	private readonly int _fontHeight = 48;
+	public const int FontHeight = 48;
 	public GameTitleIdleScreen(GameWindow window) : base(window)
 	{
 		_characterCounts = new int[_titleLines.Length];
@@ -25,12 +25,12 @@ public class GameTitleIdleScreen : PanelBase
 
 	public override void Draw()
 	{
-		int py = ((Height - (_titleLines.Length*_fontHeight)/2)/2);
+		int py = ((Height - (_titleLines.Length* FontHeight)/2)/2);
 		for (int i = 0; i < _titleLines.Length; i++)
 		{
-			int px = (Width - (_characterCounts[i] * _fontHeight))/2;
-			DrawUtility.DrawLineCentered(_titleLines[i], Width, py, _fontHeight, Color.White, PosX);
-			py += _fontHeight;
+			int px = (Width - (_characterCounts[i] * FontHeight))/2;
+			DrawUtility.DrawLineCentered(_titleLines[i], Width, py, FontHeight, Color.White, PosX);
+			py += FontHeight;
 		}
 		
 	}

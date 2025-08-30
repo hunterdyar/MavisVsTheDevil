@@ -2,6 +2,7 @@
 using MavisVsTheDevil;
 using MavisVsTheDevil.Elements;
 using MavisVsTheDevil.Engine;
+using MavisVsTheDevil.Panels;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -12,7 +13,10 @@ public unsafe static class Program
     public static GameWindow GameWindow => _window;
     private static GameWindow _window;
     public const int GLSL_VERSION = 330;
-    public static Font terminalFont;
+    public static Font terminalFont;//exact for typing
+    public static Font titleFont;//exact for title
+    public static Font headerFont;//big for big
+
     public static bool UseShaders = true;
 	public static int Main()
 	{
@@ -26,7 +30,12 @@ public unsafe static class Program
         EndDrawing();
         _window = new GameWindow(_game);
         //Load Resources
-        terminalFont = LoadFont("Resources/terminal.ttf");
+        terminalFont = LoadFontEx("Resources/terminal.ttf", TypingWindow.FontHeight, null,0);
+        SetTextureFilter(terminalFont.Texture, TextureFilter.Point);
+        headerFont = LoadFontEx("Resources/terminal.ttf", 128, null, 0);
+        SetTextureFilter(headerFont.Texture, TextureFilter.Point);
+        titleFont = LoadFontEx("Resources/terminal.ttf", GameTitleIdleScreen.FontHeight, null, 0);
+        SetTextureFilter(titleFont.Texture, TextureFilter.Point);
 		AssetManager.Initiate();
         SetTargetFPS(144);
 

@@ -14,6 +14,8 @@ public class BannerText
     private TweenSequence textAnim;
     private int _xPos;
     private int[] _textDrawXPos;
+    private int[] _textPadXPos;
+    private int[] _fontSizes;
     private int _height;
     private int _width;
     private int _y;
@@ -33,19 +35,32 @@ public class BannerText
         _y = y;
         textAnim = new TweenSequence(new IntTween((x) => _xPos = x, _width, 0, 0.5f));
         _textDrawXPos = new int[count];
-        
+        _textPadXPos = new int[count];
+        _fontSizes = new int[count];
         for (int i = 0; i < count; i++)
         {
             _textDrawXPos[i] = _width + 1;
+            _fontSizes[i] = height / 4;
         }
         for (int i = 0; i < _bannerText.Length; i++)
         {
             _textDrawXPos[i] = _width;
+            var tx = Raylib.MeasureTextEx(Program.headerFont, text[i], _fontSizes[i], 0);
+            
+            //shrink font until it fits.
+            while (tx.X > _width)
+            {
+                _fontSizes[i] -= 5;
+                tx = Raylib.MeasureTextEx(Program.headerFont, text[i], _fontSizes[i], 0);
+            }
+
+            _textPadXPos[i] = (int)(_width - tx.X) / 2;
+
             int j = i;
             var enter = new IntTween((x) => _textDrawXPos[j] = x, _width, 0, 0.5f);
             var delay = new IntTween(x =>
             {
-                Console.WriteLine("nop");
+                //Console.WriteLine("nop");
             }, 0,0,0.5f);
             if (i > 0)
             {
@@ -73,23 +88,11 @@ public class BannerText
     public void Draw()
     {
         Raylib.DrawRectangle(_xPos, _y, _width, _height, Background);
-        Raylib.DrawTextEx(Program.terminalFont, _bannerTitle, new Vector2(_xPos, _y),_height/4, 0, Foreground);
+        Raylib.DrawTextEx(Program.headerFont, _bannerTitle, new Vector2(_xPos, _y),_height/4, 0, Foreground);
 
         for (int i = 0; i < count; i++)
         {
-            Raylib.DrawTextEx(Program.terminalFont, _bannerText[i], new Vector2(_xPos+_textDrawXPos[i], _y+_height/4),_height/2, 0, Foreground);
+            Raylib.DrawTextEx(Program.headerFont, _bannerText[i], new Vector2(_xPos+_textDrawXPos[i]+_textPadXPos[i], _y+_height/4),_fontSizes[i], 0, Foreground);
         }
-        // //Text entering.
-        // if (_currentTextEntering >= 0)
-        // {
-        //     Raylib.DrawTextEx(Program.terminalFont, _bannerText[_currentTextEntering], new Vector2(_textDrawXPos[_currentTextEntering], _y),_height/2, 0, Color.White);
-        // }
-        //
-        // if (_currentTextEntering > 0)
-        // {
-        //     int exit = _currentTextEntering - 1;
-        //     Raylib.DrawTextEx(Program.terminalFont, _bannerText[exit], new Vector2(_textDrawXPos[exit], _y),_height/2, 0, Color.White);
-        // }
-        //
     }
 }

@@ -8,7 +8,7 @@ public class TypingWindow :PanelBase
 {
 	private Game Game => _window.Game;
 	private const int FontWidth = 20;
-	private const int FontHeight = 32;
+	public const int FontHeight = 32;
 	private int _wordsPerRow = 20;
 	private int _centerY;
 	private const int LinePadding = 5;
