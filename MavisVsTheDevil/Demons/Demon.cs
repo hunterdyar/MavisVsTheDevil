@@ -144,6 +144,8 @@ public class Demon
 			Struggle = "They were pushing the power plants to their limits!",
 			CauseOfDeath = "Five Tornados",
 			imagePath = "gusoddman.png",
+			DemonWordList = Wordlist.Wordlist.SIMCITY,
+			WordListName = "Construction Projects",
 		},
 		new Demon()
 		{
@@ -174,7 +176,9 @@ public class Demon
 			Name = "Math Blaster!",
 			Struggle = "What is 5 + 3?",
 			CauseOfDeath = "Crushed By Alien Spaceship",
-			imagePath = "blasternaut.png"
+			imagePath = "blasternaut.png",
+			DemonWordList = Wordlist.Wordlist.MATHBLASTER,
+			WordListName = "Math!",
 		},
 		new Demon()
 		{
@@ -196,6 +200,8 @@ public class Demon
 			Struggle = "Why are you so mean to the mice?",
 			CauseOfDeath = "Bat Bite Rabies",
 			imagePath = "sagwa.png",
+			DemonWordList = Wordlist.Wordlist.SAGWA,
+			WordListName = "Sagwa's Friends and Family",
 		}
 	};
 }

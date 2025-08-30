@@ -9,25 +9,25 @@ public abstract class TweenBase
 {
     public Action OnComplete;
     public float TotalTime;
-    private float _elapsedTime = 0;
+    protected float _elapsedTime = 0;
     public bool IsComplete => _finished;
-    private bool _finished = false;
-    //Ease
+    protected bool _finished = false;
+
+    public Ease Ease = Ease.Linear;
     public abstract void Evaluate(float t);
 
     public TweenBase(float totalTime)
     {
         TotalTime = totalTime;
     }
-    public void Tick(float t)
+    public virtual void Tick(float t)
     {
         _elapsedTime += t;
         
         //clamp
         _elapsedTime = _elapsedTime < 0 ? 0 : _elapsedTime;
         _elapsedTime = _elapsedTime >= TotalTime ? TotalTime : _elapsedTime;
-        
-        Evaluate(_elapsedTime/TotalTime);
+        Interpolate(_elapsedTime / TotalTime);
         if (_elapsedTime >= TotalTime && !_finished)
         { 
             OnComplete?.Invoke();   
@@ -43,13 +43,16 @@ public abstract class TweenBase
         }
     }
 
-    public void Reset()
+    public virtual void Interpolate(float t)
+    {
+        Evaluate(Easing.Interpolate(Ease, t));
+    }
+
+    public virtual void Reset()
     {
         _elapsedTime = 0;
         _finished = false;
     }
-
-    
 }
 
 public abstract class PropertyTween<T> : TweenBase
@@ -75,6 +78,14 @@ public class ColorTween : PropertyTween<Color>
         _start = start;
         _end = end;
     }
+
+    public ColorTween(Action<Color> eval, Color start, Color end, float time, Ease ease) : base(eval, time)
+    {
+        _start = start;
+        _end = end;
+        Ease = ease;
+    }
+
 
     public override void Evaluate(float t)
     {
@@ -136,10 +147,24 @@ public class IntTween : PropertyTween<int>
         _start = start;
         _end = end;
     }
+
+    public IntTween(Action<int> onEval, int start, int end, float time, Ease ease) : base(onEval, time)
+    {
+        _start = start;
+        _end = end;
+        Ease = ease;
+    }
     public IntTween(Action<int> onEval, int end, float time) : base(onEval, time)
     {
         _start = 0;
         _end = end;
+    }
+
+    public IntTween(Action<int> onEval, int end, float time, Ease ease) : base(onEval, time)
+    {
+        _start = 0;
+        _end = end;
+        Ease = ease;
     }
 
     public override void Evaluate(float t)
@@ -164,9 +189,10 @@ public class IndexTween<T> : PropertyTween<T>
     public override void Evaluate(float t)
     {
         //todo: does this work for negative start values? or any negative values?
-        float c = _values.Count;
+        int c = _values.Count;
         int index = (int)MathF.Floor((t * c - Single.Epsilon));
-        float remainder = (t * c) % 1;
+        index = (index >= c) ? c - 1 : index;
+        //float remainder = (t * c) % 1;
         _value = _values[index];
         OnEval?.Invoke(_value);
     }

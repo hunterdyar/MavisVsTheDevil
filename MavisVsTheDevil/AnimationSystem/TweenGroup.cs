@@ -31,4 +31,12 @@ public class TweenGroup : TweenBase
             tween.Evaluate(t);
         }
     }
+
+    public override void Interpolate(float t)
+    {
+        foreach (var tween in Tweens)
+        {
+            tween.Interpolate(t);
+        }
+    }
 }

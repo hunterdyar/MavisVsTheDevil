@@ -1,0 +1,68 @@
+﻿road
+school
+library
+museum
+marina
+hospital
+arcology
+highway
+bus depot
+railroad
+subway
+seaport
+airport
+train depot
+hydroelectric dam
+wind turbine
+power plant
+solar farm
+water tower
+water pump
+sewage treatment plant
+garbage dump
+garbage incinerator
+recycling center
+fire station
+police station
+manor
+health clinic
+town hall
+city hall
+city storage
+bank
+nursery school
+high school
+university
+community college
+campus park
+rowing center
+art gallery
+aquarium
+observatory
+airship hangar
+heliport
+balloon park
+volleyball court
+lifeguard tower
+carousel
+waterpark
+yacht club
+hotel
+mall
+cruise ship
+retreat
+amphitheater
+tennis stadium
+baseball stadium
+football stadium
+soccer stadium
+ferris wheel
+ice hockey arena
+cottages
+train station
+casino
+apartments
+toy store
+funicular
+restaurant
+factory
