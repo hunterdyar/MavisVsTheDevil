@@ -7,16 +7,23 @@ public class ReverseCapitalization : Modifier
 		return "Flip Upper and Lowercase";
 	}
 
-	public override char OnLetterTyped(char c)
+	public override void OnTypingTestCreated(ref TypeTest typeTest)
 	{
-		if (char.IsUpper(c))
+		foreach (var letter in typeTest.Letters)
 		{
-			return char.ToLower(c);
-		}else if (char.IsLower(c))
-		{
-			return char.ToUpper(c);
+			letter.SetLetter(ModifierUtility.FlipCase(letter.Letter));
 		}
-
-		return c;
 	}
+	// public override char OnLetterTyped(char c)
+	// {
+	// 	if (char.IsUpper(c))
+	// 	{
+	// 		return char.ToLower(c);
+	// 	}else if (char.IsLower(c))
+	// 	{
+	// 		return char.ToUpper(c);
+	// 	}
+	//
+	// 	return c;
+	// }
 }

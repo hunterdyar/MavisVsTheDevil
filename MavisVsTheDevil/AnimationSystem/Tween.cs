@@ -13,6 +13,8 @@ public abstract class TweenBase
     public bool IsComplete => _finished;
     protected bool _finished = false;
 
+    public float PercentageComplete => IsComplete ? 1 : (_elapsedTime == 0) ? 0 : Single.Clamp((_elapsedTime / TotalTime), 0, 1);
+
     public Ease Ease = Ease.Linear;
     public abstract void Evaluate(float t);
 

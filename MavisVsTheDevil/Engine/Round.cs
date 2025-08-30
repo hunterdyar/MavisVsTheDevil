@@ -128,7 +128,7 @@ public class Round
 					// return ("Tedious", Wordlist.Wordlist.TRIGRAMS);
 					return ("Commonly Misspelled, Misspelled", Wordlist.Wordlist.TYPOD);
 				case 5:
-					return ("Commonly Misspelled, Misspelled", Wordlist.Wordlist.TYPOD);
+					return ("Commonly Misspelled, Mispelled", Wordlist.Wordlist.TYPOD);
 				case 6: return ("Dinosaurs", Wordlist.Wordlist.DINOSAURS);
 				case 7: return ("Dinosaurs", Wordlist.Wordlist.PROGRAMMINGLANGUAGES);
 
