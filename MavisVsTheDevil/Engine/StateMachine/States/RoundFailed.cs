@@ -24,7 +24,7 @@ public class RoundFailed : StateBase
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);
 		AssetManager.Demon?.Play();
-		
+		Program.GoDownALayerOfHell();
 		base.OnEnter();
 	}
 

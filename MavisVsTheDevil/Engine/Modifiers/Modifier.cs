@@ -6,7 +6,7 @@ public abstract class Modifier
 	private static int _recentIndex = 0;
 	public static Modifier[] GetModifierForRound(int round)
 	{
-		return [GetRandomNoRecent(), GetRandomNoRecent()];
+		//return [GetRandomNoRecent(), GetRandomNoRecent()];
 
 		if (round == 0)
 		{

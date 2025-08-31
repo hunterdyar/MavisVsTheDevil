@@ -16,11 +16,12 @@ public unsafe static class Program
     public static Font terminalFont;//exact for typing
     public static Font titleFont;//exact for title
     public static Font headerFont;//big for big
-
+    private static FileInfo _layerOfHell;
     public static bool UseShaders = true;
 	public static int Main()
 	{
-		//UseShaders = false;//mac!
+		_layerOfHell = new FileInfo("Resources/LayerOfHell.txt");
+		// UseShaders = false;//mac!
         const int screenWidth = 1920;
         const int screenHeight = 1080;
         SetConfigFlags(ConfigFlags.ResizableWindow);
@@ -58,7 +59,6 @@ public unsafe static class Program
 	            _game.Draw();
             EndDrawing();
         }
-
         
         //Unload Resources
 		_window.OnClose();
@@ -73,4 +73,38 @@ public unsafe static class Program
 	{
 		_window.SetSizes();
 	}
+
+	public static void GoUpALayerOfHell()
+	{
+		MoveLayerOfHell(-1);
+	}
+	
+	public static void GoDownALayerOfHell()
+	{
+		MoveLayerOfHell(1);	
+	}
+
+	private static void MoveLayerOfHell(double delta)
+	{
+		double layer = 666;
+		_layerOfHell = new FileInfo("Resources/LayerOfHell.txt");
+		if (_layerOfHell.Exists)
+		{
+			using (StreamReader sr = File.OpenText(_layerOfHell.FullName))
+			{
+				string s = sr.ReadToEnd();
+				if (double.TryParse(s, out double fromfile))
+				{
+					layer = fromfile;
+				}
+			}
+		}
+
+		layer += delta;
+		using (StreamWriter sw = File.CreateText(_layerOfHell.FullName))
+		{
+			sw.WriteLine(layer.ToString());
+		}	
+	}
+	
 }

@@ -45,6 +45,12 @@ public class Game
 	{
 		if (state == RoundState.Complete)
 		{
+			if (_round == 6)
+			{
+				//victory is the players! increase the layer of hell and let them know they won.
+				Console.WriteLine("victory. should reset here but doesn't yet.");
+				Program.GoUpALayerOfHell();
+			}
 			State.GoToState(State.MoveToNextRoundAnimation);
 		}else if (state == RoundState.Failure)
 		{
