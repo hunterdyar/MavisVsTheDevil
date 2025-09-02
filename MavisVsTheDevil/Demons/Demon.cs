@@ -209,6 +209,20 @@ public class Demon
 			Struggle = "At Least I am Safe Here",
 			imagePath = "caillou.png",
 			CauseOfDeath = "Embolic Stroke leading to Cardiac Arrest"
+		},
+		new Demon()
+		{
+			Name = "Throttle The Biker Mouse From Mars",
+			Struggle = "It Ain't Easy Being This Cool",
+			imagePath = "throttle.png",
+			CauseOfDeath = "Fight with the Plutarkians"
+		},
+		new Demon()
+		{
+			Name = "The Cast of Zoom!",
+			Struggle = "Come on and Zoom!",
+			imagePath = "zoom.png",
+			CauseOfDeath = "Car Accidents"
 		}
 	};
 }
