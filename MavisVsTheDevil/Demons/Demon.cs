@@ -202,6 +202,13 @@ public class Demon
 			imagePath = "sagwa.png",
 			DemonWordList = Wordlist.Wordlist.SAGWA,
 			WordListName = "Sagwa's Friends and Family",
+		},
+		new Demon()
+		{
+			Name = "Caillou",
+			Struggle = "At Least I am Safe Here",
+			imagePath = "caillou.png",
+			CauseOfDeath = "Embolic Stroke leading to Cardiac Arrest"
 		}
 	};
 }
