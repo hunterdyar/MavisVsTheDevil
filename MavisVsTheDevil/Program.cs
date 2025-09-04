@@ -103,7 +103,7 @@ public unsafe static class Program
 		layer += delta;
 		using (StreamWriter sw = File.CreateText(_layerOfHell.FullName))
 		{
-			sw.WriteLine(layer.ToString());
+			sw.Write(layer.ToString().Trim());
 		}	
 	}
 	
