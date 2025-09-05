@@ -20,7 +20,7 @@ public unsafe static class Program
     public static bool UseShaders = true;
 	public static int Main()
 	{
-		_layerOfHell = new FileInfo("Resources/LayerOfHell.txt");
+		_layerOfHell = new FileInfo("LayerOfHell.txt");
 		MoveLayerOfHell(0);//force file to be created if it isn't.
 		// UseShaders = false;//mac!
         const int screenWidth = 1920;
@@ -89,7 +89,7 @@ public unsafe static class Program
 	private static void MoveLayerOfHell(double delta)
 	{
 		double layer = 666;
-		_layerOfHell = new FileInfo("Resources/LayerOfHell.txt");
+		_layerOfHell = new FileInfo("LayerOfHell.txt");
 		if (_layerOfHell.Exists)
 		{
 			using (StreamReader sr = File.OpenText(_layerOfHell.FullName))
