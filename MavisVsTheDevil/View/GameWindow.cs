@@ -60,9 +60,9 @@ public class GameWindow
 		}
 
 
-		#if DEBUG
-		_debugInfo.Draw();
-		#endif
+		// #if DEBUG
+		// _debugInfo.Draw();
+		// #endif
 	}
 
 	public void SetSizes()

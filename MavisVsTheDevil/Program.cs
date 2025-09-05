@@ -21,11 +21,13 @@ public unsafe static class Program
 	public static int Main()
 	{
 		_layerOfHell = new FileInfo("Resources/LayerOfHell.txt");
+		MoveLayerOfHell(0);//force file to be created if it isn't.
 		// UseShaders = false;//mac!
         const int screenWidth = 1920;
         const int screenHeight = 1080;
-        SetConfigFlags(ConfigFlags.ResizableWindow);
-        InitWindow(screenWidth, screenHeight, "Mavis Vs. The Devil");
+        // SetConfigFlags(ConfigFlags.ResizableWindow);
+        SetConfigFlags(ConfigFlags.TopmostWindow | ConfigFlags.BorderlessWindowMode);
+        InitWindow(GetScreenWidth(), GetScreenHeight(), "Mavis Vs. The Devil");
         BeginDrawing();
 	    Raylib.DrawText("Loading", 20,20,30, Color.Black);
         EndDrawing();
@@ -39,7 +41,7 @@ public unsafe static class Program
         SetTextureFilter(titleFont.Texture, TextureFilter.Point);
 		AssetManager.Initiate();
         SetTargetFPS(144);
-
+		Raylib.ToggleFullscreen();
         _game.Init();
         _game.StartGame();
         while (!WindowShouldClose())
