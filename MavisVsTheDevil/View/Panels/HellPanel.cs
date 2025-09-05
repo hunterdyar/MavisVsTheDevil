@@ -72,6 +72,6 @@ public class HellPanel : PanelBase
 		// EndShaderMode();
 		
 		
-		DrawFPS(0, 20);
+		//DrawFPS(0, 20);
 	}
 }
