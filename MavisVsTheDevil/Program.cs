@@ -25,8 +25,8 @@ public unsafe static class Program
 		// UseShaders = false;//mac!
         const int screenWidth = 1920;
         const int screenHeight = 1080;
-        // SetConfigFlags(ConfigFlags.ResizableWindow);
-        SetConfigFlags(ConfigFlags.TopmostWindow | ConfigFlags.BorderlessWindowMode);
+         SetConfigFlags(ConfigFlags.ResizableWindow);
+        //SetConfigFlags(ConfigFlags.TopmostWindow | ConfigFlags.BorderlessWindowMode);
         InitWindow(GetScreenWidth(), GetScreenHeight(), "Mavis Vs. The Devil");
         BeginDrawing();
 	    Raylib.DrawText("Loading", 20,20,30, Color.Black);
