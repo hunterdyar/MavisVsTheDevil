@@ -227,6 +227,34 @@ public class Demon
 			Struggle = "Come on and Zoom!",
 			imagePath = "zoom.png",
 			CauseOfDeath = "Car Accidents"
+		},
+		new Demon()
+		{
+			Name = "Reader Rabbit",
+			Struggle = "I Kept Pointing But There Was No Click",
+			imagePath = "readerrabbit.png",
+			CauseOfDeath = "Corporate Takeover"
+		},
+		new Demon()
+		{
+			Name = "Stick Stickly",
+			Struggle = "I Just Wanted to Make Friends",
+			imagePath = "stickstickly.png",
+			CauseOfDeath = "One Dip Too Many"
+		},
+		new Demon()
+		{
+			Name = "Millie",
+			Struggle = "I Wish You Were Paying Attention",
+			imagePath = "millie.png",
+			CauseOfDeath = "Factory Farming"
+		},
+		new Demon()
+		{
+			Name = "Jazz Jackrabbit",
+			Struggle = "I Never Liked My Job",
+			imagePath = "jazzjack.png",
+			CauseOfDeath = "Accidental Weapon Discharge"
 		}
 	};
 }
