@@ -10,7 +10,8 @@ public class Game
 	public Round CurrentRound;
 	public static bool IsCapsDown;
 	public static bool IsShiftDown;
-	
+
+	public bool PastWinState => _round >= 5;// >=2 will trigger after round 3. 
 	private int _round = 0;
 	public Game()
 	{
@@ -45,13 +46,16 @@ public class Game
 	{
 		if (state == RoundState.Complete)
 		{
-			if (_round == 6)
-			{
-				//victory is the players! increase the layer of hell and let them know they won.
-				Console.WriteLine("victory. should reset here but doesn't yet.");
-				Program.GoUpALayerOfHell();
-			}
 			State.GoToState(State.MoveToNextRoundAnimation);
+
+			// if (_round == 6)
+			// {
+			// 	//todo
+			// 	State.GoToState(State.GameWin);
+			// 	//victory is the players! increase the layer of hell and let them know they won.
+			// 	Console.WriteLine("victory. should reset here but doesn't yet.");
+			// 	Program.GoUpALayerOfHell();
+			// }
 		}else if (state == RoundState.Failure)
 		{
 			State.GoToState(State.RoundFailureAnimation);

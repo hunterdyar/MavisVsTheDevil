@@ -1,4 +1,5 @@
 ﻿using MavisVsTheDevil.Animation;
+using MavisVsTheDevil.Demons;
 using MavisVsTheDevil.Elements;
 using Raylib_cs;
 
@@ -29,7 +30,7 @@ public class RoundStartState : StateBase
 		var bannerGap = 10;
 		//demon name
 		_demonNameBanner = new BannerText(bannerHeight, bannerHeight,
-			"You meet the demon", false, _machine.Game.CurrentRound.Demon.Name);
+			$"You meet the {Demon.Title}", false, _machine.Game.CurrentRound.Demon.Name);
 		//, $"Cause of death: {_machine.Game.CurrentRound.Demon.CauseOfDeath}
 
 		_causeOfDeathBanner = new BannerText(bannerHeight, bannerHeight * 2 + bannerGap, "Cause Of Death", false,

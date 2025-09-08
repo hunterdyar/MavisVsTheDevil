@@ -1,4 +1,5 @@
 ﻿using MavisVsTheDevil.Animation;
+using MavisVsTheDevil.Demons;
 using MavisVsTheDevil.Elements;
 using Raylib_cs;
 
@@ -51,7 +52,14 @@ public class RoundSucceed : StateBase
 
 	private void GoToNextState()
 	{
-		_machine.GoToState(_machine.RoundStartAnimation);
+		if (_machine.Game.PastWinState)
+		{
+			_machine.GoToState(_machine.GameWin);
+		}
+		else
+		{
+			_machine.GoToState(_machine.RoundStartAnimation);
+		}
 	}
 
 	public override void Draw()
@@ -64,8 +72,8 @@ public class RoundSucceed : StateBase
 
 		int width = Raylib.GetScreenWidth();
 		var y = Raylib.GetScreenHeight()/2 + 50;
-		DrawUtility.DrawLineCentered($"You have defeated the demon {demon.Name}.", width, y + 24, 24, Color.White);
+		DrawUtility.DrawLineCentered($"You have defeated the {Demon.Title} {demon.Name}.", width, y + 24, 24, Color.White);
 		DrawUtility.DrawLineCentered($"{demon.Name} is banished deeper into hell.", width, y + 46, 24, Color.White);
-		DrawUtility.DrawLineCentered($"The Demon Wails: {demon.Struggle}", width, y + 68, 24, Color.White);
+		DrawUtility.DrawLineCentered($"{Demon.TitleStandalone} Wails: {demon.Struggle}", width, y + 68, 24, Color.White);
 	}
 }

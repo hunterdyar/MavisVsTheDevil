@@ -12,6 +12,7 @@ public class StateMachine
 	public StateBase TypeGameplay;
 	public StateBase MoveToNextRoundAnimation;
 	public StateBase RoundFailureAnimation;
+	public StateBase GameWin;
 
 	public Game Game => _game;
 	private Game _game;
@@ -37,6 +38,9 @@ public class StateMachine
 		}else if (_currentStateBase == RoundFailureAnimation)
 		{
 			return "Round Fail Anim";
+		}else if (_currentStateBase == GameWin)
+		{
+			return "Game Win";
 		}
 
 		return "Unknown State";
@@ -63,7 +67,7 @@ public class StateMachine
 		//make new anim for 'walking forwards'
 		MoveToNextRoundAnimation = new RoundSucceed(this);
 		RoundFailureAnimation = new RoundFailed(this);
-		
+		GameWin = new GameWin(this);
 	}
 	
 	public void GoToState(StateBase stateBase)
@@ -92,21 +96,6 @@ public class StateMachine
 	public void TypeKeyPressed(char key)
 	{
 		_currentStateBase?.TypeKeyPressed(key);
-		switch (key)
-		{
-			case '1':
-				GoToState(TitleState);
-				break;
-			case '2':
-				GoToState(IntroductionAnimationState);
-				break;
-			case '3':
-				GoToState(RoundStartAnimation);
-				break;	
-			case '4':
-				GoToState(RoundFailureAnimation);
-				break;
-		}
 	}
 
 	public void Draw()
