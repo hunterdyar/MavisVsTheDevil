@@ -6,8 +6,6 @@ public abstract class Modifier
 	private static int _recentIndex = 0;
 	public static Modifier[] GetModifierForRound(int round)
 	{
-		return [new MistakesAddedToWord()];
-
 		if (round == 0)
 		{
 			//no modifier on first round
