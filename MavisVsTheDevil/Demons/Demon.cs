@@ -255,6 +255,13 @@ public class Demon
 			Struggle = "I Never Liked My Job",
 			imagePath = "jazzjack.png",
 			CauseOfDeath = "Accidental Weapon Discharge"
+		},
+		new Demon()
+		{
+			Name = "Captain Novalin",
+			Struggle = "This sounds like a job for yours truly, CAPTAIN NOVOLIN!",
+			imagePath = "captainnovalin.png",
+			CauseOfDeath = "Type 1 Diabetes"
 		}
 	};
 }
