@@ -235,6 +235,32 @@ public class TypeTest
 		OnTestChange?.Invoke(this);
 	}
 
+	public void AppendLetterToWord(char letter)
+	{
+		//if it's a space, we'll bork word breaksssss. soooo. gotta fix that.
+		int i = _currentLetter;
+		for (; i < _testLetters.Count; i++)
+		{
+			if (_testLetters[i].Letter == ' ')
+			{
+				break;
+			}	
+		}
+
+		if (i >= _testLetters.Count)
+		{
+			i = _testLetters.Count-1;
+		}
+
+		if (i == _currentLetter)
+		{
+			i++;
+		}
+		_testLetters.Insert(i,new TestLetter(this, letter, _testLetters[_currentLetter].Word));
+		LetterCountByWordIndex[_testLetters[_currentLetter].Word]++;
+		OnTestChange?.Invoke(this);
+	}
+
 
 	public void Tick()
 	{

@@ -10,7 +10,7 @@ public class RoundSucceed : StateBase
 	private int _val;
 	private TweenBase _tween;
 	private Scene _scene;
-	
+	private int fontSize = 64;
 	public RoundSucceed(StateMachine machine) : base(machine)
 	{
 		_tween = new IntTween((x => _val = x), 5, 2.5f);
@@ -35,7 +35,7 @@ public class RoundSucceed : StateBase
 		}
 		else
 		{
-			GoToNextState();
+			//GoToNextState();
 		}
 
 		base.Tick(delta);
@@ -44,10 +44,10 @@ public class RoundSucceed : StateBase
 	public override void TypeKeyPressed(char key)
 	{
 		GoToNextState();
-		if (_tween.IsComplete)
-		{
-			GoToNextState();
-		}
+		// if (_tween.IsComplete)
+		// {
+		// 	GoToNextState();
+		// }
 	}
 
 	private void GoToNextState()
@@ -71,9 +71,11 @@ public class RoundSucceed : StateBase
 		}
 
 		int width = Raylib.GetScreenWidth();
-		var y = Raylib.GetScreenHeight()/2 + 50;
-		DrawUtility.DrawLineCentered($"You have defeated the {Demon.Title} {demon.Name}.", width, y + 24, 24, Color.White);
-		DrawUtility.DrawLineCentered($"{demon.Name} is banished deeper into hell.", width, y + 46, 24, Color.White);
-		DrawUtility.DrawLineCentered($"{Demon.TitleStandalone} Wails: {demon.Struggle}", width, y + 68, 24, Color.White);
+		var y = Program.GameWindow.FightWindow.Height/2 + (fontSize*3)/2;
+		DrawUtility.DrawLineCentered($"You have defeated the {Demon.Title} {demon.Name}.", width, y, fontSize, Color.White);
+		DrawUtility.DrawLineCentered($"{demon.Name} is banished deeper into hell.", width, y + fontSize, fontSize, Color.White);
+		DrawUtility.DrawLineCentered($"{Demon.TitleStandalone} Wails:", width, y + fontSize*2, fontSize, Color.White);
+		DrawUtility.DrawLineCentered($"{demon.Struggle}", width, y + fontSize * 3, fontSize-4, Color.White);
+
 	}
 }

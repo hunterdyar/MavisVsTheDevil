@@ -75,7 +75,7 @@ public class Round
 
 	private int GetWordCount()
 	{
-		int[] rs = [10, 12, 15, 18,20,23,25,35,35];
+		int[] rs = [12, 15, 18,20,23,25,35,35];
 		return rs[RoundNumber];
 	}
 
