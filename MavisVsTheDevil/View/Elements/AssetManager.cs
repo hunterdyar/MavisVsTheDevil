@@ -11,6 +11,7 @@ public static class AssetManager
 	private static readonly Dictionary<FileInfo, Texture2D> _textures = new Dictionary<FileInfo, Texture2D>();
 
 	public static VisualModel Demon;
+	public static Texture2D MavisTex;
 	public const string texturePath = "Resources/demons/";
 	
 	public static void Initiate()
@@ -18,6 +19,7 @@ public static class AssetManager
 		Demon = new VisualModel("Resources/models/demon.glb");
 		Demon.SetRootScale(3);
 		Demon.SetScale(1);
+		LoadTexture(new FileInfo("Resources/demons/mavis.png"), out MavisTex);
 		Demons.Demon.OnDemonChosen += SetDemonTexture;
 	}
 

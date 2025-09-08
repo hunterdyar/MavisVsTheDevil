@@ -75,7 +75,7 @@ public class Round
 
 	private int GetWordCount()
 	{
-		int[] rs = [10, 12, 20, 25,30,30,30,35,25];
+		int[] rs = [10, 12, 15, 18,20,23,25,35,35];
 		return rs[RoundNumber];
 	}
 
@@ -92,7 +92,7 @@ public class Round
 			return ("Common Words", Wordlist.Wordlist.COMMON);
 		}else if (roundNumber <= 3)
 		{
-			var r = Program.random.Next(8);
+			var r = Program.random.Next(9);
 			switch (r)
 			{
 				case 0:
@@ -109,7 +109,7 @@ public class Round
 				case 6: return ("Wine Descriptions", Wordlist.Wordlist.WINEDESCRIPTIONS);
 				case 7: return ("Crayola Colors", Wordlist.Wordlist.CRAYOLA);
 				case 8: return ("Common Password Words", Wordlist.Wordlist.PASSWORDS);
-
+				
 				}
 		}else if (roundNumber <= 5)
 		{

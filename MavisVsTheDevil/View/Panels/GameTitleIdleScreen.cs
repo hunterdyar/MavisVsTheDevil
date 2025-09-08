@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using MavisVsTheDevil.Elements;
 using Raylib_cs;
 
 namespace MavisVsTheDevil.Panels;
@@ -33,6 +34,11 @@ public class GameTitleIdleScreen : PanelBase
 			DrawUtility.DrawLineCentered(_titleLines[i], Width, py, FontHeight, Color.White, PosX);
 			py += FontHeight;
 		}
-		
+
+		var t = AssetManager.MavisTex;
+		var size = t.Height;
+		var pos = new Vector2(0,Raylib.GetScreenHeight() - size);
+		double alpha = (Math.Max(0,Math.Sin((float)Raylib.GetTime() / 4)+.5))/12;
+		Raylib.DrawTextureEx(AssetManager.MavisTex, pos,0,1,new Color(1,1,1,(float)alpha));
 	}
 }
