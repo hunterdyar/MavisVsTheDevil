@@ -9,6 +9,10 @@ public class Demon
 	private string[] DemonWordList = [];
 	public string imagePath;
 	public static Action<Demon> OnDemonChosen;
+
+	public const string Title = "FORGOTTEN";
+	public const string TheTitle = "THE FORGOTTEN";
+	public const string TitleStandalone = "THE FORGOTTEN ONE";
 	//word lists
 	//modifier 
 	private static Demon[] LastDemons = new Demon[5];

@@ -12,15 +12,21 @@ public class IntroductionState : StateBase
 
 	private readonly string[] _suffix =
 	[
+		"To Struggle",
 		"To Suffer",
 		"To Reist",
 		"To Type",
 		"To Struggle",
+		"To Banish",
 		"To Fight",
 		"To Type",
 		"To Despair",
 		"To Type",
 		"To Struggle",
+		"To Despair",
+		"To Type",
+		"To Despair",
+		"To Type",
 		"To Type",
 		"Wrong",
 	];

@@ -9,6 +9,7 @@ public class GameTitleIdleScreen : PanelBase
 	[
 		"You Are Mavis Beacon.",
 		"You Are In Hell.",
+		"But You Are Not Yet Forgotten.",
 		"You Must Type."
 	];
 

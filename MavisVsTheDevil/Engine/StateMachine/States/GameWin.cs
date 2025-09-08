@@ -5,13 +5,13 @@ using Raylib_cs;
 
 namespace MavisVsTheDevil.Engine;
 
-public class RoundFailed : StateBase
+public class GameWin : StateBase
 {
 	private int _val;
 	private readonly TweenBase _tween;
 	private readonly Scene _scene;
 	
-	public RoundFailed(StateMachine machine) : base(machine)
+	public GameWin(StateMachine machine) : base(machine)
 	{
 		_tween = new IntTween((x => _val = x), 5, 3);
 		_scene = new Scene();
@@ -21,11 +21,12 @@ public class RoundFailed : StateBase
 	public override void OnEnter()
 	{
 		_tween.Reset();
-		Console.WriteLine("round start ");
-		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
-		Program.GameWindow.FightWindow.SetScene(_scene);
-		AssetManager.Demon?.Play();
-		Program.GoDownALayerOfHell();
+		Console.WriteLine("game win ");
+		Program.GameWindow.SetActiveWindows(Program.GameWindow.TypingWindow);
+		//Program.GameWindow.FightWindow.SetScene(_scene);
+		//AssetManager.Demon?.Play();
+		Program.GoUpALayerOfHell();
+
 		base.OnEnter();
 	}
 
@@ -56,15 +57,20 @@ public class RoundFailed : StateBase
 		}
 
 		int width = Raylib.GetScreenWidth();
-		var y = Raylib.GetScreenHeight()/2 + 50;
-		DrawUtility.DrawLineCentered($"The {Demon.Title} {demon.Name} defeated you.", width, y + 24, 24, Color.White);
+		var y = Program.GameWindow.FightWindow.Height/2 + 50;
+		DrawUtility.DrawLineCentered($"You Defeat the {Demon.Title}.", width, y + 24, 24, Color.White);
 		if (_val > 2)
 		{
-			DrawUtility.DrawLineCentered("You are banished deeper into hell.", width, y + 46, 24, Color.White);
+			DrawUtility.DrawLineCentered("You claw yourself one layer up in hell.", width, y + 46, 24, Color.White);
 		}
+		if (_val > 3)
+		{
+			DrawUtility.DrawLineCentered("Congratulations. You are not yet safe.", width, y + 68, 24, Color.White);
+		}
+		
 		if (_val > 4)
 		{
-			DrawUtility.DrawLineCentered($"Why must you struggle?", width, y + 68, 24, Color.White);
+			DrawUtility.DrawLineCentered($"Why must you struggle?", width, y + 90, 24, Color.White);
 		}
 	}
 }
