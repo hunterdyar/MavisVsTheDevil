@@ -69,3 +69,14 @@ worn-out
 half-witted
 quick-witted
 x-ray
+aye-aye
+drive-in
+full-time
+off-limits
+part-time
+ping-pong
+post-it
+real-time
+sci-fi
+t-shirt
+yo-yo
