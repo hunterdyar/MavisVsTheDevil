@@ -71,10 +71,10 @@ public class RoundSucceed : StateBase
 		}
 
 		int width = Raylib.GetScreenWidth();
-		var y = Program.GameWindow.FightWindow.Height/2 + (fontSize*3)/2;
-		DrawUtility.DrawLineCentered($"You have defeated the {Demon.Title} {demon.Name}.", width, y, fontSize, Color.White);
+		var y = Program.GameWindow.FightWindow.Height/2 - (fontSize*3)/2;
+		DrawUtility.DrawLineCentered($"You have defeated {Demon.TheTitle} {demon.Name}.", width, y, fontSize, Color.White);
 		DrawUtility.DrawLineCentered($"{demon.Name} is banished deeper into hell.", width, y + fontSize, fontSize, Color.White);
-		DrawUtility.DrawLineCentered($"{Demon.TitleStandalone} Wails:", width, y + fontSize*2, fontSize, Color.White);
+		DrawUtility.DrawLineCentered($"{Demon.TheTitle} Wails:", width, y + fontSize*2, fontSize, Color.White);
 		DrawUtility.DrawLineCentered($"{demon.Struggle}", width, y + fontSize * 3, fontSize-4, Color.White);
 
 	}

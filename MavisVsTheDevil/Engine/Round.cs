@@ -34,7 +34,7 @@ public class Round
 		var modifiers = GetModifiers(round);
 		WordlistName = w.Item1;
 		var words = new List<string>();
-		for (int i = 0; i < wordCount; i++)
+		while (words.Count < wordCount)
 		{
 			var word = w.Item2[Program.random.Next(w.Item2.Length)];
 			foreach (var subword in word.Split(' '))

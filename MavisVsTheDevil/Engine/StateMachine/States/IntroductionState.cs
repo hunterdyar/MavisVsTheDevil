@@ -20,14 +20,11 @@ public class IntroductionState : StateBase
 		"To Banish",
 		"To Fight",
 		"To Type",
-		"To Despair",
-		"To Type",
 		"To Struggle",
-		"To Despair",
 		"To Type",
 		"To Despair",
 		"To Type",
-		"To Type",
+		"Wrong",
 		"Wrong",
 	];
 
@@ -43,7 +40,7 @@ public class IntroductionState : StateBase
 		{
 			_text = Prefix + v;
 			_color = Color.White;
-		}, _suffix, 2);
+		}, _suffix, 3);
 		var fadeOutAnim = new ColorTween((c) => { _color = c; }, Color.White, new Color(255, 255, 255, 0), 0.25f);
 		_sequence = new TweenSequence(suffixAnim, fadeOutAnim, new NopTween(0.5f));
 		_textX = 0;

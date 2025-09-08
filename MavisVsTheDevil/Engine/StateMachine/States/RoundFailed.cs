@@ -55,16 +55,18 @@ public class RoundFailed : StateBase
 			return;
 		}
 
+		int fontSize = 64;
 		int width = Raylib.GetScreenWidth();
-		var y = Raylib.GetScreenHeight()/2 + 50;
-		DrawUtility.DrawLineCentered($"The {Demon.Title} {demon.Name} defeated you.", width, y + 24, 24, Color.White);
+		var y = Program.GameWindow.FightWindow.Height / 2 - (fontSize * 3) / 2;
+
+		DrawUtility.DrawLineCentered($"The {Demon.Title} {demon.Name} defeated you.", width, y, fontSize, Color.White);
 		if (_val > 2)
 		{
-			DrawUtility.DrawLineCentered("You are banished deeper into hell.", width, y + 46, 24, Color.White);
+			DrawUtility.DrawLineCentered("You are banished deeper into hell.", width, y + fontSize, fontSize, Color.White);
 		}
 		if (_val > 4)
 		{
-			DrawUtility.DrawLineCentered($"Why must you struggle?", width, y + 68, 24, Color.White);
+			DrawUtility.DrawLineCentered($"Why must you struggle?", width, y + fontSize*2, fontSize, Color.White);
 		}
 	}
 }

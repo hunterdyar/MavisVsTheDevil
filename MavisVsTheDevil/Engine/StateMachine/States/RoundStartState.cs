@@ -14,6 +14,7 @@ public class RoundStartState : StateBase
 	private BannerText _causeOfDeathBanner;
 	private BannerText _wordListBanner;
 	private BannerText _modifierBanner;
+	private NopTween _waitBeforeExit;
 	public RoundStartState(StateMachine machine) : base(machine)
 	{
 		_scene = new Scene();
@@ -28,6 +29,7 @@ public class RoundStartState : StateBase
 		AssetManager.Demon.StopAndResetAnim();
 		var bannerHeight = Raylib.GetScreenHeight() / 7;
 		var bannerGap = 10;
+		_waitBeforeExit = new NopTween(1f);
 		//demon name
 		_demonNameBanner = new BannerText(bannerHeight, bannerHeight,
 			$"You meet the {Demon.Title}", false, _machine.Game.CurrentRound.Demon.Name);
@@ -80,6 +82,13 @@ public class RoundStartState : StateBase
 			return;
 		}
 
+		//Hold for another second
+		if (!_waitBeforeExit.IsComplete)
+		{
+			_waitBeforeExit.Tick(delta);
+			return;
+		}
+
 		if (!_modifierBanner.ExitTween.IsComplete)
 		{
 			_modifierBanner.ExitTween.Tick(delta);
@@ -104,7 +113,10 @@ public class RoundStartState : StateBase
 		    _wordListBanner.ExitTween.PercentageComplete > 0.5f && !_demonNameBanner.ExitTween.IsComplete)
 		{
 			_demonNameBanner.ExitTween.Tick(delta);
+			return;
 		}
+		
+		
 		
 		//done
 		if (_modifierBanner.IsComplete && _wordListBanner.ExitTween.IsComplete && _demonNameBanner.ExitTween.IsComplete && _causeOfDeathBanner.ExitTween.IsComplete)

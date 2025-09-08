@@ -56,21 +56,22 @@ public class GameWin : StateBase
 			return;
 		}
 
+		int fontSize = 24;
 		int width = Raylib.GetScreenWidth();
-		var y = Program.GameWindow.FightWindow.Height/2 + 50;
-		DrawUtility.DrawLineCentered($"You Defeat the {Demon.Title}.", width, y + 24, 24, Color.White);
+		var y = Program.GameWindow.FightWindow.Height/2 - (fontSize*3)/2;
+		DrawUtility.DrawLineCentered($"You Defeat {Demon.TheTitle}.", width, y, fontSize, Color.White);
 		if (_val > 2)
 		{
-			DrawUtility.DrawLineCentered("You claw yourself one layer up in hell.", width, y + 46, 24, Color.White);
+			DrawUtility.DrawLineCentered("You claw yourself one layer up.", width, y + fontSize, fontSize, Color.White);
 		}
 		if (_val > 3)
 		{
-			DrawUtility.DrawLineCentered("Congratulations. You are not yet safe.", width, y + 68, 24, Color.White);
+			DrawUtility.DrawLineCentered("Congratulations. You are not yet safe.", width, y + fontSize*2, fontSize, Color.White);
 		}
 		
 		if (_val > 4)
 		{
-			DrawUtility.DrawLineCentered($"Why must you struggle?", width, y + 90, 24, Color.White);
+			DrawUtility.DrawLineCentered($"Why do you want struggle to be remembered?", width, y + fontSize*2, fontSize, Color.White);
 		}
 	}
 }
