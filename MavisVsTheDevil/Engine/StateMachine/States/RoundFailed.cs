@@ -9,10 +9,12 @@ public class RoundFailed : StateBase
 {
 	private int _val;
 	private readonly TweenBase _tween;
+	private readonly TweenBase _timeoutToGoToTitle;
 	private readonly Scene _scene;
 	
 	public RoundFailed(StateMachine machine) : base(machine)
 	{
+		_timeoutToGoToTitle = new NopTween(15);
 		_tween = new IntTween((x => _val = x), 5, 3);
 		_scene = new Scene();
 		_scene.SetDemon(true);
@@ -31,9 +33,16 @@ public class RoundFailed : StateBase
 
 	public override void Tick(float delta)
 	{
+		_timeoutToGoToTitle.Tick(delta);
+		
 		if (!_tween.IsComplete)
 		{
 			_tween.Tick(delta);
+		}
+
+		if (_timeoutToGoToTitle.IsComplete)
+		{
+			_machine.GoToState(_machine.TitleState);
 		}
 
 		base.Tick(delta);

@@ -85,7 +85,9 @@ public class TypeTest
 			modifier.OnTypingTestCreated(ref test);
 		}
 		
-		
+		//used for autostart countdown, reset when test actually starts.
+		_startTime = Raylib.GetTime();
+
 		OnStateChange?.Invoke(TypeTestState.Idle);
 		OnTestChange?.Invoke(this);
 	}
@@ -104,15 +106,19 @@ public class TypeTest
 		OnTestChange?.Invoke(this);
 	}
 
+	private void StartGame()
+	{
+		_state = TypeTestState.Typing;
+		_startTime = Raylib.GetTime();
+		OnStateChange.Invoke(TypeTestState.Typing);
+		_testLetters[0].SetCurrentSafe();
+	}
 	public void TypeKeyPressed(char c)
 	{
 		//Start imer
 		if (_state == TypeTestState.WaitingToStart)
 		{
-			_state = TypeTestState.Typing;
-			_startTime = Raylib.GetTime();
-			OnStateChange.Invoke(TypeTestState.Typing);
-			_testLetters[0].SetCurrentSafe();
+			StartGame();
 		}else if (_state == TypeTestState.Finished)
 		{
 			return;
@@ -272,6 +278,19 @@ public class TypeTest
 			{
 				_state = TypeTestState.OutOfTime;
 				OnStateChange?.Invoke(_state);
+			}
+		}else if (_state == TypeTestState.WaitingToStart)
+		{
+			//Start automatically after a while.
+			var t = Raylib.GetTime();
+			var elapsed = t - _startTime;
+			if (elapsed > 30)
+			{
+				_state = TypeTestState.Typing;
+				//reset start time to actual start time.
+				_startTime = Raylib.GetTime();
+				OnStateChange.Invoke(TypeTestState.Typing);
+				_testLetters[0].SetCurrentSafe();
 			}
 		}
 	}

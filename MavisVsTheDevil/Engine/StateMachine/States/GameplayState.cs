@@ -35,7 +35,6 @@ public class GameplayState : StateBase
 			DrawUtility.DrawLineCentered("Wordlist: " + _machine.Game.CurrentRound.WordlistName, Program.GameWindow.FightWindow.Width, Program.GameWindow.FightWindow.PosY + Program.GameWindow.FightWindow.Height - 60, 28, Color.White);
 			DrawUtility.DrawLineCentered("Modifiers: " + _modifiers,
 				Program.GameWindow.FightWindow.Width, Program.GameWindow.FightWindow.PosY + Program.GameWindow.FightWindow.Height - 30, 28, Color.White);
-
 		}
 
 		base.Draw();

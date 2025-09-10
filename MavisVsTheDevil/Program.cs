@@ -17,7 +17,7 @@ public unsafe static class Program
     public static Font titleFont;//exact for title
     public static Font headerFont;//big for big
     private static FileInfo _layerOfHell;
-    public static bool UseShaders = true;
+    public static bool UseShaders = false;
 	public static int Main()
 	{
 		_layerOfHell = new FileInfo("LayerOfHell.txt");
