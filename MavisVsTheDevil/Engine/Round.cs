@@ -92,7 +92,7 @@ public class Round
 			return ("Common Words", Wordlist.Wordlist.COMMON);
 		}else if (roundNumber <= 3)
 		{
-			var r = Program.random.Next(9);
+			var r = Program.random.Next(10);
 			switch (r)
 			{
 				case 0:
@@ -109,7 +109,7 @@ public class Round
 				case 6: return ("Wine Descriptions", Wordlist.Wordlist.WINEDESCRIPTIONS);
 				case 7: return ("Crayola Colors", Wordlist.Wordlist.CRAYOLA);
 				case 8: return ("Common Password Words", Wordlist.Wordlist.PASSWORDS);
-				
+				case 9: return ("Pasta", Wordlist.Wordlist.PASTA);
 				}
 		}else if (roundNumber <= 5)
 		{
