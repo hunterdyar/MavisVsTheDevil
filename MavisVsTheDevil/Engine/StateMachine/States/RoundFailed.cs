@@ -18,6 +18,7 @@ public class RoundFailed : StateBase
 		_tween = new IntTween((x => _val = x), 5, 3);
 		_scene = new Scene();
 		_scene.SetDemon(true);
+		_scene.SetMavis(true);
 	}
 
 	public override void OnEnter()

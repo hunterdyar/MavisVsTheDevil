@@ -41,7 +41,7 @@ public unsafe static class Program
         SetTextureFilter(titleFont.Texture, TextureFilter.Point);
 		AssetManager.Initiate();
         SetTargetFPS(144);
-		Raylib.ToggleFullscreen();
+		//Raylib.ToggleFullscreen();
         _game.Init();
         _game.StartGame();
         while (!WindowShouldClose())
