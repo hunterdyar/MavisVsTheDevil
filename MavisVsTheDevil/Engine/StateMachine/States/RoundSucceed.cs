@@ -11,11 +11,16 @@ public class RoundSucceed : StateBase
 	private TweenBase _tween;
 	private Scene _scene;
 	private int fontSize = 64;
+	private readonly TweenBase _timeoutToGoToTitle;
+
 	public RoundSucceed(StateMachine machine) : base(machine)
 	{
+		_timeoutToGoToTitle = new NopTween(30);
+
 		_tween = new IntTween((x => _val = x), 5, 2.5f);
 		_scene = new Scene();
 		_scene.SetDemon(true);
+		_scene.SetMavis(false);
 	}
 
 	public override void OnEnter()
@@ -29,6 +34,8 @@ public class RoundSucceed : StateBase
 	}
 	public override void Tick(float delta)
 	{
+		_timeoutToGoToTitle.Tick(delta);
+
 		if (!_tween.IsComplete)
 		{
 			_tween.Tick(delta);
@@ -36,6 +43,12 @@ public class RoundSucceed : StateBase
 		else
 		{
 			//GoToNextState();
+		}
+
+		if (_timeoutToGoToTitle.IsComplete)
+		{
+			//onEnter title resets the game for us.
+			_machine.GoToState(_machine.TitleState);
 		}
 
 		base.Tick(delta);

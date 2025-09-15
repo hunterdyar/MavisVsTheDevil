@@ -52,7 +52,7 @@ public abstract class Modifier
 	private static Modifier swampMN = new SwapLetters('m', 'n');
 	private static Modifier swampFJ = new SwapLetters('f', 'j');
 	private static Modifier reverseCaps = new ReverseCapitalization();
-	private static Modifier lostTimeOnmistake = new LoseTimeOnMistake(0.5f);
+	private static Modifier lostTimeOnmistake = new LoseTimeOnMistake(1.25f);
 
 	private static Modifier[] _allModifiersNoWeighting = new[]
 	{

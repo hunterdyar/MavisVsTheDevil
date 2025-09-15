@@ -8,6 +8,7 @@ namespace MavisVsTheDevil.Panels;
 public class FightWindow : PanelBase
 {
 	public static Camera3D Camera;
+	public static bool BobbleCamera = true;
 	private readonly Shader _postShader;
 	private RenderTexture2D _fightScreenTex;
 	public Scene? ActiveScene => _activeScene;
@@ -36,8 +37,11 @@ public class FightWindow : PanelBase
 
 	public override void Draw()
 	{
-		Camera.Position = new  Vector3(MathF.Sin((float)Raylib.GetTime()/1f)*1.2f, 5, 10);
-		
+		if (BobbleCamera)
+		{
+			Camera.Position = new Vector3(MathF.Sin((float)Raylib.GetTime() / 1f) * 1.2f, 5, 10);
+		}
+
 		BeginTextureMode(_fightScreenTex);
 			ClearBackground(Color.Blank);
 			DrawCircle(Width/2, Height/2, 250,_circleColor);

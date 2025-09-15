@@ -34,13 +34,23 @@ public class Round
 		var modifiers = GetModifiers(round);
 		WordlistName = w.Item1;
 		var words = new List<string>();
+		string lastWord = "";//prevent duplicate words.
+		int escape = 0;
 		while (words.Count < wordCount)
 		{
 			var word = w.Item2[Program.random.Next(w.Item2.Length)];
+			if (lastWord == word && escape < 10)
+			{
+				escape++;
+				//try again!
+				continue;
+			}
 			foreach (var subword in word.Split(' '))
 			{
 				words.Add(subword);
 			}
+
+			lastWord = word;
 		}
 		Test = new TypeTest(this, words.ToArray(), modifiers, 30);
 		TypeTest.OnStateChange += OnTypeTestStatechange;

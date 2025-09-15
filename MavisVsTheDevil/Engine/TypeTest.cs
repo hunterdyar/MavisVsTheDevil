@@ -181,6 +181,10 @@ public class TypeTest
 		{
 			modifier.OnWrongLetter(ref test, letter, typedLetter);
 		}
+		
+		//lose a little time.
+		_startTime -= 0.25f;
+		
 		_lastMistakeTime = Raylib.GetTime();
 	}
 

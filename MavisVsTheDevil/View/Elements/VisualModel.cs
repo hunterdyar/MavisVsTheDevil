@@ -86,11 +86,7 @@ public class VisualModel
 		}
 
 		var pos = position;
-		// if (RelativeToCamera)
-		// {
-		// 	var ray = Raylib.GetScreenToWorldRay(new Vector2(pos.X, pos.Y), camera);
-		// 	pos = ray.Position + ray.Direction * pos.Z;
-		// }
+		
 		DrawModelEx(
 			_model,
 			pos,
