@@ -11,6 +11,7 @@ public static class AssetManager
 	private static readonly Dictionary<FileInfo, Texture2D> _textures = new Dictionary<FileInfo, Texture2D>();
 
 	public static VisualModel Demon;
+	public static VisualModel Mavis;
 	public static Texture2D MavisTex;
 	public const string texturePath = "Resources/demons/";
 	
@@ -19,7 +20,17 @@ public static class AssetManager
 		Demon = new VisualModel("Resources/models/demon.glb");
 		Demon.SetRootScale(3);
 		Demon.SetScale(1);
+		
+		Mavis = new VisualModel("Resources/models/mavisframe.glb");
+		Mavis.SetRootScale(3);
+		Mavis.SetScale(1);
+		Mavis.SetRotation(-90);
+		Mavis.SetPosition(0,0,1);
+		Mavis.RelativeToCamera = true;
+		
 		LoadTexture(new FileInfo("Resources/demons/mavis.png"), out MavisTex);
+		Mavis.SetTexture(MavisTex);
+		
 		Demons.Demon.OnDemonChosen += SetDemonTexture;
 	}
 

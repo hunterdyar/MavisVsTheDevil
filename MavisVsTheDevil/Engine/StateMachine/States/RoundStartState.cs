@@ -19,6 +19,9 @@ public class RoundStartState : StateBase
 	{
 		_scene = new Scene();
 		_scene.SetDemon(true);
+		
+		//testing
+		_scene.SetMavis(true);
 	}
 
 	public override void OnEnter()

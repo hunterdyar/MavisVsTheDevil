@@ -55,7 +55,7 @@ public class HellPanel : PanelBase
 		for (int i = 0; i < holes.Length; i++)
 		{
 			var h = holes[i];
-			h.Draw3D(delta);
+			h.Draw3D(_camera, delta);
 		}
 		EndMode3D();
 		// BeginTextureMode(_hellTex);

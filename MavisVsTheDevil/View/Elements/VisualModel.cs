@@ -12,7 +12,7 @@ public class VisualModel
 	private float rotationAngle = 0;
 	private Vector3 _scale = Vector3.One;
 	private Color _tint = Color.White;
-
+	public bool RelativeToCamera = false;
 	private bool loop;
 
 	public Model Model => _model;
@@ -55,7 +55,7 @@ public class VisualModel
 	/// <summary>
 	/// Should be called from within BeginMode3D
 	/// </summary>
-	public void Draw3D(float delta)
+	public void Draw3D(Camera3D camera, float delta)
 	{
 		//update frame
 		if (_playing)
@@ -85,9 +85,15 @@ public class VisualModel
 			}
 		}
 
+		var pos = position;
+		// if (RelativeToCamera)
+		// {
+		// 	var ray = Raylib.GetScreenToWorldRay(new Vector2(pos.X, pos.Y), camera);
+		// 	pos = ray.Position + ray.Direction * pos.Z;
+		// }
 		DrawModelEx(
 			_model,
-			position,
+			pos,
 			rotationAxis,
 			rotationAngle,
 			_scale*_baseScale,
@@ -165,6 +171,19 @@ public class VisualModel
 	public void SetRootScale(float scale)
 	{
 		_baseScale = scale;
-		
+	}
+
+	public void SetRotation(float rot)
+	{
+		rotationAngle = rot;
+	}
+
+	public void SetPosition(float x, float y, float z)
+	{
+		this.position = new Vector3(x,y,z);
+	}
+	public void SetPosition(Vector3 position)
+	{
+		this.position = position;
 	}
 }
