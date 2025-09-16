@@ -256,6 +256,27 @@ public class Demon
 			imagePath = "jazzjack.png",
 			CauseOfDeath = "Accidental Weapon Discharge"
 		},
+		new Demon()
+		{
+			Name = "Ming-Ming Duckling",
+			Struggle = "This is sewious!",
+			imagePath = "mingming.png",
+			CauseOfDeath = "Blunt Force Trauma",
+		},
+		new Demon()
+		{
+			Name = "Dr. Ryuta Kawashima",
+			Struggle = "Even in hell my brain continues to age",
+			imagePath = "drk.png",
+			CauseOfDeath = "N/A",
+		},
+		new Demon()
+		{
+			Name = "Face",
+			Struggle = "All I See Is A Void",
+			imagePath = "face.png",
+			CauseOfDeath = "Bit Rot"
+		}
 		// new Demon()
 		// {
 		// 	Name = "Captain Novalin",
