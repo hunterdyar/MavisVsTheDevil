@@ -276,6 +276,20 @@ public class Demon
 			Struggle = "All I See Is A Void",
 			imagePath = "face.png",
 			CauseOfDeath = "Bit Rot"
+		},
+		new Demon()
+		{
+			Name = "Fatty Bear",
+			Struggle = "Was I Ever Truly Alive?",
+			imagePath = "fattybear.png",
+			CauseOfDeath = "Became Dog Toy"
+		},
+		new Demon()
+		{
+			Name = "Lenny",
+			Struggle = "Why aren't you listening? Really listening?",
+			imagePath = "lenny.png",
+			CauseOfDeath = "Old Age"
 		}
 		// new Demon()
 		// {
