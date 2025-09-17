@@ -289,7 +289,9 @@ public class Demon
 			Name = "Lenny",
 			Struggle = "Why aren't you listening? Really listening?",
 			imagePath = "lenny.png",
-			CauseOfDeath = "Old Age"
+			CauseOfDeath = "Old Age",
+			WordListName = "Classical Composers",
+			DemonWordList = Wordlist.Wordlist.COMPOSERS
 		}
 		// new Demon()
 		// {
