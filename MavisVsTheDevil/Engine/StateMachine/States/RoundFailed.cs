@@ -21,7 +21,6 @@ public class RoundFailed : StateBase
 		_timeoutToGoToTitle = new NopTween(15);
 		_fadeScreenTween = new TweenSequence(new NopTween(1f), fade, new NopTween(5f), _timeoutToGoToTitle);
 		_fadeScreenTween.Ease = Ease.Linear;
-		
 		_tween = new IntTween((x => _val = x), 5, 3);
 		_scene = new Scene();
 		_scene.SetDemon(true);
@@ -33,6 +32,7 @@ public class RoundFailed : StateBase
 		_tween.Reset();
 		_fadeScreenTween.Reset();
 		_timeoutToGoToTitle.Reset();
+		_fadeColor = new Color(1, 0, 0, 0);
 		Console.WriteLine("round failed");
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);

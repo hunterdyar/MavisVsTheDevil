@@ -125,7 +125,7 @@ public class Demon
 		{
 			Name = "The Carriage from Oregon Trail",
 			Struggle = "You Did Not Allocate The Resources",
-			CauseOfDeath = "Super Dysentery",
+			CauseOfDeath = "Dysentery, again",
 			DemonWordList = Wordlist.Wordlist.TRAILDEATHS,
 			WordListName = "How I Watched Them Go",
 			imagePath = "oregontrail.png"
