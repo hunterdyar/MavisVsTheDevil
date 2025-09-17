@@ -39,4 +39,13 @@ public class TweenGroup : TweenBase
             tween.Interpolate(t);
         }
     }
+
+    public override void Reset()
+    {
+        base.Reset();
+        foreach (var tween in Tweens)
+        {
+            tween.Reset();
+        }
+    }
 }

@@ -32,6 +32,7 @@ public class RoundFailed : StateBase
 	{
 		_tween.Reset();
 		_fadeScreenTween.Reset();
+		_timeoutToGoToTitle.Reset();
 		Console.WriteLine("round failed");
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		Program.GameWindow.FightWindow.SetScene(_scene);

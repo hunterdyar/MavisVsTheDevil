@@ -25,6 +25,7 @@ public class RoundSucceed : StateBase
 
 	public override void OnEnter()
 	{
+		_timeoutToGoToTitle.Reset();
 		_tween.Reset();
 		Program.GameWindow.SetActiveWindows(Program.GameWindow.FightWindow, Program.GameWindow.TypingWindow);
 		Program.GameWindow.TypingWindow.SetTextOpacity(0.5f);
@@ -87,8 +88,8 @@ public class RoundSucceed : StateBase
 		var y = Program.GameWindow.FightWindow.Height/2 - (fontSize*3)/2;
 		DrawUtility.DrawLineCentered($"You have defeated {Demon.TheTitle} {demon.Name}.", width, y, fontSize, Color.White);
 		DrawUtility.DrawLineCentered($"{demon.Name} is banished deeper into hell.", width, y + fontSize, fontSize, Color.White);
-		DrawUtility.DrawLineCentered($"{Demon.TheTitle} Wails:", width, y + fontSize*2, fontSize, Color.White);
-		DrawUtility.DrawLineCentered($"{demon.Struggle}", width, y + fontSize * 3, fontSize-4, Color.White);
+		DrawUtility.DrawLineCentered($"{Demon.TheTitle} Wails:", width, y + fontSize*3, fontSize, Color.White);
+		DrawUtility.DrawLineCentered($"{demon.Struggle}", width, y + fontSize * 4, fontSize-4, Color.White);
 
 	}
 }

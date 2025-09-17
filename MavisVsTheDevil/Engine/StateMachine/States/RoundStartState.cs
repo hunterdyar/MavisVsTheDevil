@@ -19,8 +19,6 @@ public class RoundStartState : StateBase
 	{
 		_scene = new Scene();
 		_scene.SetDemon(true);
-		
-		// _scene.SetMavis(true);
 		_scene.SetMavis(false);
 	}
 

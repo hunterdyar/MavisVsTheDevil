@@ -42,6 +42,10 @@ public class TweenSequence : TweenBase
     public override void Reset()
     {
         base.Reset();
+        foreach (var tween in _tweens)
+        {
+            tween.Reset();
+        }
         _current = 0;
     }
 
