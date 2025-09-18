@@ -16,6 +16,8 @@ public class GameTitleIdleScreen : PanelBase
 
 	private readonly int[] _characterCounts;
 	public const int FontHeight = 48;
+	private int yOffset;
+	private float _countSinceShift;
 	public GameTitleIdleScreen(GameWindow window) : base(window)
 	{
 		_characterCounts = new int[_titleLines.Length];
@@ -23,15 +25,18 @@ public class GameTitleIdleScreen : PanelBase
 		{
 			_characterCounts[i] = _titleLines[i].Length;
 		}
+
+		yOffset = 0;
 	}
 
 	public override void Draw()
 	{
+		CalcYOffset();
 		int py = ((Height - (_titleLines.Length* FontHeight)/2)/2);
 		for (int i = 0; i < _titleLines.Length; i++)
 		{
-			int px = (Width - (_characterCounts[i] * FontHeight))/2;
-			DrawUtility.DrawLineCentered(_titleLines[i], Width, py, FontHeight, Color.White, PosX);
+			//int px = (Width - (_characterCounts[i] * FontHeight))/2;
+			DrawUtility.DrawLineCentered(_titleLines[i], Width, py+yOffset, FontHeight, Color.White, PosX);
 			py += FontHeight;
 		}
 
@@ -40,5 +45,15 @@ public class GameTitleIdleScreen : PanelBase
 		var pos = new Vector2(0,Raylib.GetScreenHeight() - size);
 		double alpha = (Math.Max(0,Math.Sin((float)Raylib.GetTime() / 4)+.5))/12;
 		Raylib.DrawTextureEx(AssetManager.MavisTex, pos,0,1,new Color(1,1,1,(float)alpha));
+	}
+
+	private void CalcYOffset()
+	{
+		_countSinceShift += Raylib.GetFrameTime();
+		if (_countSinceShift > 1500)//25 minutes.
+		{
+			_countSinceShift = 0;
+			yOffset = Program.random.Next(-400, 100);
+		}
 	}
 }
