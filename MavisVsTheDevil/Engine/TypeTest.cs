@@ -124,19 +124,6 @@ public class TypeTest
 			return;
 		}
 
-		//dev hacks cheat2win4lyfe
-		if (c == '=')
-		{
-			foreach (TestLetter testLetter in _testLetters)
-			{
-				testLetter.State = LetterState.Pass;
-			}
-
-			_state = TypeTestState.Finished;
-			OnStateChange.Invoke(TypeTestState.Finished);
-			return;
-		}
-
 		foreach (var modifier in Modifiers)
 		{
 			c = modifier.OnLetterTyped(c);
