@@ -13,7 +13,7 @@ public class SwapLetters : Modifier
 
 	public override string GetModifierName()
 	{
-		return $"Swap {_a} and {_b}";
+		return $"{_a} key is {_b} and {_b} key is {_a}";
 	}
 
 	public override char OnLetterTyped(char c)
